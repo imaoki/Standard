@@ -9,3 +9,7 @@
 ## スタートアップから登録解除する
 
 `unregister.ms`を実行する。
+
+## ライセンス
+
+[MIT License](https://github.com/imaoki/Standard/blob/main/LICENSE)
