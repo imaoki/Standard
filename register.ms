@@ -24,6 +24,9 @@
   fileIn "Observer.ms"
   format "[define]::ObserverStruct\n"
 
+  fileIn "Easing.ms"
+  format "[define]::EasingStruct\n"
+
   if isProperty ::startupScriptLoader "RegisterScript" do (
     ::startupScriptLoader.RegisterScript (getSourceFileName())
     ::startupScriptLoader.Save()
