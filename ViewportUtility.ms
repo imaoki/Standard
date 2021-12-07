@@ -13,21 +13,21 @@ struct ViewportUtilityStruct (
   ),
 
   /*-
-  アクティブビューポートのスクリーン座標系における2ノード間のピクセル距離を算出する。
-  @param n1 <Node>
-  @param n2 <Node>
+  ワールド座標系の2ベクトル間の距離からスクリーン座標系におけるピクセル距離を算出する。
+  @param v1 <Point3>
+  @param v2 <Point3>
   @returns <Float>
   */
-  public fn PixelDistance n1 n2 = (
-    local pixelDist = 0.0
-    if isValidNode n1 and isValidNode n2 do (
+  public fn PixelDistance v1 v2 = (
+    local result = 0.0
+    if classOf v1 == Point3 and classOf v2 == Point3 do (
       local viewTM = getViewTM()
-      local p1 = n1.Transform.Row4 * viewTM * [1, 1, 0]
-      local p2 = n2.Transform.Row4 * viewTM * [1, 1, 0]
+      local p1 = v1 * viewTM * [1, 1, 0]
+      local p2 = v2 * viewTM * [1, 1, 0]
       local worldDist = distance p1 p2
-      pixelDist = worldDist / this.GetDistancePerPixel()
+      result = worldDist / this.GetDistancePerPixel()
     )
-    pixelDist
+    result
   ),
 
   /*- @returns <Name> */

@@ -30,9 +30,6 @@
   local adjustmentX = 0.0
   local adjustmentY = 0.0
 
-  local p1 = Point Transform:(Matrix3 [1, 0, 0] [0, 1, 0] [0, 0, 1] [0, 0, 0])
-  local p2 = Point Transform:(Matrix3 [1, 0, 0] [0, 1, 0] [0, 0, 1] [1, 0, 0])
-
   do (
     local pos = 1.0 - (targetSizeY + adjustmentY) / viewSize.Y
     ViewPanelManager.SetSplitterBarPos 0 pos
@@ -70,14 +67,12 @@
   assert (actual.Equals expected == true)
 
   /* PixelDistance */
-  actual = ::TestValueStruct (testObj.PixelDistance p1 p2)
+  actual = ::TestValueStruct (testObj.PixelDistance [0, 0, 0] [1, 0, 0])
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
   /* Test End --------------------------------------------------------------- */
   sw.Stop()
   /* Teardown Start --------------------------------------------------------- */
-  delete p1
-  delete p2
   /* Teardown End ----------------------------------------------------------- */
   format "[end %]%ms\n" nowTime (sw.Elapsed.Milliseconds)
   ok
