@@ -27,6 +27,9 @@
   fileIn "Easing.ms"
   format "[define]::EasingStruct\n"
 
+  global viewportUtility = (fileIn "ViewportUtility.ms")()
+  format "[define]::viewportUtility\n"
+
   if isProperty ::startupScriptLoader "RegisterScript" do (
     ::startupScriptLoader.RegisterScript (getSourceFileName())
     ::startupScriptLoader.Save()
