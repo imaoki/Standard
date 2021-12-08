@@ -20,6 +20,10 @@
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
   /* BackIn */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.BackIn -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.BackIn 0.0)
   expected = ::TestValueStruct 0.0
@@ -43,8 +47,16 @@
   actual = ::TestValueStruct (testObj.BackIn 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.BackIn 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* BackInOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.BackInOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.BackInOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -68,8 +80,16 @@
   actual = ::TestValueStruct (testObj.BackInOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.BackInOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* BackOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.BackOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.BackOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -93,8 +113,51 @@
   actual = ::TestValueStruct (testObj.BackOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.BackOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
+
+  /* Bezier */
+  local tangent1 = [0.5, 0.0]
+  local tangent2 = [0.5, 1.0]
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.Bezier -0.1 [0.5, -0.1] tangent2)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
+  -- 0.0
+  actual = ::TestValueStruct (testObj.Bezier 0.0 tangent1 tangent2)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
+  -- 0.25
+  actual = ::TestValueStruct (testObj.Bezier 0.25 tangent1 tangent2)
+  -- actual.Dump()
+  expected = ::TestValueStruct 0.105893
+  assert (actual.Equals expected == true)
+  -- 0.5
+  actual = ::TestValueStruct (testObj.Bezier 0.5 tangent1 tangent2)
+  -- actual.Dump()
+  expected = ::TestValueStruct 0.5
+  assert (actual.Equals expected == true)
+  -- 0.75
+  actual = ::TestValueStruct (testObj.Bezier 0.75 tangent1 tangent2)
+  -- actual.Dump()
+  expected = ::TestValueStruct 0.894107
+  assert (actual.Equals expected == true)
+  -- 1.0
+  actual = ::TestValueStruct (testObj.Bezier 1.0 tangent1 tangent2)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.Bezier 1.1 tangent1 [0.5, 1.1])
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* BounceIn */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.BounceIn -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.BounceIn 0.0)
   expected = ::TestValueStruct 0.0
@@ -118,8 +181,16 @@
   actual = ::TestValueStruct (testObj.BounceIn 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.BounceIn 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* BounceInOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.BounceInOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.BounceInOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -143,8 +214,16 @@
   actual = ::TestValueStruct (testObj.BounceInOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.BounceInOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* BounceOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.BounceOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.BounceOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -168,8 +247,16 @@
   actual = ::TestValueStruct (testObj.BounceOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.BounceOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* CircularIn */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.CircularIn -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.CircularIn 0.0)
   expected = ::TestValueStruct 0.0
@@ -193,8 +280,16 @@
   actual = ::TestValueStruct (testObj.CircularIn 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.CircularIn 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* CircularInOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.CircularInOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.CircularInOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -218,8 +313,16 @@
   actual = ::TestValueStruct (testObj.CircularInOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.CircularInOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* CircularOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.CircularOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.CircularOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -243,35 +346,16 @@
   actual = ::TestValueStruct (testObj.CircularOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
-
-  /* CubicBezier */
-  local tangent1 = [0.5, 0.0]
-  local tangent2 = [0.5, 1.0]
-  -- 0.0
-  actual = ::TestValueStruct (testObj.CubicBezier 0.0 tangent1 tangent2)
-  expected = ::TestValueStruct 0.0
-  assert (actual.Equals expected == true)
-  -- 0.25
-  actual = ::TestValueStruct (testObj.CubicBezier 0.25 tangent1 tangent2)
-  -- actual.Dump()
-  expected = ::TestValueStruct 0.105893
-  assert (actual.Equals expected == true)
-  -- 0.5
-  actual = ::TestValueStruct (testObj.CubicBezier 0.5 tangent1 tangent2)
-  -- actual.Dump()
-  expected = ::TestValueStruct 0.5
-  assert (actual.Equals expected == true)
-  -- 0.75
-  actual = ::TestValueStruct (testObj.CubicBezier 0.75 tangent1 tangent2)
-  -- actual.Dump()
-  expected = ::TestValueStruct 0.894107
-  assert (actual.Equals expected == true)
-  -- 1.0
-  actual = ::TestValueStruct (testObj.CubicBezier 1.0 tangent1 tangent2)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.CircularOut 1.1)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
 
   /* CubicIn */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.CubicIn -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.CubicIn 0.0)
   expected = ::TestValueStruct 0.0
@@ -295,8 +379,16 @@
   actual = ::TestValueStruct (testObj.CubicIn 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.CubicIn 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* CubicInOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.CubicInOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.CubicInOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -320,8 +412,16 @@
   actual = ::TestValueStruct (testObj.CubicInOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.CubicInOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* CubicOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.CubicOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.CubicOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -345,8 +445,16 @@
   actual = ::TestValueStruct (testObj.CubicOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.CubicOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* ElasticIn */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.ElasticIn -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.ElasticIn 0.0)
   expected = ::TestValueStruct 0.0
@@ -370,31 +478,49 @@
   actual = ::TestValueStruct (testObj.ElasticIn 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
-  -- 0.0（Flat）
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.ElasticIn 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
+
+  /* ElasticIn（Flat） */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.ElasticIn -0.1 flat:true)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
+  -- 0.0
   actual = ::TestValueStruct (testObj.ElasticIn 0.0 flat:true)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
-  -- 0.25（Flat）
+  -- 0.25
   actual = ::TestValueStruct (testObj.ElasticIn 0.25 flat:true)
   -- actual.Dump()
   expected = ::TestValueStruct 0.994476
   assert (actual.Equals expected == true)
-  -- 0.5（Flat）
+  -- 0.5
   actual = ::TestValueStruct (testObj.ElasticIn 0.5 flat:true)
   -- actual.Dump()
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
-  -- 0.75（Flat）
+  -- 0.75
   actual = ::TestValueStruct (testObj.ElasticIn 0.75 flat:true)
   -- actual.Dump()
   expected = ::TestValueStruct 1.176777
   assert (actual.Equals expected == true)
-  -- 1.0（Flat）
+  -- 1.0
   actual = ::TestValueStruct (testObj.ElasticIn 1.0 flat:true)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.ElasticIn 1.1 flat:true)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
 
   /* ElasticInOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.ElasticInOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.ElasticInOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -418,31 +544,49 @@
   actual = ::TestValueStruct (testObj.ElasticInOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
-  -- 0.0（Flat）
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.ElasticInOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
+
+  /* ElasticInOut（Flat） */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.ElasticInOut -0.1 flat:true)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
+  -- 0.0
   actual = ::TestValueStruct (testObj.ElasticInOut 0.0 flat:true)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
-  -- 0.25（Flat）
+  -- 0.25
   actual = ::TestValueStruct (testObj.ElasticInOut 0.25 flat:true)
   -- actual.Dump()
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
-  -- 0.5（Flat）
+  -- 0.5
   actual = ::TestValueStruct (testObj.ElasticInOut 0.5 flat:true)
   -- actual.Dump()
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
-  -- 0.75（Flat）
+  -- 0.75
   actual = ::TestValueStruct (testObj.ElasticInOut 0.75 flat:true)
   -- actual.Dump()
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
-  -- 1.0（Flat）
+  -- 1.0
   actual = ::TestValueStruct (testObj.ElasticInOut 1.0 flat:true)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.ElasticInOut 1.1 flat:true)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
 
   /* ElasticOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.ElasticOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.ElasticOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -466,31 +610,49 @@
   actual = ::TestValueStruct (testObj.ElasticOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
-  -- 0.0（Flat）
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.ElasticOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
+
+  /* ElasticOut（Flat） */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.ElasticOut -0.1 flat:true)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
+  -- 0.0
   actual = ::TestValueStruct (testObj.ElasticOut 0.0 flat:true)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
-  -- 0.25（Flat）
+  -- 0.25
   actual = ::TestValueStruct (testObj.ElasticOut 0.25 flat:true)
   -- actual.Dump()
   expected = ::TestValueStruct 0.823223
   assert (actual.Equals expected == true)
-  -- 0.5（Flat）
+  -- 0.5
   actual = ::TestValueStruct (testObj.ElasticOut 0.5 flat:true)
   -- actual.Dump()
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
-  -- 0.75（Flat）
+  -- 0.75
   actual = ::TestValueStruct (testObj.ElasticOut 0.75 flat:true)
   -- actual.Dump()
   expected = ::TestValueStruct 1.005524
   assert (actual.Equals expected == true)
-  -- 1.0（Flat）
+  -- 1.0
   actual = ::TestValueStruct (testObj.ElasticOut 1.0 flat:true)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.ElasticOut 1.1 flat:true)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
 
   /* ExponentialIn */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.ExponentialIn -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.ExponentialIn 0.0)
   expected = ::TestValueStruct 0.0
@@ -514,8 +676,16 @@
   actual = ::TestValueStruct (testObj.ExponentialIn 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.ExponentialIn 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* ExponentialInOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.ExponentialInOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.ExponentialInOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -539,8 +709,16 @@
   actual = ::TestValueStruct (testObj.ExponentialInOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.ExponentialInOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* ExponentialOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.ExponentialOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.ExponentialOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -564,8 +742,16 @@
   actual = ::TestValueStruct (testObj.ExponentialOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.ExponentialOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* Linear */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.Linear -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.Linear 0.0)
   expected = ::TestValueStruct 0.0
@@ -589,8 +775,16 @@
   actual = ::TestValueStruct (testObj.Linear 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.Linear 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* QuadraticIn */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.QuadraticIn -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.QuadraticIn 0.0)
   expected = ::TestValueStruct 0.0
@@ -614,8 +808,16 @@
   actual = ::TestValueStruct (testObj.QuadraticIn 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.QuadraticIn 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* QuadraticInOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.QuadraticInOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.QuadraticInOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -639,8 +841,16 @@
   actual = ::TestValueStruct (testObj.QuadraticInOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.QuadraticInOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* QuadraticOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.QuadraticOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.QuadraticOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -664,8 +874,16 @@
   actual = ::TestValueStruct (testObj.QuadraticOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.QuadraticOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* QuarticIn */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.QuarticIn -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.QuarticIn 0.0)
   expected = ::TestValueStruct 0.0
@@ -689,8 +907,16 @@
   actual = ::TestValueStruct (testObj.QuarticIn 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より下
+  actual = ::TestValueStruct (testObj.QuarticIn 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* QuarticInOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.QuarticInOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.QuarticInOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -714,8 +940,16 @@
   actual = ::TestValueStruct (testObj.QuarticInOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.QuarticInOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* QuarticOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.QuarticOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.QuarticOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -739,8 +973,16 @@
   actual = ::TestValueStruct (testObj.QuarticOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.QuarticOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* QuinticIn */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.QuinticIn -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.QuinticIn 0.0)
   expected = ::TestValueStruct 0.0
@@ -764,8 +1006,16 @@
   actual = ::TestValueStruct (testObj.QuinticIn 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.QuinticIn 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* QuinticInOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.QuinticInOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.QuinticInOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -789,8 +1039,16 @@
   actual = ::TestValueStruct (testObj.QuinticInOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.QuinticInOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* QuinticOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.QuinticOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.QuinticOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -814,10 +1072,18 @@
   actual = ::TestValueStruct (testObj.QuinticOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.QuinticOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
-  /* Sigmoid */
-  local inflection = 0.5
-  local slope = 0.5
+  -- /* Sigmoid */
+  local inflection = 0.0
+  local slope = 0.0
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.Sigmoid -0.1 -0.6 -0.6)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.Sigmoid 0.0 inflection slope)
   expected = ::TestValueStruct 0.0
@@ -841,8 +1107,16 @@
   actual = ::TestValueStruct (testObj.Sigmoid 1.0 inflection slope)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.Sigmoid 1.1 0.6 0.6)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* SineIn */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.SineIn -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.SineIn 0.0)
   expected = ::TestValueStruct 0.0
@@ -866,8 +1140,16 @@
   actual = ::TestValueStruct (testObj.SineIn 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.SineIn 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* SineInOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.SineInOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.SineInOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -891,8 +1173,16 @@
   actual = ::TestValueStruct (testObj.SineInOut 1.0)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.SineInOut 1.1)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
 
   /* SineOut */
+  -- 下限より下
+  actual = ::TestValueStruct (testObj.SineOut -0.1)
+  expected = ::TestValueStruct 0.0
+  assert (actual.Equals expected == true)
   -- 0.0
   actual = ::TestValueStruct (testObj.SineOut 0.0)
   expected = ::TestValueStruct 0.0
@@ -914,6 +1204,10 @@
   assert (actual.Equals expected == true)
   -- 1.0
   actual = ::TestValueStruct (testObj.SineOut 1.0)
+  expected = ::TestValueStruct 1.0
+  assert (actual.Equals expected == true)
+  -- 上限より上
+  actual = ::TestValueStruct (testObj.SineOut 1.1)
   expected = ::TestValueStruct 1.0
   assert (actual.Equals expected == true)
   /* Test End --------------------------------------------------------------- */
