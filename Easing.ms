@@ -176,7 +176,7 @@ struct EasingStruct (
   ),
 
   /*-
-  円弧上に変化する。
+  円弧状に変化する。
   @param v <Float> `0.0`から`1.0`の範囲の値。
   @returns <Float>
   */
@@ -186,7 +186,7 @@ struct EasingStruct (
   ),
 
   /*-
-  円弧上に変化する。
+  円弧状に変化する。
   @param v <Float> `0.0`から`1.0`の範囲の値。
   @returns <Float>
   */
@@ -201,7 +201,7 @@ struct EasingStruct (
   ),
 
   /*-
-  円弧上に変化する。
+  円弧状に変化する。
   @param v <Float> `0.0`から`1.0`の範囲の値。
   @returns <Float>
   */
