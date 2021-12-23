@@ -1,0 +1,89 @@
+/*! © 2021 imaoki | MIT License | https://github.com/imaoki */
+(
+  -- clearListener()
+
+  local nowTime = (DotNetClass "System.DateTime").Now.ToString "HH:mm:ss"
+  local sw = DotNetObject "System.Diagnostics.Stopwatch"
+
+  local currentFile = getSourceFileName()
+  local pathUtility = ::PathUtilityStruct currentFile
+
+  local actual
+  local expected
+  local testDef
+  local testObj
+
+  format "[run %]@\"%\"\n" nowTime currentFile
+  /* Setup Start ------------------------------------------------------------ */
+  local fooDef = attributes FooAttribute version:1 (
+    parameters FooParameter (
+      Param Animatable:false Default:0 Type:#Integer
+    )
+  )
+
+  local barDef = attributes BarAttribute version:1 (
+    parameters BarParameter (
+      Param Animatable:false Default:0 Type:#Integer
+    )
+  )
+
+  local n1 = Point()
+  local n2 = Point()
+  CustAttributes.Add n1 fooDef baseObject:true
+  CustAttributes.Add n1 barDef baseObject:true
+
+  testDef = fileIn (pathUtility.GetFullPath @"..\AttributeUtility.ms")
+  testObj = testDef()
+  /* Setup End -------------------------------------------------------------- */
+  sw.Start()
+  /* Test Start ------------------------------------------------------------- */
+  /* GetAttribute */
+  -- 成功
+  actual = ::TestValueStruct (classOf (testObj.GetAttribute n1 #FooAttribute))
+  expected = ::TestValueStruct fooDef
+  assert (actual.Equals expected == true)
+  -- 成功
+  actual = ::TestValueStruct (classOf (testObj.GetAttribute n1 #BarAttribute))
+  expected = ::TestValueStruct barDef
+  assert (actual.Equals expected == true)
+  -- 失敗
+  actual = ::TestValueStruct (classOf (testObj.GetAttribute n2 #FooAttribute))
+  expected = ::TestValueStruct UndefinedClass
+  assert (actual.Equals expected == true)
+
+  /* HasAttribute */
+  -- 成功
+  actual = ::TestValueStruct (testObj.HasAttribute n1 #FooAttribute)
+  expected = ::TestValueStruct true
+  assert (actual.Equals expected == true)
+  -- 失敗
+  actual = ::TestValueStruct (testObj.HasAttribute n2 #FooAttribute)
+  expected = ::TestValueStruct false
+  assert (actual.Equals expected == true)
+
+  /* IsAttribute */
+  -- アトリビュート定義
+  actual = ::TestValueStruct (testObj.IsAttribute fooDef)
+  expected = ::TestValueStruct false
+  assert (actual.Equals expected == true)
+  -- アトリビュート定義
+  actual = ::TestValueStruct (testObj.IsAttribute (CustAttributes.GetDef n1 1 baseObject:true))
+  expected = ::TestValueStruct false
+  assert (actual.Equals expected == true)
+  -- アトリビュートインスタンス
+  actual = ::TestValueStruct (testObj.IsAttribute n1.BaseObject.FooAttribute)
+  expected = ::TestValueStruct true
+  assert (actual.Equals expected == true)
+  -- アトリビュートインスタンス
+  actual = ::TestValueStruct (testObj.IsAttribute (CustAttributes.Get n1 1 baseObject:true))
+  expected = ::TestValueStruct true
+  assert (actual.Equals expected == true)
+  /* Test End --------------------------------------------------------------- */
+  sw.Stop()
+  /* Teardown Start --------------------------------------------------------- */
+  delete n1
+  delete n2
+  /* Teardown End ----------------------------------------------------------- */
+  format "[end %]%ms\n" nowTime (sw.Elapsed.Milliseconds)
+  ok
+)

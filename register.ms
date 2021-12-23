@@ -30,6 +30,9 @@
   ::viewportUtility = (fileIn "ViewportUtility.ms")()
   format "[define]::viewportUtility\n"
 
+  ::attributeUtility = (fileIn "AttributeUtility.ms")()
+  format "[define]::attributeUtility\n"
+
   if isProperty ::startupScriptLoader "RegisterScript" do (
     ::startupScriptLoader.RegisterScript (getSourceFileName())
     ::startupScriptLoader.Save()
