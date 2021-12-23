@@ -1,4 +1,6 @@
 /*! © 2021 imaoki | MIT License | https://github.com/imaoki */
+/*- @var <Struct:ViewportUtilityStruct> */
+global viewportUtility
 /*-
 ビューポート用の追加メソッドを提供する。
 */

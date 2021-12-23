@@ -1,4 +1,6 @@
 /*! © 2021 imaoki | MIT License | https://github.com/imaoki */
+/*- @var <Struct:StringUtilityStruct> */
+global stringUtility
 /*-
 文字列操作を行うためのメソッドを提供する。
 */
