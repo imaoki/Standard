@@ -269,6 +269,14 @@
   expected = ::TestValueStruct "Foo123Bar"
   assert (actual.Equals expected == true)
 
+  actual = ::TestValueStruct (testObj.ToPascalCase "foo_bar")
+  expected = ::TestValueStruct "Foo_Bar"
+  assert (actual.Equals expected == true)
+
+  actual = ::TestValueStruct (testObj.ToPascalCase "foo-bar")
+  expected = ::TestValueStruct "Foo-Bar"
+  assert (actual.Equals expected == true)
+
   actual = ::TestValueStruct (testObj.ToPascalCase #foo123bar)
   expected = ::TestValueStruct "#Foo123Bar"
   assert (actual.Equals expected == true)

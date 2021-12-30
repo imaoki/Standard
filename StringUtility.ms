@@ -16,7 +16,7 @@ struct StringUtilityStruct (
 
   /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `\`に一致する正規表現オブジェクト。 */
   private backslashRegex,
-  /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `(?<=\b)\w|(?<=[a-z])[A-Z]|(?<=[0-9])[a-z]`に一致する正規表現オブジェクト。 */
+  /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `(?<=\b)\w|(?<=[a-z])[A-Z]|(?<=[0-9_])[a-z]`に一致する正規表現オブジェクト。 */
   private camelRegex,
   /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `\s*,\s*`に一致する正規表現オブジェクト。 */
   private commaRegex,
@@ -457,7 +457,7 @@ struct StringUtilityStruct (
     this.stringSplitOptionsEnum = ::EnumStruct "System.StringSplitOptions"
 
     this.backslashRegex = this.CreateRegex "\\\\"
-    this.camelRegex = this.CreateRegex "(?<=\b)\w|(?<=[a-z])[A-Z]|(?<=[0-9])[a-z]" options:#()
+    this.camelRegex = this.CreateRegex "(?<=\b)\w|(?<=[a-z])[A-Z]|(?<=[0-9_])[a-z]" options:#()
     this.commaRegex = this.CreateRegex "\s*,\s*"
     this.crRegex = this.CreateRegex "\r"
     this.doubleQuoteRegex = this.CreateRegex "\\\""
