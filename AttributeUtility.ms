@@ -26,6 +26,22 @@ struct AttributeUtilityStruct (
   ),
 
   /*-
+  オブジェクトが持つ全てのアトリビュートの名前を取得する。
+  @param obj <Any>
+  @returns <Array[<Name>]>
+  */
+  public fn GetAttributeNames obj = (
+    local attributeNames = #()
+    if isValidObj obj do (
+      local attributeDefs = CustAttributes.GetDefs obj baseObject:true
+      if classOf attributeDefs == Array do (
+        attributeNames = for def in attributeDefs collect def.Name
+      )
+    )
+    attributeNames
+  ),
+
+  /*-
   オブジェクトが指定した名前のアトリビュートを持っているかどうかを判定する。
   @param obj <Any>
   @param attributeName <Name>

@@ -51,6 +51,16 @@
   expected = ::TestValueStruct UndefinedClass
   assert (actual.Equals expected == true)
 
+  /* GetAttributeNames */
+  -- 成功
+  actual = ::TestValueStruct (testObj.GetAttributeNames n1)
+  expected = ::TestValueStruct #(#FooAttribute, #BarAttribute)
+  assert (actual.Equals expected == true)
+  -- 失敗
+  actual = ::TestValueStruct (testObj.GetAttributeNames n2)
+  expected = ::TestValueStruct #()
+  assert (actual.Equals expected == true)
+
   /* HasAttribute */
   -- 成功
   actual = ::TestValueStruct (testObj.HasAttribute n1 #FooAttribute)
