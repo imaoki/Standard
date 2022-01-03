@@ -25,7 +25,7 @@
   Viewport.SetLayout #Layout_4
   Viewport.ActiveViewport = 4
   Viewport.SetType #View_Persp_User
-  Viewport.SetFOV 45.0
+  Viewport.SetFov 45.0
 
   local adjustmentX = 0.0
   local adjustmentY = 0.0
