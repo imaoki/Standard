@@ -74,6 +74,6 @@
   sw.Stop()
   /* Teardown Start --------------------------------------------------------- */
   /* Teardown End ----------------------------------------------------------- */
-  format "[end %]%ms\n" nowTime (sw.Elapsed.Milliseconds)
+  format "[end %]%ms\n" nowTime (sw.ElapsedMilliseconds as Integer)
   ok
 )

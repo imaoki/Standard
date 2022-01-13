@@ -94,6 +94,6 @@
   delete n1
   delete n2
   /* Teardown End ----------------------------------------------------------- */
-  format "[end %]%ms\n" nowTime (sw.Elapsed.Milliseconds)
+  format "[end %]%ms\n" nowTime (sw.ElapsedMilliseconds as Integer)
   ok
 )
