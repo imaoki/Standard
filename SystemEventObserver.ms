@@ -1,4 +1,6 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
+/*- @var <Struct:SystemEventObserverStruct> */
+global systemEventObserver
 /*-
 イベントコールバックの処理を共通化するための仕組みを提供する。
 @remarks 対応しているコールバックの種類は以下の通り。
@@ -10,12 +12,6 @@
 * ビューポート再描画コールバック
 */
 struct SystemEventObserverStruct (
-  /*-
-  @prop <String> 作成パラメータ1。
-  自己のインスタンスを格納するグローバル変数の名前。既定値は`undefined`。
-  */
-  public _CP1_,
-
   /*- @prop <Dictionary <Name> <Struct:TimerStruct>> イベント毎の遅延タイマー。 */
   private delayTimerTable,
   /*- @prop <Dictionary <Name> <Any>> イベント毎の補足情報。 */
@@ -63,14 +59,6 @@ struct SystemEventObserverStruct (
       )
     )
     this.findObserver eventType observer > 0
-  ),
-
-  /*-
-  グローバル変数名を取得する。
-  @returns <String>
-  */
-  public fn GetGlobalVarName = (
-    this.globalVarName
   ),
 
   /*-
@@ -468,9 +456,6 @@ struct SystemEventObserverStruct (
   ),
 
   on Create do (
-    if classOf this._CP1_ == String do (
-      this.globalVarName = this._CP1_
-    )
     this.defineGlobalVar()
     this.delayTimerTable = Dictionary #Name
     this.eventParamTable = Dictionary #Name

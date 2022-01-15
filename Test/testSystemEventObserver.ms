@@ -178,11 +178,11 @@
           expected = ::TestValueStruct ok
           assert (actual.Equals expected == true)
           -- グローバル変数の存在を確認
-          actual = ::TestValueStruct (GlobalVars.IsGlobal "testObserver")
+          actual = ::TestValueStruct (GlobalVars.IsGlobal "systemEventObserver")
           expected = ::TestValueStruct true
           assert (actual.Equals expected == true)
           -- グローバル変数の値を確認
-          actual = ::TestValueStruct (GlobalVars.Get "testObserver")
+          actual = ::TestValueStruct (GlobalVars.Get "systemEventObserver")
           expected = ::TestValueStruct undefined
           assert (actual.Equals expected == true)
 
@@ -209,22 +209,18 @@
   )
 
   testDef = fileIn (pathUtility.GetFullPath @"..\SystemEventObserver.ms")
-  testObj = testDef "testObserver"
+  testObj = testDef()
 
   observer = ::ObserverStruct updateObject testObj
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
-  /* GetGlobalVarName */
-  actual = ::TestValueStruct (testObj.GetGlobalVarName())
-  expected = ::TestValueStruct "testObserver"
-  assert (actual.Equals expected == true)
   -- グローバル変数の存在を確認
-  actual = ::TestValueStruct (GlobalVars.IsGlobal "testObserver")
+  actual = ::TestValueStruct (GlobalVars.IsGlobal "systemEventObserver")
   expected = ::TestValueStruct true
   assert (actual.Equals expected == true)
   -- グローバル変数の値を確認
-  actual = ::TestValueStruct (GlobalVars.Get "testObserver")
+  actual = ::TestValueStruct (GlobalVars.Get "systemEventObserver")
   expected = ::TestValueStruct testObj
   assert (actual.Equals expected == true)
 
