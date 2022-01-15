@@ -27,6 +27,12 @@
   fileIn "Easing.ms"
   format "[define]::EasingStruct\n"
 
+  fileIn "Timer.ms"
+  format "[define]::mxsDotNetTimerTickHandler\n"
+  format "[define]::TimerStruct\n"
+
+  (fileIn "SystemEventObserver.ms")()
+
   ::viewportUtility = (fileIn "ViewportUtility.ms")()
   format "[define]::viewportUtility\n"
 
