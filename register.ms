@@ -31,7 +31,7 @@
   format "[define]::mxsDotNetTimerTickHandler\n"
   format "[define]::TimerStruct\n"
 
-  (fileIn "SystemEventObserver.ms")()
+  (fileIn "SystemEventHandler.ms")()
 
   ::viewportUtility = (fileIn "ViewportUtility.ms")()
   format "[define]::viewportUtility\n"

@@ -1,6 +1,6 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
-/*- @var <Struct:SystemEventObserverStruct> */
-global systemEventObserver
+/*- @var <Struct:SystemEventHandlerStruct> */
+global systemEventHandler
 /*-
 イベントコールバックの処理を共通化するための仕組みを提供する。
 @remarks 対応しているコールバックの種類は以下の通り。
@@ -11,7 +11,7 @@ global systemEventObserver
 
 * ビューポート再描画コールバック
 */
-struct SystemEventObserverStruct (
+struct SystemEventHandlerStruct (
   /*- @prop <Dictionary <Name> <Struct:TimerStruct>> イベント毎の遅延タイマー。 */
   private delayTimerTable,
   /*- @prop <Dictionary <Name> <Any>> イベント毎の補足情報。 */
@@ -19,8 +19,8 @@ struct SystemEventObserverStruct (
   /*- @prop <Dictionary <Name> <Array[<Struct:ObserverStruct>]>> イベント毎のオブザーバ。 */
   private observerTable,
 
-  /*- @prop <String> 自己のインスタンスを格納するグローバル変数の名前。既定値は`"systemEventObserver"`。 */
-  private globalVarName = "systemEventObserver",
+  /*- @prop <String> 自己のインスタンスを格納するグローバル変数の名前。既定値は`"systemEventHandler"`。 */
+  private globalVarName = "systemEventHandler",
 
   /*-
   指定したイベントにオブザーバを登録する。
@@ -62,7 +62,7 @@ struct SystemEventObserverStruct (
   ),
 
   /*-
-  指定したイベントに登録されている`SystemEventObserverStruct`由来のコールバックの数を取得する。
+  指定したイベントに登録されている`SystemEventHandlerStruct`由来のコールバックの数を取得する。
   @param eventType <Name>
   @returns <Integer>
   */
@@ -88,7 +88,7 @@ struct SystemEventObserverStruct (
         )
       )
       default: (
-        count = (Callbacks.Show eventType asArray:true id:#SystemEventObserver).Count
+        count = (Callbacks.Show eventType asArray:true id:#SystemEventHandler).Count
       )
     )
     count
@@ -348,7 +348,7 @@ struct SystemEventObserverStruct (
   */
   private fn registerGeneralEventCallback eventType = (
     local script = this.generateGeneralEventScript eventType
-    Callbacks.AddScript eventType script id:#SystemEventObserver
+    Callbacks.AddScript eventType script id:#SystemEventHandler
     ok
   ),
 
@@ -390,7 +390,7 @@ struct SystemEventObserverStruct (
   @returns <OkClass>
   */
   private fn unregisterGeneralEventCallback eventType = (
-    Callbacks.RemoveScripts eventType id:#SystemEventObserver
+    Callbacks.RemoveScripts eventType id:#SystemEventHandler
     ok
   ),
 
@@ -413,7 +413,7 @@ struct SystemEventObserverStruct (
   ),
 
   /*- @returns <Name> */
-  public fn StructName = #SystemEventObserverStruct,
+  public fn StructName = #SystemEventHandlerStruct,
 
   /*-
   @param indent: <String>
@@ -421,7 +421,7 @@ struct SystemEventObserverStruct (
   @returns <OkClass>
   */
   public fn Dump indent:"" out:listener = (
-    format "%SystemEventObserverStruct\n" indent to:out
+    format "%SystemEventHandlerStruct\n" indent to:out
     format "%  globalVarName:\"%\"\n" indent this.globalVarName to:out
     format "%  delayTimerTable:%\n" indent this.delayTimerTable.Count to:out
     for key in this.delayTimerTable.Keys do (

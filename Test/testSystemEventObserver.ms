@@ -178,11 +178,11 @@
           expected = ::TestValueStruct ok
           assert (actual.Equals expected == true)
           -- グローバル変数の存在を確認
-          actual = ::TestValueStruct (GlobalVars.IsGlobal "systemEventObserver")
+          actual = ::TestValueStruct (GlobalVars.IsGlobal "systemEventHandler")
           expected = ::TestValueStruct true
           assert (actual.Equals expected == true)
           -- グローバル変数の値を確認
-          actual = ::TestValueStruct (GlobalVars.Get "systemEventObserver")
+          actual = ::TestValueStruct (GlobalVars.Get "systemEventHandler")
           expected = ::TestValueStruct undefined
           assert (actual.Equals expected == true)
 
@@ -191,7 +191,7 @@
           if isValidNode n2 do delete n2
 
           /* コールバック出力 */
-          format "#GeneralEvent:%\n" (Callbacks.Show asArray:true id:#SystemEventObserver)
+          format "#GeneralEvent:%\n" (Callbacks.Show asArray:true id:#SystemEventHandler)
           format "#TimeChange:%\n" (showRegisteredTimeCallbacks asArray:true)
           format "#ViewportRedraw:%\n" (showRegisteredRedrawViewsCallbacks asArray:true)
         )
@@ -208,7 +208,7 @@
     ok
   )
 
-  testDef = fileIn (pathUtility.GetFullPath @"..\SystemEventObserver.ms")
+  testDef = fileIn (pathUtility.GetFullPath @"..\SystemEventHandler.ms")
   testObj = testDef()
 
   observer = ::ObserverStruct updateObject testObj
@@ -216,11 +216,11 @@
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
   -- グローバル変数の存在を確認
-  actual = ::TestValueStruct (GlobalVars.IsGlobal "systemEventObserver")
+  actual = ::TestValueStruct (GlobalVars.IsGlobal "systemEventHandler")
   expected = ::TestValueStruct true
   assert (actual.Equals expected == true)
   -- グローバル変数の値を確認
-  actual = ::TestValueStruct (GlobalVars.Get "systemEventObserver")
+  actual = ::TestValueStruct (GlobalVars.Get "systemEventHandler")
   expected = ::TestValueStruct testObj
   assert (actual.Equals expected == true)
 
