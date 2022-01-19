@@ -107,7 +107,7 @@ struct SystemEventHandlerStruct (
 
   /*-
   イベントに登録したコールバック関数を呼び出す。
-  @param context <Any>
+  @param context <Struct:TimerStruct>
   @param params <Array[<Name>]>
   @returns <OkClass>
   @remarks タイマーオブジェクトから呼ばれる。
