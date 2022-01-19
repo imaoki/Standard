@@ -31,13 +31,13 @@ struct SystemEventHandlerStruct (
   | `#ViewportRedraw` | ビューポート再描画 |
   | その他            | 一般イベント       |
   @param observer <Struct:ObserverStruct> `Callback`プロパティにはイベントコールバック用のメソッドを設定する。詳細は`ObserverStruct`のドキュメントを参照。
-  @param delayInterval: <Integer> 最後にイベントが通知されてからコールバック関数を呼び出すまでの遅延時間。ミリ秒で指定する。既定値は`100`。
+  @param delayInterval: <Integer> 最後にイベントが通知されてからコールバック関数を呼び出すまでの遅延時間。ミリ秒で指定する。既定値は`0`。
   遅延時間以内に同じイベントが通知された場合は時間をリセットして計測し直す。
   これにより短い間隔で大量に発生した同一イベントの通知を一度にまとめることができる。
   `0`を指定した場合はこの遅延処理を行わない。
   @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
   */
-  public fn Add eventType observer delayInterval:100 = (
+  public fn Add eventType observer delayInterval:0 = (
     if not hasDictValue this.delayTimerTable eventType do (
       -- 遅延タイマーが未登録の場合は追加
       local delayTimer = this.createDelayTimer (delayInterval as Integer)

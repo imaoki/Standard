@@ -44,7 +44,7 @@
             /* Add */
             -- #NodeNameSet
             nodeNameSetCount = 0
-            actual = ::TestValueStruct (testObj.Add #NodeNameSet observer)
+            actual = ::TestValueStruct (testObj.Add #NodeNameSet observer delayInterval:100)
             expected = ::TestValueStruct true
             assert (actual.Equals expected == true)
             -- コールバック確認
@@ -68,7 +68,7 @@
             -- #TimeChange
             timeChangeCount = 0
             ::sliderTime = 0f
-            actual = ::TestValueStruct (testObj.Add #TimeChange observer)
+            actual = ::TestValueStruct (testObj.Add #TimeChange observer delayInterval:100)
             expected = ::TestValueStruct true
             assert (actual.Equals expected == true)
             -- 現在時間を変更
@@ -87,7 +87,7 @@
             -- #ViewportRedraw
             viewportRedrawCount = 0
             Viewport.SetTM (Matrix3 [0.707107, 0.353715, -0.612279] [-0.707107, 0.353715, -0.612279] [0, 0.865894, 0.500228] [0, 0, 0])
-            actual = ::TestValueStruct (testObj.Add #ViewportRedraw observer)
+            actual = ::TestValueStruct (testObj.Add #ViewportRedraw observer delayInterval:10)
             expected = ::TestValueStruct true
             assert (actual.Equals expected == true)
             -- ビューポート変換行列を設定
@@ -253,7 +253,7 @@
   /* Add */
   -- #NodeFreeze
   nodeFreezeCount = 0
-  actual = ::TestValueStruct (testObj.Add #NodeFreeze observer)
+  actual = ::TestValueStruct (testObj.Add #NodeFreeze observer delayInterval:100)
   expected = ::TestValueStruct true
   assert (actual.Equals expected == true)
   -- コールバック確認
