@@ -11,14 +11,17 @@ struct ObserverStruct (
   :   `context`と`params`の二つの引数を取る。
 
       ```maxscript
-      fn update context params = (
-        for param in params do (
-          case param of (
-            (#Foo): ()
-            (#Bar): ()
-            default: ()
+      fn update context params type: = (
+        if classOf params == Array do (
+          for param in params do (
+            case param of (
+              (#Foo): ()
+              (#Bar): ()
+              default: ()
+            )
           )
         )
+        ok
       )
       ```
 
@@ -32,11 +35,23 @@ struct ObserverStruct (
 
       ```maxscript
       fn update context params type: = (
-        case type of (
-          (#NodeCloned): ()
-          (#NodeCreated): ()
-          default: ()
+        if classOf type == Name then (
+          case type of (
+            (#NodeCloned): ()
+            (#NodeCreated): ()
+            default: ()
+          )
         )
+        else (
+          if classOf params == Array do (
+            for param in params do (
+              case param of (
+                default: ()
+              )
+            )
+          )
+        )
+        ok
       )
       ```
 

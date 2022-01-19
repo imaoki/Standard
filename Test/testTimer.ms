@@ -21,7 +21,7 @@
 
   local updateObject
   fn updateObject context params type: = (
-    format "updateObject params:%\n" params
+    format "updateObject params:% type:%\n" params type
     for param in params do (
       case param of (
         (#Interval): (

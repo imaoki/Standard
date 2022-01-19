@@ -108,26 +108,29 @@ struct SystemEventHandlerStruct (
   /*-
   イベントに登録したコールバック関数を呼び出す。
   @param context <Struct:TimerStruct>
-  @param params <Array[<Name>]>
+  @param params <Array[<Name>]|Any>
+  @param type: <Name>
   @returns <OkClass>
   @remarks タイマーオブジェクトから呼ばれる。
   */
-  public fn InvokeObserver context params = (
+  public fn InvokeObserver context params type: = (
     if this.isValidTimer context and context.GetTicks() > 0 do (
       context.Reset()
-      for param in params do (
-        case param of (
-          (#Ticks): (
-            local eventType = this.getEventTypeFromTimer context
-            if classOf eventType == Name do (
-              local eventParam = this.getEventParam eventType
-              local observers = getDictValue this.observerTable eventType
-              for observer in observers do (
-                observer.Callback observer.Context eventParam type:eventType
+      if classOf params == Array do (
+        for param in params do (
+          case param of (
+            (#Ticks): (
+              local eventType = this.getEventTypeFromTimer context
+              if classOf eventType == Name do (
+                local eventParam = this.getEventParam eventType
+                local observers = getDictValue this.observerTable eventType
+                for observer in observers do (
+                  observer.Callback observer.Context eventParam type:eventType
+                )
               )
             )
+            default: ()
           )
-          default: ()
         )
       )
     )

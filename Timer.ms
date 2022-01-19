@@ -209,12 +209,13 @@ struct TimerStruct (
   ),
 
   /*-
-  @param params <Array[<Name>]> 通知するパラメータ名。
+  @param params <Array[<Name>]|Any>
+  @param type: <Name>
   @returns <OkClass>
   */
-  private fn notify params = (
+  private fn notify params type: = (
     for observer in this.observers do (
-      observer.Callback observer.Context params
+      observer.Callback observer.Context params type:type
     )
     ok
   ),

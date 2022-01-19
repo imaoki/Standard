@@ -199,9 +199,11 @@
       )
     )
     else (
-      for param in params do (
-        case param of (
-          default: ()
+      if classOf params == Array do (
+        for param in params do (
+          case param of (
+            default: ()
+          )
         )
       )
     )
