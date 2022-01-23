@@ -619,8 +619,8 @@ struct EasingStruct (
 
             local r13 = 2.0 * sqrt q
             local x1 = -term1 + r13 * cos (dum1 / 3.0)
-            local x2 = -term1 + r13 * cos ((dum1 + 2.0 * radToDeg PI) / 3.0)
-            local x3 = -term1 + r13 * cos ((dum1 + 4.0 * radToDeg PI) / 3.0)
+            local x2 = -term1 + r13 * cos ((dum1 + 2.0 * radToDeg ::pi) / 3.0)
+            local x3 = -term1 + r13 * cos ((dum1 + 4.0 * radToDeg ::pi) / 3.0)
 
             if this.isNormalized x1 then (
               result = x1
