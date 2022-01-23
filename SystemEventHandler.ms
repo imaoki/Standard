@@ -41,12 +41,12 @@ struct SystemEventHandlerStruct (
     if not hasDictValue this.delayTimerTable eventType do (
       -- 遅延タイマーが未登録の場合は追加
       local delayTimer = this.createDelayTimer (delayInterval as Integer)
-      putDictValue this.delayTimerTable eventType delayTimer putOnlyIfNew:true
+      this.delayTimerTable[eventType] = delayTimer
     )
     if this.findObserver eventType observer == 0 do (
       -- オブザーバが未登録の場合は追加
       if not hasDictValue this.observerTable eventType do (
-        putDictValue this.observerTable eventType #() putOnlyIfNew:true
+        this.observerTable[eventType] = #()
       )
       append this.observerTable[eventType] observer
     )
@@ -123,7 +123,7 @@ struct SystemEventHandlerStruct (
               local eventType = this.getEventTypeFromTimer context
               if classOf eventType == Name do (
                 local eventParam = this.getEventParam eventType
-                local observers = getDictValue this.observerTable eventType
+                local observers = this.observerTable[eventType]
                 for observer in observers do (
                   observer.Callback observer.Context eventParam type:eventType
                 )
@@ -241,7 +241,7 @@ struct SystemEventHandlerStruct (
   private fn findObserver eventType observer = (
     local index = 0
     if hasDictValue this.observerTable eventType do (
-      local observers = getDictValue this.observerTable eventType
+      local observers = this.observerTable[eventType]
       if classOf observers == Array do (
         for i = 1 to observers.Count while index == 0 do (
           if observers[i].Equals observer do (
@@ -273,7 +273,7 @@ struct SystemEventHandlerStruct (
   private fn getEventParam eventType = (
     local eventParam = undefined
     if hasDictValue this.eventParamTable eventType do (
-      eventParam = getDictValue this.eventParamTable eventType
+      eventParam = this.eventParamTable[eventType]
       if isDeleted eventParam do (
         eventParam = undefined
       )
@@ -290,7 +290,7 @@ struct SystemEventHandlerStruct (
   private fn getEventTypeFromTimer timerObject = (
     local eventType = undefined
     for key in this.delayTimerTable.Keys while eventType == undefined do (
-      local delayTimer = getDictValue this.delayTimerTable key
+      local delayTimer = this.delayTimerTable[key]
       if delayTimer.Equals timerObject do (
         eventType = key
       )
@@ -305,8 +305,8 @@ struct SystemEventHandlerStruct (
   @returns <OkClass>
   */
   private fn invokeTimer eventType eventParam = (
-    putDictValue this.eventParamTable eventType eventParam putOnlyIfNew:false
-    local delayTimer = getDictValue this.delayTimerTable eventType
+    this.eventParamTable[eventType] = eventParam
+    local delayTimer = this.delayTimerTable[eventType]
     if this.isValidTimer delayTimer do (
       if delayTimer.IsEnabled() then (
         -- タイマーが実行中の場合
