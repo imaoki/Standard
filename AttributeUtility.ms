@@ -91,3 +91,6 @@ struct AttributeUtilityStruct (
 
   on Create do ()
 )
+::attributeUtility = ::AttributeUtilityStruct()
+format "[define]::attributeUtility\n"
+::AttributeUtilityStruct

@@ -75,3 +75,6 @@ struct DotNetUtilityStruct (
 
   on Create do ()
 )
+::dotNetUtility = ::DotNetUtilityStruct()
+format "[define]::dotNetUtility\n"
+::DotNetUtilityStruct

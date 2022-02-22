@@ -468,3 +468,6 @@ struct StringUtilityStruct (
     this.tabRegex = this.CreateRegex "\t"
   )
 )
+::stringUtility = ::StringUtilityStruct()
+format "[define]::stringUtility\n"
+::StringUtilityStruct

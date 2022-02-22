@@ -116,3 +116,6 @@ struct ComparerStruct (
     this.stringLogicalComparer = fileIn @"StringLogicalComparer.ms"
   )
 )
+::comparer = ::ComparerStruct()
+format "[define]::comparer\n"
+::ComparerStruct

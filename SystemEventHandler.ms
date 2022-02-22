@@ -465,3 +465,5 @@ struct SystemEventHandlerStruct (
     this.observerTable = Dictionary #Name
   )
 )
+::SystemEventHandlerStruct()
+::SystemEventHandlerStruct

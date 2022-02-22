@@ -683,3 +683,6 @@ struct FileUtilityStruct (
     this.searchOptionEnum = ::EnumStruct "System.IO.SearchOption"
   )
 )
+::fileUtility = ::FileUtilityStruct()
+format "[define]::fileUtility\n"
+::FileUtilityStruct

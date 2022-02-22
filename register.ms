@@ -1,43 +1,47 @@
 /*! © 2021 imaoki | MIT License | https://github.com/imaoki */
 (
-  ::comparer = (fileIn "Comparer.ms")()
-  format "[define]::comparer\n"
-
-  fileIn "PathUtility.ms"
-  format "[define]::PathUtilityStruct\n"
-
-  ::dotNetUtility = (fileIn "DotNetUtility.ms")()
-  format "[define]::dotNetUtility\n"
-
-  fileIn "Enum.ms"
-  format "[define]::EnumStruct\n"
-
-  ::stringUtility = (fileIn "StringUtility.ms")()
-  format "[define]::stringUtility\n"
-
-  fileIn "Encoding.ms"
-  format "[define]::EncodingStruct\n"
-
-  ::fileUtility = (fileIn "FileUtility.ms")()
-  format "[define]::fileUtility\n"
-
-  fileIn "Observer.ms"
-  format "[define]::ObserverStruct\n"
-
+  /* 依存無し */
+  fileIn "AttributeUtility.ms"
+  fileIn "Comparer.ms"
+  fileIn "DotNetUtility.ms"
   fileIn "Easing.ms"
-  format "[define]::EasingStruct\n"
+  fileIn "Observer.ms"
+  fileIn "PathUtility.ms"
+  fileIn "ViewportUtility.ms"
 
+  /*
+  DotNetUtility
+  */
+  fileIn "Enum.ms"
   fileIn "Timer.ms"
-  format "[define]::mxsDotNetTimerTickHandler\n"
-  format "[define]::TimerStruct\n"
 
-  (fileIn "SystemEventHandler.ms")()
+  /*
+  DotNetUtility
+  Enum
+  */
+  fileIn "StringUtility.ms"
 
-  ::viewportUtility = (fileIn "ViewportUtility.ms")()
-  format "[define]::viewportUtility\n"
+  /*
+  DotNetUtility
+  StringUtility
+  */
+  fileIn "Encoding.ms"
 
-  ::attributeUtility = (fileIn "AttributeUtility.ms")()
-  format "[define]::attributeUtility\n"
+  /*
+  Observer
+  StringUtility
+  Timer
+  */
+  fileIn "SystemEventHandler.ms"
+
+  /*
+  Comparer
+  DotNetUtility
+  Encoding
+  Enum
+  PathUtility
+  */
+  fileIn "FileUtility.ms"
 
   if isProperty ::startupScriptLoader "RegisterScript" do (
     ::startupScriptLoader.RegisterScript (getSourceFileName())

@@ -142,3 +142,5 @@ struct EnumStruct (
     )
   )
 )
+format "[define]::EnumStruct\n"
+::EnumStruct

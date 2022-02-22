@@ -19,6 +19,7 @@ global mxsDotNetTimerTickHandler = fn mxsDotNetTimerTickHandler sender event = (
   )
   ok
 )
+format "[define]::mxsDotNetTimerTickHandler\n"
 /*-
 .NETの[Timer](https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.forms.timer?view=netframework-4.8)のラッパー。
 */
@@ -230,3 +231,5 @@ struct TimerStruct (
     DotNet.AddEventHandler this.timer "Tick" ::mxsDotNetTimerTickHandler
   )
 )
+format "[define]::TimerStruct\n"
+::TimerStruct

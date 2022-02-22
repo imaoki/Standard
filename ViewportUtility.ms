@@ -63,3 +63,6 @@ struct ViewportUtilityStruct (
 
   on Create do ()
 )
+::viewportUtility = ::ViewportUtilityStruct()
+format "[define]::viewportUtility\n"
+::ViewportUtilityStruct

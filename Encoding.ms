@@ -226,3 +226,5 @@ struct EncodingStruct (
     )
   )
 )
+format "[define]::EncodingStruct\n"
+::EncodingStruct
