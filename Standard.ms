@@ -6,29 +6,29 @@ global std
 */
 struct StandardStruct (
   /*- @prop <Struct:AttributeUtilityStruct> */
-  AttributeUtility,
+  public AttributeUtility,
   /*- @prop <Struct:ComparerStruct> */
-  Comparer,
+  public Comparer,
   /*- @prop <Struct:DotNetUtilityStruct> */
-  DotNetUtility,
+  public DotNetUtility,
   /*- @prop <StructDef:EasingStruct> */
-  EasingStruct,
+  public EasingStruct,
   /*- @prop <StructDef:EncodingStruct> */
-  EncodingStruct,
+  public EncodingStruct,
   /*- @prop <StructDef:EnumStruct> */
-  EnumStruct,
+  public EnumStruct,
   /*- @prop <Struct:FileUtilityStruct> */
-  FileUtility,
+  public FileUtility,
   /*- @prop <StructDef:ObserverStruct> */
-  ObserverStruct,
+  public ObserverStruct,
   /*- @prop <StructDef:PathUtilityStruct> */
-  PathUtilityStruct,
+  public PathUtilityStruct,
   /*- @prop <Struct:StringUtilityStruct> */
-  StringUtility,
+  public StringUtility,
   /*- @prop <StructDef:TimerStruct> */
-  TimerStruct,
+  public TimerStruct,
   /*- @prop <Struct:ViewportUtilityStruct> */
-  ViewportUtility,
+  public ViewportUtility,
 
   /*- @returns <Name> */
   public fn StructName = #StandardStruct,
