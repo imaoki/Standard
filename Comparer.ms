@@ -1,6 +1,4 @@
 /*! © 2021 imaoki | MIT License | https://github.com/imaoki */
-/*- @var <Struct:ComparerStruct> */
-global comparer
 /*-
 2つのオブジェクトが等しいかどうかを比較する。
 @remarks 戻り値が以下のような関係になるように実装する。
@@ -116,6 +114,3 @@ struct ComparerStruct (
     this.stringLogicalComparer = fileIn @"StringLogicalComparer.ms"
   )
 )
-::comparer = ::ComparerStruct()
-format "[define]::comparer\n"
-::ComparerStruct

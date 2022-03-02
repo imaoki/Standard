@@ -6,7 +6,7 @@
 @returns <OkClass>
 */
 global mxsDotNetTimerTickHandler = fn mxsDotNetTimerTickHandler sender event = (
-  if ::dotNetUtility.IsInstanceOf "System.Windows.Forms.Timer" sender do (
+  if ::std.DotNetUtility.IsInstanceOf "System.Windows.Forms.Timer" sender do (
     if classOf sender.Tag == DotNetMxsValue do (
       local timerObject = sender.Tag.Value
       if isStruct timerObject \
@@ -162,7 +162,7 @@ struct TimerStruct (
     if isEqualProperties do (
       local ov = obj.GetTimer()
       local tv = this.GetTimer()
-      isEqualProperties = ::dotNetUtility.IsInstanceOf "System.Windows.Forms.Timer" ov \
+      isEqualProperties = ::std.DotNetUtility.IsInstanceOf "System.Windows.Forms.Timer" ov \
           and ov.Equals tv
     )
 
@@ -231,5 +231,3 @@ struct TimerStruct (
     DotNet.AddEventHandler this.timer "Tick" ::mxsDotNetTimerTickHandler
   )
 )
-format "[define]::TimerStruct\n"
-::TimerStruct

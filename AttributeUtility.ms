@@ -1,6 +1,4 @@
 /*! © 2021 imaoki | MIT License | https://github.com/imaoki */
-/*- @var <Struct:AttributeUtilityStruct> */
-global attributeUtility
 /*-
 アトリビュート用の追加メソッドを提供する。
 */
@@ -91,6 +89,3 @@ struct AttributeUtilityStruct (
 
   on Create do ()
 )
-::attributeUtility = ::AttributeUtilityStruct()
-format "[define]::attributeUtility\n"
-::AttributeUtilityStruct

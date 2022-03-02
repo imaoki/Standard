@@ -1,6 +1,4 @@
 /*! © 2021 imaoki | MIT License | https://github.com/imaoki */
-/*- @var <Struct:StringUtilityStruct> */
-global stringUtility
 /*-
 文字列操作を行うためのメソッドを提供する。
 */
@@ -211,7 +209,7 @@ struct StringUtilityStruct (
   @returns <BooleanClass>
   */
   public fn IsRegexObject obj = (
-    ::dotNetUtility.IsInstanceOf "System.Text.RegularExpressions.Regex" obj
+    ::std.DotNetUtility.IsInstanceOf "System.Text.RegularExpressions.Regex" obj
   ),
 
   /*-
@@ -453,8 +451,8 @@ struct StringUtilityStruct (
   ),
 
   on Create do (
-    this.regexOptionsEnum = ::EnumStruct "System.Text.RegularExpressions.RegexOptions"
-    this.stringSplitOptionsEnum = ::EnumStruct "System.StringSplitOptions"
+    this.regexOptionsEnum = ::std.EnumStruct "System.Text.RegularExpressions.RegexOptions"
+    this.stringSplitOptionsEnum = ::std.EnumStruct "System.StringSplitOptions"
 
     this.backslashRegex = this.CreateRegex "\\\\"
     this.camelRegex = this.CreateRegex "(?<=\b)\w|(?<=[a-z])[A-Z]|(?<=[0-9_])[a-z]" options:#()
@@ -468,6 +466,3 @@ struct StringUtilityStruct (
     this.tabRegex = this.CreateRegex "\t"
   )
 )
-::stringUtility = ::StringUtilityStruct()
-format "[define]::stringUtility\n"
-::StringUtilityStruct

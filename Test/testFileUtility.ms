@@ -6,7 +6,7 @@
   local sw = DotNetObject "System.Diagnostics.Stopwatch"
 
   local currentFile = getSourceFileName()
-  local pathUtility = ::PathUtilityStruct currentFile
+  local pathUtility = ::std.PathUtilityStruct currentFile
 
   local actual
   local expected
@@ -64,7 +64,7 @@
     ),
 
     public fn IsDateTimeType obj = (
-      ::dotNetUtility.TypeOf obj == "System.DateTime"
+      ::std.DotNetUtility.TypeOf obj == "System.DateTime"
     ),
 
     public fn NotFoobar element index context = (

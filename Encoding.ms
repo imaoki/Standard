@@ -165,7 +165,7 @@ struct EncodingStruct (
   @returns <BooleanClass>
   */
   private fn isEncodingSubclass obj = (
-    ::dotNetUtility.IsSubclassOf "System.Text.Encoding" obj
+    ::std.DotNetUtility.IsSubclassOf "System.Text.Encoding" obj
   ),
 
   /*-
@@ -188,7 +188,7 @@ struct EncodingStruct (
   public fn Dump indent:"" out:listener = (
     format "%EncodingStruct\n" indent to:out
 
-    local typeName = ::dotNetUtility.TypeOf this.encodingObject
+    local typeName = ::std.DotNetUtility.TypeOf this.encodingObject
     format "%  encodingObject:\"%\"\n" indent typeName to:out
 
     if this.IsValidEncoding() do (
@@ -216,7 +216,7 @@ struct EncodingStruct (
   ),
 
   on Create do (
-    this.hexStringRegex = ::stringUtility.CreateRegex "^([a-fA-F0-9]{2})?(\-[a-fA-F0-9]{2})*$"
+    this.hexStringRegex = ::std.StringUtility.CreateRegex "^([a-fA-F0-9]{2})?(\-[a-fA-F0-9]{2})*$"
 
     local encodingInfos = this.encodingClass.GetEncodings()
     this.allNames = for info in encodingInfos collect info.Name as Name
@@ -226,5 +226,3 @@ struct EncodingStruct (
     )
   )
 )
-format "[define]::EncodingStruct\n"
-::EncodingStruct

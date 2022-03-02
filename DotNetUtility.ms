@@ -1,6 +1,4 @@
 /*! © 2021 imaoki | MIT License | https://github.com/imaoki */
-/*- @var <Struct:DotNetUtilityStruct> */
-global dotNetUtility
 /*-
 .NET用の追加メソッドを提供する。
 */
@@ -75,6 +73,3 @@ struct DotNetUtilityStruct (
 
   on Create do ()
 )
-::dotNetUtility = ::DotNetUtilityStruct()
-format "[define]::dotNetUtility\n"
-::DotNetUtilityStruct

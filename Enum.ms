@@ -101,7 +101,7 @@ struct EnumStruct (
   @returns <BooleanClass>
   */
   private fn isEnumClass obj = (
-    ::dotNetUtility.IsSubclassOf "System.Enum" obj
+    ::std.DotNetUtility.IsSubclassOf "System.Enum" obj
   ),
 
   /*- @returns <Name> */
@@ -142,5 +142,3 @@ struct EnumStruct (
     )
   )
 )
-format "[define]::EnumStruct\n"
-::EnumStruct

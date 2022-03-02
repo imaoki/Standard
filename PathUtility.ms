@@ -228,5 +228,3 @@ struct PathUtilityStruct (
     )
   )
 )
-format "[define]::PathUtilityStruct\n"
-::PathUtilityStruct

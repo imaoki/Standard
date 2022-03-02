@@ -697,5 +697,3 @@ struct EasingStruct (
 
   on Create do ()
 )
-format "[define]::EasingStruct\n"
-::EasingStruct

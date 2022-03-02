@@ -99,5 +99,3 @@ struct ObserverStruct (
 
   on Create do ()
 )
-format "[define]::ObserverStruct\n"
-::ObserverStruct

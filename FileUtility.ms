@@ -1,6 +1,4 @@
 /*! © 2021 imaoki | MIT License | https://github.com/imaoki */
-/*- @var <Struct:FileUtilityStruct> */
-global fileUtility
 /*-
 一般的なファイルおよびディレクトリの操作に加えてスクリプトファイルやシーンファイルの操作を行うメソッドも提供する。
 @remarks エンコーディングは指定がない限りUTF-8（BOM無し）を使用する。
@@ -70,7 +68,7 @@ struct FileUtilityStruct (
   */
   public fn CreateTextFile path access:#Write encoding:"utf-8" bom:false = (
     local fs = this.fileClass.Create path
-    if ::dotNetUtility.IsInstanceOf "System.IO.FileStream" fs do (
+    if ::std.DotNetUtility.IsInstanceOf "System.IO.FileStream" fs do (
       fs.Close()
     )
     this.OpenTextFile path access:access encoding:encoding bom:bom
@@ -189,7 +187,7 @@ struct FileUtilityStruct (
   public fn GetDirectories path pattern recursive:false = (
     local option = this.createSearchOption recursive
     local dirs = this.directoryClass.GetDirectories path "*" option
-    qsort dirs ::comparer.CompareStringLogical
+    qsort dirs ::std.Comparer.CompareStringLogical
     for dir in dirs collect (
       if matchPattern dir pattern:pattern ignoreCase:true then (
         dir
@@ -218,7 +216,7 @@ struct FileUtilityStruct (
   public fn GetFiles path pattern recursive:false = (
     local option = this.createSearchOption recursive
     local files = this.directoryClass.GetFiles path "*" option
-    qsort files ::comparer.CompareStringLogical
+    qsort files ::std.Comparer.CompareStringLogical
     for file in files collect (
       if matchPattern file pattern:pattern ignoreCase:true then (
         file
@@ -576,9 +574,9 @@ struct FileUtilityStruct (
   @returns <Struct:Encoding>
   */
   private fn createEncoding encoding bom = (
-    local encodingObject = ::EncodingStruct encoding bom
+    local encodingObject = ::std.EncodingStruct encoding bom
     if not encodingObject.IsValidEncoding() do (
-      encodingObject = ::EncodingStruct()
+      encodingObject = ::std.EncodingStruct()
     )
     encodingObject
   ),
@@ -645,7 +643,7 @@ struct FileUtilityStruct (
   @returns <BooleanClass>
   */
   private fn isFileAttributesObject obj = (
-    ::dotNetUtility.IsInstanceOf "System.IO.FileAttributes" obj
+    ::std.DotNetUtility.IsInstanceOf "System.IO.FileAttributes" obj
   ),
 
   /*- @returns <Name> */
@@ -678,11 +676,8 @@ struct FileUtilityStruct (
   ),
 
   on Create do (
-    this.pathUtility = ::PathUtilityStruct (getSourceFileName())
-    this.fileAttributesEnum = ::EnumStruct "System.IO.FileAttributes"
-    this.searchOptionEnum = ::EnumStruct "System.IO.SearchOption"
+    this.pathUtility = ::std.PathUtilityStruct (getSourceFileName())
+    this.fileAttributesEnum = ::std.EnumStruct "System.IO.FileAttributes"
+    this.searchOptionEnum = ::std.EnumStruct "System.IO.SearchOption"
   )
 )
-::fileUtility = ::FileUtilityStruct()
-format "[define]::fileUtility\n"
-::FileUtilityStruct
