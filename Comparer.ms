@@ -13,6 +13,15 @@ struct ComparerStruct (
   /*- @prop <DotNetMethod> */
   private stringLogicalComparer,
 
+  /*
+  public fn CompareName a b = (),
+  public fn CompareNodeHandle a b = (),
+  public fn CompareProperty a b propName: = (),
+  public fn CompareStringLogical a b = (),
+
+  private fn simpleCompare a b = (),
+  */
+
   /*-
   `Name`プロパティを比較する。
   @param a <Any>

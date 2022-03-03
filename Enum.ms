@@ -14,6 +14,16 @@ struct EnumStruct (
   /*- @prop <DotNetClass:Any> */
   private enumClass,
 
+  /*
+  public fn Create flagNames = (),
+  public fn GetFlags enumObject = (),
+  public fn GetNames = (),
+  public fn HasFlag enumObject flagName = (),
+  public fn IsValidEnum = (),
+
+  private fn isEnumClass obj = (),
+  */
+
   /*-
   指定したフラグを組み合わせた列挙体インスタンスを生成する。
   @param flagNames <Array[<Name>]>

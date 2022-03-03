@@ -30,6 +30,22 @@ struct EncodingStruct (
   /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `^([a-fA-F0-9]{2})?(\-[a-fA-F0-9]{2})*$`に一致する正規表現オブジェクト。 */
   private hexStringRegex,
 
+  /*
+  public fn DecodeHexString input = (),
+  public fn EncodeToHexString input = (),
+  public fn GetBytes input = (),
+  public fn GetCodePage = (),
+  public fn GetDisplayName = (),
+  public fn GetEncodingObject = (),
+  public fn GetName = (),
+  public fn GetString bytes = (),
+  public fn IsValidEncoding = (),
+  public fn SetEncoding name bom:false = (),
+
+  private fn isEncodingSubclass obj = (),
+  private fn isValidName input = (),
+  */
+
   /*-
   ハイフンで区切られた16進数文字列を元の文字列にデコードする。
   @param input <String>

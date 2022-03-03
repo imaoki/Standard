@@ -32,6 +32,19 @@ struct TimerStruct (
   /*- @prop <DotNetObject:System.Windows.Forms.Timer> */
   private timer,
 
+  /*
+  public fn GetInterval = (),
+  public fn GetTicks = (),
+  public fn GetTimer = (),
+  public fn IsEnabled = (),
+  public fn Reset = (),
+  public fn Restart = (),
+  public fn SetInterval input = (),
+  public fn Start = (),
+  public fn Stop = (),
+  public fn UpdateTicks = (),
+  */
+
   /*-
   `Tick`イベントの発生間隔（ミリ秒）を取得する。
   @returns <Integer>

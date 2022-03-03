@@ -3,6 +3,47 @@
 各種イージングメソッドを提供する。
 */
 struct EasingStruct (
+  /*
+  public fn BackIn v = (),
+  public fn BackInOut v = (),
+  public fn BackOut v = (),
+  public fn Bezier v tangent1 tangent2 start:0.0 end:1.0 = (),
+  public fn BounceIn v = (),
+  public fn BounceInOut v = (),
+  public fn BounceOut v = (),
+  public fn CircularIn v = (),
+  public fn CircularInOut v = (),
+  public fn CircularOut v = (),
+  public fn CubicIn v = (),
+  public fn CubicInOut v = (),
+  public fn CubicOut v = (),
+  public fn ElasticIn v frequency:3 damping:10.0 flat:false = (),
+  public fn ElasticInOut v frequency:3 damping:10.0 flat:false = (),
+  public fn ElasticOut v frequency:3 damping:10.0 flat:false = (),
+  public fn ExponentialIn v = (),
+  public fn ExponentialInOut v = (),
+  public fn ExponentialOut v = (),
+  public fn Linear v = (),
+  public fn QuadraticIn v = (),
+  public fn QuadraticInOut v = (),
+  public fn QuadraticOut v = (),
+  public fn QuarticIn v = (),
+  public fn QuarticInOut v = (),
+  public fn QuarticOut v = (),
+  public fn QuinticIn v = (),
+  public fn QuinticInOut v = (),
+  public fn QuinticOut v = (),
+  public fn Sigmoid v inflection slope = (),
+  public fn SineIn v = (),
+  public fn SineInOut v = (),
+  public fn SineOut v = (),
+
+  private fn clamp input lower:0.0 high:1.0 = (),
+  private fn isNormalized v = (),
+  private fn solveCubicEquation a b c d = (),
+  private fn solveQuadraticEquation a b c = (),
+  */
+
   /*-
   逆方向の変化を伴う。
   @param v <Float> `0.0`から`1.0`の範囲の値。

@@ -19,6 +19,25 @@ struct PathUtilityStruct (
   /*- @prop <DotNetClass:System.IO.Path> */
   private pathClass = DotNetClass "System.IO.Path",
 
+  /*
+  public fn ChangeExtension path extension = (),
+  public fn ExtractDirectoryName path = (),
+  public fn GetBaseDirectory = (),
+  public fn GetDirectoryName path = (),
+  public fn GetExtension path = (),
+  public fn GetFileName path = (),
+  public fn GetFileNameWithoutExtension path = (),
+  public fn GetFullPath path = (),
+  public fn GetInvalidFileNameChars = (),
+  public fn GetInvalidPathChars = (),
+  public fn GetPathRoot path = (),
+  public fn GetRandomFileName = (),
+  public fn HasExtension path = (),
+  public fn IsPathRooted path = (),
+  public fn SetBaseDirectory path = (),
+  public fn TrimEndSeparator path = (),
+  */
+
   /*-
   パスの拡張子を変更する。
   @param path <String>

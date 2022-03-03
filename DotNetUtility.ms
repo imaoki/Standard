@@ -3,6 +3,12 @@
 .NET用の追加メソッドを提供する。
 */
 struct DotNetUtilityStruct (
+  /*
+  public fn IsInstanceOf typeName obj = (),
+  public fn IsSubclassOf typeName obj = (),
+  public fn TypeOf obj = (),
+  */
+
   /*-
   オブジェクトが指定した型のインスタンスかどうかを判定する。
   @param typeName <String> 型のアセンブリ修飾名。

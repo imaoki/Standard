@@ -3,6 +3,13 @@
 アトリビュート用の追加メソッドを提供する。
 */
 struct AttributeUtilityStruct (
+  /*
+  public fn GetAttribute obj attributeName = (),
+  public fn GetAttributeNames obj = (),
+  public fn HasAttribute obj attributeName = (),
+  public fn IsAttribute obj = (),
+  */
+
   /*-
   オブジェクトから指定した名前のアトリビュートインスタンスを取得する。
   @param obj <Any>

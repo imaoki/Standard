@@ -3,6 +3,11 @@
 ビューポート用の追加メソッドを提供する。
 */
 struct ViewportUtilityStruct (
+  /*
+  public fn GetDistancePerPixel = (),
+  public fn PixelDistance v1 v2 = (),
+  */
+
   /*-
   アクティブビューポートのスクリーン座標系における1ピクセル辺りのワールド距離を取得する。
   @returns <Float>

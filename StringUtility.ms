@@ -33,6 +33,30 @@ struct StringUtilityStruct (
   /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `\t`に一致する正規表現オブジェクト。 */
   private tabRegex,
 
+  /*
+  public fn ClipString input digit:40 = (),
+  public fn CreateRegex pattern options:#(#IgnoreCase, #Singleline) = (),
+  public fn EscapeBackslash input = (),
+  public fn EscapeWhiteSpace input = (),
+  public fn FormatString input values = (),
+  public fn FromCodePoint codePoints = (),
+  public fn GetRegexOptions obj asStringArray:false = (),
+  public fn GetRegexPattern obj = (),
+  public fn GetUnicodeCodePointFromSurrogatePair highSurrogate lowSurrogate = (),
+  public fn GetValidUnicodeCodePoint codePoint = (),
+  public fn IsRegexObject obj = (),
+  public fn Join input separator:"" = (),
+  public fn PadLeft input width char = (),
+  public fn PadRight input width char = (),
+  public fn Split input separator removeEmpty:true = (),
+  public fn SplitByLF input = (),
+  public fn ToCharArray input = (),
+  public fn ToPascalCase input = (),
+  public fn Trim input = (),
+  public fn TrimEnd input chars = (),
+  public fn TrimStart input chars = (),
+  */
+
   /*-
   入力文字列を指定の桁数に収まるよう省略する。
   @param input <String>

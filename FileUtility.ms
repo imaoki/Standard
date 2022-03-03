@@ -17,6 +17,44 @@ struct FileUtilityStruct (
   /*- @prop <Struct:EnumStruct> `"System.IO.SearchOption"`列挙型。 */
   private searchOptionEnum,
 
+  /*
+  public fn CopyDirectory source destination overwrite:false = (),
+  public fn CopyFile source destination overwrite:false = (),
+  public fn CreateDirectory path = (),
+  public fn CreateTextFile path access:#Write encoding:"utf-8" bom:false = (),
+  public fn DeleteDirectory path recursive:true = (),
+  public fn DeleteFile path = (),
+  public fn DirectoryExists path = (),
+  public fn EvaluateFile path = (),
+  public fn FileExists path = (),
+  public fn GetCreationTime path asUtc:false = (),
+  public fn GetDirectories path pattern recursive:false = (),
+  public fn GetFiles path pattern recursive:false = (),
+  public fn GetLastAccessTime path asUtc:false = (),
+  public fn GetLastWriteTime path asUtc:false = (),
+  public fn GetMaxVersion path = (),
+  public fn IsHidden path = (),
+  public fn IsMaxFile path = (),
+  public fn IsReadOnly path = (),
+  public fn IsScriptFile path = (),
+  public fn MoveDirectory source destination = (),
+  public fn OpenTextFile path access:#Read encoding:"utf-8" bom:false = (),
+  public fn ReadAllLines path encoding:"utf-8" bom:false = (),
+  public fn ReadAllText path encoding:"utf-8" bom:false = (),
+  public fn RenameDirectory path newName = (),
+  public fn RenameFile path newName = (),
+  public fn WriteAllLines path contents eol:"\n" encoding:"utf-8" bom:false = (),
+  public fn WriteAllText path contents encoding:"utf-8" bom:false = (),
+
+  private fn copyDirectoryRecursive source destination overwrite = (),
+  private fn createDirectoryInfo path = (),
+  private fn createEncoding encoding bom = (),
+  private fn createSearchOption recursive = (),
+  private fn getAttributes path = (),
+  private fn getPathType path = (),
+  private fn isFileAttributesObject obj = (),
+  */
+
   /*-
   ディレクトリをコピーする。
   @param source <String> コピーするディレクトリのパス。
