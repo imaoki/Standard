@@ -30,6 +30,39 @@ struct StandardStruct (
   /*- @prop <Struct:ViewportUtilityStruct> */
   public ViewportUtility,
 
+  /*
+  public fn Install = (),
+  public fn Uninstall = (),
+  */
+
+  /*-
+  インストールする。
+  @returns <OkClass>
+  @remarks 静的メソッド。
+  */
+  public fn Install = (
+    ::StandardStruct()
+    if isProperty ::startupLoader "RegisterFile" do (
+      ::startupLoader.RegisterFile (getSourceFileName()) installer:true
+    )
+    format "[install]::std\n"
+    ok
+  ),
+
+  /*-
+  アンインストールする。
+  @returns <OkClass>
+  @remarks 静的メソッド。
+  */
+  public fn Uninstall = (
+    if isProperty ::startupLoader "UnregisterFile" do (
+      ::startupLoader.UnregisterFile (getSourceFileName())
+    )
+    ::std = undefined
+    format "[uninstall]::std\n"
+    ok
+  ),
+
   /*- @returns <Name> */
   public fn StructName = #StandardStruct,
 
@@ -92,8 +125,6 @@ struct StandardStruct (
     PathUtility
     */
     this.FileUtility = (fileIn @"FileUtility.ms")()
-    format "[define]::std\n"
   )
 )
-::StandardStruct()
 ::StandardStruct
