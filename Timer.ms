@@ -6,7 +6,6 @@
 @returns <OkClass>
 */
 global mxsDotNetTimerTickHandler = fn mxsDotNetTimerTickHandler sender event = (
-  -- if ::std.DotNetUtility.IsInstanceOf "System.Windows.Forms.Timer" sender do (
   if classOf sender == DotNetObject \
       and (DotNet.GetType "System.Windows.Forms.Timer").IsInstanceOfType sender do (
     if classOf sender.Tag == DotNetMxsValue do (
