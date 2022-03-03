@@ -11,6 +11,8 @@ struct EnumStruct (
 
   /*- @prop <DotNetClass:System.Enum> */
   private baseEnumClass = DotNetClass "System.Enum",
+  /*- @prop <Struct:DotNetUtilityStruct> */
+  private dotNetUtility,
   /*- @prop <DotNetClass:Any> */
   private enumClass,
 
@@ -111,7 +113,7 @@ struct EnumStruct (
   @returns <BooleanClass>
   */
   private fn isEnumClass obj = (
-    ::std.DotNetUtility.IsSubclassOf "System.Enum" obj
+    this.dotNetUtility.IsSubclassOf "System.Enum" obj
   ),
 
   /*- @returns <Name> */
@@ -144,6 +146,7 @@ struct EnumStruct (
   ),
 
   on Create do (
+    this.dotNetUtility = (fileIn @"DotNetUtility.ms")()
     if classOf this._CP1_ == String do (
       this.enumClass = DotNetClass this._CP1_
       if not this.isEnumClass this.enumClass do (

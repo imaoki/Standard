@@ -5,8 +5,17 @@
   local nowTime = (DotNetClass "System.DateTime").Now.ToString "HH:mm:ss"
   local sw = DotNetObject "System.Diagnostics.Stopwatch"
 
+  local environmentClass = DotNetClass "System.Environment"
+  local pathClass = DotNetClass "System.IO.Path"
+
   local currentFile = getSourceFileName()
-  local pathUtility = ::std.PathUtilityStruct currentFile
+  local currentDir = pathClass.GetDirectoryName currentFile
+
+  local getFullPath
+  fn getFullPath path = (
+    environmentClass.CurrentDirectory = currentDir
+    pathClass.GetFullPath path
+  )
 
   local actual
   local expected
@@ -19,7 +28,7 @@
   local utf8Object = DotNetObject "System.Text.UTF8Encoding" false
   local shiftJisObject = (DotNetClass "System.Text.Encoding").GetEncoding "shift_jis"
 
-  testDef = fileIn (pathUtility.GetFullPath @"..\DotNetUtility.ms")
+  testDef = fileIn (getFullPath @"..\DotNetUtility.ms")
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */
   sw.Start()

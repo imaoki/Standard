@@ -5,10 +5,17 @@
   local nowTime = (DotNetClass "System.DateTime").Now.ToString "HH:mm:ss"
   local sw = DotNetObject "System.Diagnostics.Stopwatch"
 
+  local environmentClass = DotNetClass "System.Environment"
   local pathClass = DotNetClass "System.IO.Path"
-  local currentFile = pathClass.GetFullPath (getSourceFileName())
+
+  local currentFile = getSourceFileName()
   local currentDir = pathClass.GetDirectoryName currentFile
-  (DotNetClass "System.Environment").CurrentDirectory = currentDir
+
+  local getFullPath
+  fn getFullPath path = (
+    environmentClass.CurrentDirectory = currentDir
+    pathClass.GetFullPath path
+  )
 
   local actual
   local expected
@@ -17,7 +24,10 @@
 
   format "[run %]@\"%\"\n" nowTime currentFile
   /* Setup Start ------------------------------------------------------------ */
-  local parentDir = pathClass.GetDirectoryName currentDir
+  local parentDir = getFullPath @"..\"
+  if matchPattern parentDir pattern:@"*\" do (
+    parentDir = trimRight parentDir @"\"
+  )
 
   local regex
   local regexClass = DotNetClass "System.Text.RegularExpressions.Regex"
@@ -32,7 +42,7 @@
     DotNetObject regexClass pattern regexOptions
   )
 
-  testDef = fileIn (pathClass.GetFullPath @"..\PathUtility.ms")
+  testDef = fileIn (getFullPath @"..\PathUtility.ms")
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */
   sw.Start()

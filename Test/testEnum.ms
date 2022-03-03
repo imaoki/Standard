@@ -5,8 +5,17 @@
   local nowTime = (DotNetClass "System.DateTime").Now.ToString "HH:mm:ss"
   local sw = DotNetObject "System.Diagnostics.Stopwatch"
 
+  local environmentClass = DotNetClass "System.Environment"
+  local pathClass = DotNetClass "System.IO.Path"
+
   local currentFile = getSourceFileName()
-  local pathUtility = ::std.PathUtilityStruct currentFile
+  local currentDir = pathClass.GetDirectoryName currentFile
+
+  local getFullPath
+  fn getFullPath path = (
+    environmentClass.CurrentDirectory = currentDir
+    pathClass.GetFullPath path
+  )
 
   local actual
   local expected
@@ -17,14 +26,14 @@
   /* Setup Start ------------------------------------------------------------ */
   local fileClass = DotNetClass "System.IO.File"
 
-  local enumDir = pathUtility.GetFullPath @".\Data\Enum"
-  local readOnlyFile = pathUtility.GetFullPath @".\Data\Enum\ReadOnly.txt"
+  local enumDir = getFullPath @".\Data\Enum"
+  local readOnlyFile = getFullPath @".\Data\Enum\ReadOnly.txt"
 
   local enumDirAttributes = fileClass.GetAttributes enumDir
   local readOnlyFileAttributes = fileClass.GetAttributes readOnlyFile
   local selfAttributes = fileClass.GetAttributes currentFile
 
-  testDef = fileIn (pathUtility.GetFullPath @"..\Enum.ms")
+  testDef = fileIn (getFullPath @"..\Enum.ms")
   testObj = testDef "System.IO.FileAttributes"
   /* Setup End -------------------------------------------------------------- */
   sw.Start()

@@ -5,8 +5,17 @@
   local nowTime = (DotNetClass "System.DateTime").Now.ToString "HH:mm:ss"
   local sw = DotNetObject "System.Diagnostics.Stopwatch"
 
+  local environmentClass = DotNetClass "System.Environment"
+  local pathClass = DotNetClass "System.IO.Path"
+
   local currentFile = getSourceFileName()
-  local pathUtility = ::std.PathUtilityStruct currentFile
+  local currentDir = pathClass.GetDirectoryName currentFile
+
+  local getFullPath
+  fn getFullPath path = (
+    environmentClass.CurrentDirectory = currentDir
+    pathClass.GetFullPath path
+  )
 
   local actual
   local expected
@@ -51,7 +60,7 @@
     passCount == 4
   )
 
-  testDef = fileIn (pathUtility.GetFullPath @"..\Standard.ms")
+  testDef = fileIn (getFullPath @"..\Standard.ms")
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */
   sw.Start()

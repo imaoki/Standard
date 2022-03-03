@@ -20,8 +20,12 @@ struct StringUtilityStruct (
   private commaRegex,
   /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `\r`に一致する正規表現オブジェクト。 */
   private crRegex,
+  /*- @prop <Struct:DotNetUtilityStruct> */
+  private dotNetUtility,
   /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `\"`に一致する正規表現オブジェクト。 */
   private doubleQuoteRegex,
+  /*- @prop <StructDef:EnumStruct> */
+  private enumDef,
   /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `(?<!\\\\)%`に一致する正規表現オブジェクト。 */
   private formatRegex,
   /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `\n`に一致する正規表現オブジェクト。 */
@@ -233,7 +237,7 @@ struct StringUtilityStruct (
   @returns <BooleanClass>
   */
   public fn IsRegexObject obj = (
-    ::std.DotNetUtility.IsInstanceOf "System.Text.RegularExpressions.Regex" obj
+    this.dotNetUtility.IsInstanceOf "System.Text.RegularExpressions.Regex" obj
   ),
 
   /*-
@@ -475,8 +479,11 @@ struct StringUtilityStruct (
   ),
 
   on Create do (
-    this.regexOptionsEnum = ::std.EnumStruct "System.Text.RegularExpressions.RegexOptions"
-    this.stringSplitOptionsEnum = ::std.EnumStruct "System.StringSplitOptions"
+    this.dotNetUtility = (fileIn @"DotNetUtility.ms")()
+    this.enumDef = fileIn @"Enum.ms"
+
+    this.regexOptionsEnum = this.enumDef "System.Text.RegularExpressions.RegexOptions"
+    this.stringSplitOptionsEnum = this.enumDef "System.StringSplitOptions"
 
     this.backslashRegex = this.CreateRegex "\\\\"
     this.camelRegex = this.CreateRegex "(?<=\b)\w|(?<=[a-z])[A-Z]|(?<=[0-9_])[a-z]" options:#()

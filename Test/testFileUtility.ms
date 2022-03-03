@@ -5,8 +5,17 @@
   local nowTime = (DotNetClass "System.DateTime").Now.ToString "HH:mm:ss"
   local sw = DotNetObject "System.Diagnostics.Stopwatch"
 
+  local environmentClass = DotNetClass "System.Environment"
+  local pathClass = DotNetClass "System.IO.Path"
+
   local currentFile = getSourceFileName()
-  local pathUtility = ::std.PathUtilityStruct currentFile
+  local currentDir = pathClass.GetDirectoryName currentFile
+
+  local getFullPath
+  fn getFullPath path = (
+    environmentClass.CurrentDirectory = currentDir
+    pathClass.GetFullPath path
+  )
 
   local actual
   local expected
@@ -17,6 +26,7 @@
   /* Setup Start ------------------------------------------------------------ */
   local TestToolStruct = struct TestToolStruct (
     private directoryClass = DotNetClass "System.IO.Directory",
+    private dotNetUtility,
     private fileClass = DotNetClass "System.IO.File",
     private shiftJisObject = (DotNetClass "System.Text.Encoding").GetEncoding "shift_jis",
     private utf8nObject = DotNetObject "System.Text.UTF8Encoding" false,
@@ -64,7 +74,7 @@
     ),
 
     public fn IsDateTimeType obj = (
-      ::std.DotNetUtility.TypeOf obj == "System.DateTime"
+      this.dotNetUtility.TypeOf obj == "System.DateTime"
     ),
 
     public fn NotFoobar element index context = (
@@ -93,32 +103,34 @@
       this.FileExists path
     ),
 
-    on Create do ()
+    on Create do (
+      this.dotNetUtility = (fileIn (getFullPath @"..\DotNetUtility.ms"))()
+    )
   )
   local testTool = TestToolStruct()
 
-  local fileDir = pathUtility.GetFullPath @".\Data\File"
-  local testDir = pathUtility.GetFullPath @".\Data\File\Test"
-  local testSubDir = pathUtility.GetFullPath @".\Data\File\Test\Sub"
+  local fileDir = getFullPath @".\Data\File"
+  local testDir = getFullPath @".\Data\File\Test"
+  local testSubDir = getFullPath @".\Data\File\Test\Sub"
 
-  local dummyFile = pathUtility.GetFullPath @".\Data\File\Dummy\dummy.txt"
-  local shiftJisFile = pathUtility.GetFullPath @".\Data\File\shiftJis.txt"
-  local utf8nFile = pathUtility.GetFullPath @".\Data\File\utf8n.txt"
+  local dummyFile = getFullPath @".\Data\File\Dummy\dummy.txt"
+  local shiftJisFile = getFullPath @".\Data\File\shiftJis.txt"
+  local utf8nFile = getFullPath @".\Data\File\utf8n.txt"
 
-  local max2015File = pathUtility.GetFullPath @".\Data\File\2015.max"
-  local max2016File = pathUtility.GetFullPath @".\Data\File\2016.max"
-  local max2017File = pathUtility.GetFullPath @".\Data\File\2017.max"
-  local max2018File = pathUtility.GetFullPath @".\Data\File\2018.max"
+  local max2015File = getFullPath @".\Data\File\2015.max"
+  local max2016File = getFullPath @".\Data\File\2016.max"
+  local max2017File = getFullPath @".\Data\File\2017.max"
+  local max2018File = getFullPath @".\Data\File\2018.max"
 
-  local hiddenDir = pathUtility.GetFullPath @".\Data\File\Hidden"
-  local readOnlyDir = pathUtility.GetFullPath @".\Data\File\ReadOnly"
+  local hiddenDir = getFullPath @".\Data\File\Hidden"
+  local readOnlyDir = getFullPath @".\Data\File\ReadOnly"
 
-  local hiddenFile = pathUtility.GetFullPath @".\Data\File\hidden.txt"
-  local readOnlyFile = pathUtility.GetFullPath @".\Data\File\readOnly.txt"
+  local hiddenFile = getFullPath @".\Data\File\hidden.txt"
+  local readOnlyFile = getFullPath @".\Data\File\readOnly.txt"
 
-  local booleanFile = pathUtility.GetFullPath @".\Data\File\returnBooleanClass.ms"
-  local integerFile = pathUtility.GetFullPath @".\Data\File\returnInteger.ms"
-  local stringFile = pathUtility.GetFullPath @".\Data\File\returnString.ms"
+  local booleanFile = getFullPath @".\Data\File\returnBooleanClass.ms"
+  local integerFile = getFullPath @".\Data\File\returnInteger.ms"
+  local stringFile = getFullPath @".\Data\File\returnString.ms"
 
   local destDir
   local destDirs
@@ -127,15 +139,15 @@
   local sourceDir
   local sourceFile
 
-  testDef = fileIn (pathUtility.GetFullPath @"..\FileUtility.ms")
+  testDef = fileIn (getFullPath @"..\FileUtility.ms")
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
   /* CopyDirectory */
   expected = ::TestValueStruct true
-  sourceDir = pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive"
-  destDir = pathUtility.GetFullPath @".\Data\File\FileStructure\CopiedRecursive"
+  sourceDir = getFullPath @".\Data\File\FileStructure\Recursive"
+  destDir = getFullPath @".\Data\File\FileStructure\CopiedRecursive"
   destDirs = #(
     destDir,
     destDir + @"\Single"
@@ -180,7 +192,7 @@
   assert (testTool.DeleteDirectory destDir == true)
 
   /* CopyFile */
-  destFile = pathUtility.GetFullPath @".\Data\File\copyDest.txt"
+  destFile = getFullPath @".\Data\File\copyDest.txt"
   -- 前処理
   assert (testTool.CreateShiftJisFile shiftJisFile "あいうえお\nABCDEFG\n" == true)
   assert (testTool.CreateUtf8nFile utf8nFile "" == true)
@@ -316,28 +328,28 @@
   -- 直下ディレクトリのみ
   actual = ::TestValueStruct (testObj.GetDirectories fileDir "*")
   expected = ::TestValueStruct #(
-    pathUtility.GetFullPath @".\Data\File\FileStructure",
-    pathUtility.GetFullPath @".\Data\File\Hidden",
-    pathUtility.GetFullPath @".\Data\File\ReadOnly"
+    getFullPath @".\Data\File\FileStructure",
+    getFullPath @".\Data\File\Hidden",
+    getFullPath @".\Data\File\ReadOnly"
   )
   assert (actual.Equals expected == true)
   -- 全てのサブディレクトリ
   actual = ::TestValueStruct (testObj.GetDirectories fileDir "*" recursive:true)
   expected = ::TestValueStruct #(
-    pathUtility.GetFullPath @".\Data\File\FileStructure",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\foo.bar",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\Single",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Single",
-    pathUtility.GetFullPath @".\Data\File\Hidden",
-    pathUtility.GetFullPath @".\Data\File\ReadOnly"
+    getFullPath @".\Data\File\FileStructure",
+    getFullPath @".\Data\File\FileStructure\foo.bar",
+    getFullPath @".\Data\File\FileStructure\Recursive",
+    getFullPath @".\Data\File\FileStructure\Recursive\Single",
+    getFullPath @".\Data\File\FileStructure\Single",
+    getFullPath @".\Data\File\Hidden",
+    getFullPath @".\Data\File\ReadOnly"
   )
   assert (actual.Equals expected == true)
   -- ワイルドカード
   actual = ::TestValueStruct (testObj.GetDirectories fileDir @"*\Single*" recursive:true)
   expected = ::TestValueStruct #(
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\Single",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Single"
+    getFullPath @".\Data\File\FileStructure\Recursive\Single",
+    getFullPath @".\Data\File\FileStructure\Single"
   )
   assert (actual.Equals expected == true)
 
@@ -345,53 +357,53 @@
   -- 直下ディレクトリのみ
   actual = ::TestValueStruct (testObj.GetFiles fileDir "*")
   expected = ::TestValueStruct #(
-    pathUtility.GetFullPath @".\Data\File\2015.max",
-    pathUtility.GetFullPath @".\Data\File\2016.max",
-    pathUtility.GetFullPath @".\Data\File\2017.max",
-    pathUtility.GetFullPath @".\Data\File\2018.max",
-    pathUtility.GetFullPath @".\Data\File\hidden.txt",
-    pathUtility.GetFullPath @".\Data\File\readOnly.txt",
-    pathUtility.GetFullPath @".\Data\File\returnBooleanClass.ms",
-    pathUtility.GetFullPath @".\Data\File\returnInteger.ms",
-    pathUtility.GetFullPath @".\Data\File\returnString.ms"
+    getFullPath @".\Data\File\2015.max",
+    getFullPath @".\Data\File\2016.max",
+    getFullPath @".\Data\File\2017.max",
+    getFullPath @".\Data\File\2018.max",
+    getFullPath @".\Data\File\hidden.txt",
+    getFullPath @".\Data\File\readOnly.txt",
+    getFullPath @".\Data\File\returnBooleanClass.ms",
+    getFullPath @".\Data\File\returnInteger.ms",
+    getFullPath @".\Data\File\returnString.ms"
   )
   assert (actual.Equals expected == true)
   -- 全てのサブディレクトリ
   actual = ::TestValueStruct (testObj.GetFiles fileDir "*" recursive:true)
   expected = ::TestValueStruct #(
-    pathUtility.GetFullPath @".\Data\File\2015.max",
-    pathUtility.GetFullPath @".\Data\File\2016.max",
-    pathUtility.GetFullPath @".\Data\File\2017.max",
-    pathUtility.GetFullPath @".\Data\File\2018.max",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\foo.bar\foo.bar",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\Single\foo.bar",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\Single\StructA.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\Single\StructB.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\Single\testAttribute.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\Single\testRollout.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\StructA.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\StructB.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Single\foo.bar",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Single\StructA.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Single\StructB.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Single\testAttribute.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Single\testRollout.ms",
-    pathUtility.GetFullPath @".\Data\File\hidden.txt",
-    pathUtility.GetFullPath @".\Data\File\readOnly.txt",
-    pathUtility.GetFullPath @".\Data\File\returnBooleanClass.ms",
-    pathUtility.GetFullPath @".\Data\File\returnInteger.ms",
-    pathUtility.GetFullPath @".\Data\File\returnString.ms"
+    getFullPath @".\Data\File\2015.max",
+    getFullPath @".\Data\File\2016.max",
+    getFullPath @".\Data\File\2017.max",
+    getFullPath @".\Data\File\2018.max",
+    getFullPath @".\Data\File\FileStructure\foo.bar\foo.bar",
+    getFullPath @".\Data\File\FileStructure\Recursive\Single\foo.bar",
+    getFullPath @".\Data\File\FileStructure\Recursive\Single\StructA.ms",
+    getFullPath @".\Data\File\FileStructure\Recursive\Single\StructB.ms",
+    getFullPath @".\Data\File\FileStructure\Recursive\Single\testAttribute.ms",
+    getFullPath @".\Data\File\FileStructure\Recursive\Single\testRollout.ms",
+    getFullPath @".\Data\File\FileStructure\Recursive\StructA.ms",
+    getFullPath @".\Data\File\FileStructure\Recursive\StructB.ms",
+    getFullPath @".\Data\File\FileStructure\Single\foo.bar",
+    getFullPath @".\Data\File\FileStructure\Single\StructA.ms",
+    getFullPath @".\Data\File\FileStructure\Single\StructB.ms",
+    getFullPath @".\Data\File\FileStructure\Single\testAttribute.ms",
+    getFullPath @".\Data\File\FileStructure\Single\testRollout.ms",
+    getFullPath @".\Data\File\hidden.txt",
+    getFullPath @".\Data\File\readOnly.txt",
+    getFullPath @".\Data\File\returnBooleanClass.ms",
+    getFullPath @".\Data\File\returnInteger.ms",
+    getFullPath @".\Data\File\returnString.ms"
   )
   assert (actual.Equals expected == true)
   -- ワイルドカード
   actual = ::TestValueStruct (testObj.GetFiles fileDir @"*\Struct*.ms" recursive:true)
   expected = ::TestValueStruct #(
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\Single\StructA.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\Single\StructB.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\StructA.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\StructB.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Single\StructA.ms",
-    pathUtility.GetFullPath @".\Data\File\FileStructure\Single\StructB.ms"
+    getFullPath @".\Data\File\FileStructure\Recursive\Single\StructA.ms",
+    getFullPath @".\Data\File\FileStructure\Recursive\Single\StructB.ms",
+    getFullPath @".\Data\File\FileStructure\Recursive\StructA.ms",
+    getFullPath @".\Data\File\FileStructure\Recursive\StructB.ms",
+    getFullPath @".\Data\File\FileStructure\Single\StructA.ms",
+    getFullPath @".\Data\File\FileStructure\Single\StructB.ms"
   )
   assert (actual.Equals expected == true)
 
@@ -488,9 +500,9 @@
 
   /* MoveDirectory */
   -- ディレクトリ
-  sourceDir = pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\Test"
-  destDir = pathUtility.GetFullPath @".\Data\File\FileStructure\Single"
-  local resultDir = pathUtility.GetFullPath @".\Data\File\FileStructure\Single\Test"
+  sourceDir = getFullPath @".\Data\File\FileStructure\Recursive\Test"
+  destDir = getFullPath @".\Data\File\FileStructure\Single"
+  local resultDir = getFullPath @".\Data\File\FileStructure\Single\Test"
   -- ディレクトリ前処理
   assert (testTool.CreateDirectory sourceDir == true)
   -- ディレクトリ確認
@@ -502,8 +514,8 @@
   assert (testTool.DeleteDirectory resultDir == true)
 
   -- ファイル
-  destDir = pathUtility.GetFullPath @".\Data\File\FileStructure"
-  local resultFile = pathUtility.GetFullPath @".\Data\File\FileStructure\utf8n.txt"
+  destDir = getFullPath @".\Data\File\FileStructure"
+  local resultFile = getFullPath @".\Data\File\FileStructure\utf8n.txt"
   -- ファイル前処理
   assert (testTool.CreateUtf8nFile utf8nFile "" == true)
   -- ファイル確認
@@ -571,8 +583,8 @@
   assert (testTool.DeleteFile utf8nFile == true)
 
   /* RenameDirectory */
-  sourceDir = pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\Test"
-  destDir = pathUtility.GetFullPath @".\Data\File\FileStructure\Recursive\RenamedTest"
+  sourceDir = getFullPath @".\Data\File\FileStructure\Recursive\Test"
+  destDir = getFullPath @".\Data\File\FileStructure\Recursive\RenamedTest"
   -- 前処理
   assert (testTool.CreateDirectory sourceDir == true)
   -- 確認
@@ -584,7 +596,7 @@
   assert (testTool.DeleteDirectory destDir == true)
 
   /* RenameFile */
-  local utf8nRenamedFile = pathUtility.GetFullPath @".\Data\File\utf8nRenamed.txt"
+  local utf8nRenamedFile = getFullPath @".\Data\File\utf8nRenamed.txt"
   -- 拡張子有り前処理
   assert (testTool.CreateUtf8nFile utf8nFile "" == true)
   -- 拡張子有り確認

@@ -4,16 +4,26 @@
 @remarks エンコーディングは指定がない限りUTF-8（BOM無し）を使用する。
 */
 struct FileUtilityStruct (
+  /*- @prop <Struct:ComparerStruct> */
+  private comparer,
   /*- @prop <DotNetClass:System.IO.Directory> */
   private directoryClass = DotNetClass "System.IO.Directory",
   /*- @prop <DotNetClass:System.IO.DirectoryInfo> */
   private directoryInfoClass = DotNetClass "System.IO.DirectoryInfo",
+  /*- @prop <Struct:DotNetUtilityStruct> */
+  private dotNetUtility,
+  /*- @prop <StructDef:EncodingStruct> */
+  private encodingDef,
+  /*- @prop <StructDef:EnumStruct> */
+  private enumDef,
   /*- @prop <Struct:EnumStruct> `"System.IO.FileAttributes"`列挙型。 */
   private fileAttributesEnum,
   /*- @prop <DotNetClass:System.IO.File> */
   private fileClass = DotNetClass "System.IO.File",
   /*- @prop <Struct:PathUtilityStruct> */
   private pathUtility,
+  /*- @prop <StructDef:PathUtilityStruct> */
+  private pathUtilityDef,
   /*- @prop <Struct:EnumStruct> `"System.IO.SearchOption"`列挙型。 */
   private searchOptionEnum,
 
@@ -106,7 +116,7 @@ struct FileUtilityStruct (
   */
   public fn CreateTextFile path access:#Write encoding:"utf-8" bom:false = (
     local fs = this.fileClass.Create path
-    if ::std.DotNetUtility.IsInstanceOf "System.IO.FileStream" fs do (
+    if this.dotNetUtility.IsInstanceOf "System.IO.FileStream" fs do (
       fs.Close()
     )
     this.OpenTextFile path access:access encoding:encoding bom:bom
@@ -225,7 +235,7 @@ struct FileUtilityStruct (
   public fn GetDirectories path pattern recursive:false = (
     local option = this.createSearchOption recursive
     local dirs = this.directoryClass.GetDirectories path "*" option
-    qsort dirs ::std.Comparer.CompareStringLogical
+    qsort dirs this.comparer.CompareStringLogical
     for dir in dirs collect (
       if matchPattern dir pattern:pattern ignoreCase:true then (
         dir
@@ -254,7 +264,7 @@ struct FileUtilityStruct (
   public fn GetFiles path pattern recursive:false = (
     local option = this.createSearchOption recursive
     local files = this.directoryClass.GetFiles path "*" option
-    qsort files ::std.Comparer.CompareStringLogical
+    qsort files this.comparer.CompareStringLogical
     for file in files collect (
       if matchPattern file pattern:pattern ignoreCase:true then (
         file
@@ -612,9 +622,9 @@ struct FileUtilityStruct (
   @returns <Struct:Encoding>
   */
   private fn createEncoding encoding bom = (
-    local encodingObject = ::std.EncodingStruct encoding bom
+    local encodingObject = this.encodingDef encoding bom
     if not encodingObject.IsValidEncoding() do (
-      encodingObject = ::std.EncodingStruct()
+      encodingObject = this.encodingDef()
     )
     encodingObject
   ),
@@ -681,7 +691,7 @@ struct FileUtilityStruct (
   @returns <BooleanClass>
   */
   private fn isFileAttributesObject obj = (
-    ::std.DotNetUtility.IsInstanceOf "System.IO.FileAttributes" obj
+    this.dotNetUtility.IsInstanceOf "System.IO.FileAttributes" obj
   ),
 
   /*- @returns <Name> */
@@ -714,8 +724,14 @@ struct FileUtilityStruct (
   ),
 
   on Create do (
-    this.pathUtility = ::std.PathUtilityStruct (getSourceFileName())
-    this.fileAttributesEnum = ::std.EnumStruct "System.IO.FileAttributes"
-    this.searchOptionEnum = ::std.EnumStruct "System.IO.SearchOption"
+    this.comparer = (fileIn @"Comparer.ms")()
+    this.dotNetUtility = (fileIn @"DotNetUtility.ms")()
+    this.encodingDef = fileIn @"Encoding.ms"
+    this.enumDef = fileIn @"Enum.ms"
+    this.pathUtilityDef = fileIn @"PathUtility.ms"
+
+    this.pathUtility = this.pathUtilityDef (getSourceFileName())
+    this.fileAttributesEnum = this.enumDef "System.IO.FileAttributes"
+    this.searchOptionEnum = this.enumDef "System.IO.SearchOption"
   )
 )

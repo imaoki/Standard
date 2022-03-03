@@ -6,7 +6,9 @@
 @returns <OkClass>
 */
 global mxsDotNetTimerTickHandler = fn mxsDotNetTimerTickHandler sender event = (
-  if ::std.DotNetUtility.IsInstanceOf "System.Windows.Forms.Timer" sender do (
+  -- if ::std.DotNetUtility.IsInstanceOf "System.Windows.Forms.Timer" sender do (
+  if classOf sender == DotNetObject \
+      and (DotNet.GetType "System.Windows.Forms.Timer").IsInstanceOfType sender do (
     if classOf sender.Tag == DotNetMxsValue do (
       local timerObject = sender.Tag.Value
       if isStruct timerObject \
@@ -27,6 +29,8 @@ struct TimerStruct (
   /*- @prop <Point> 作成パラメータ1。`Tick`イベントの発生間隔（ミリ秒）。既定値は`100`。 */
   public _CP1_ = 100,
 
+  /*- @prop <Struct:DotNetUtilityStruct> */
+  private dotNetUtility,
   /*- @prop <Integer> `Tick`イベントが発生回数。既定値は`0`。 */
   private ticks = 0,
   /*- @prop <DotNetObject:System.Windows.Forms.Timer> */
@@ -175,7 +179,7 @@ struct TimerStruct (
     if isEqualProperties do (
       local ov = obj.GetTimer()
       local tv = this.GetTimer()
-      isEqualProperties = ::std.DotNetUtility.IsInstanceOf "System.Windows.Forms.Timer" ov \
+      isEqualProperties = this.dotNetUtility.IsInstanceOf "System.Windows.Forms.Timer" ov \
           and ov.Equals tv
     )
 
@@ -235,6 +239,7 @@ struct TimerStruct (
   ),
 
   on Create do (
+    this.dotNetUtility = (fileIn @"DotNetUtility.ms")()
     this.timer = DotNetObject "System.Windows.Forms.Timer"
     if classOf this._CP1_ == Integer do (
       this.SetInterval this._CP1_

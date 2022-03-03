@@ -5,8 +5,17 @@
   local nowTime = (DotNetClass "System.DateTime").Now.ToString "HH:mm:ss"
   local sw = DotNetObject "System.Diagnostics.Stopwatch"
 
+  local environmentClass = DotNetClass "System.Environment"
+  local pathClass = DotNetClass "System.IO.Path"
+
   local currentFile = getSourceFileName()
-  local pathUtility = ::std.PathUtilityStruct currentFile
+  local currentDir = pathClass.GetDirectoryName currentFile
+
+  local getFullPath
+  fn getFullPath path = (
+    environmentClass.CurrentDirectory = currentDir
+    pathClass.GetFullPath path
+  )
 
   local actual
   local expected
@@ -15,13 +24,37 @@
 
   format "[run %]@\"%\"\n" nowTime currentFile
   /* Setup Start ------------------------------------------------------------ */
+  local TestObserverStruct
+  struct TestObserverStruct (
+    public Callback,
+    public Context,
+
+    public fn StructName = #TestObserverStruct,
+
+    public fn Equals obj = (
+      local isEqualStructName = isStruct obj \
+          and isProperty obj #StructName \
+          and classOf obj.StructName == MAXScriptFunction \
+          and obj.StructName() == this.StructName()
+
+      local isEqualProperties = isProperty obj #Callback \
+          and isProperty obj #Context \
+          and obj.Callback == this.Callback \
+          and obj.Context == this.Context
+
+      isEqualStructName and isEqualProperties
+    ),
+
+    on Create do ()
+  )
+
   local expectedEnabled = false
   local expectedInterval = 100
   local expectedTicks = 0
 
   local updateObject
   fn updateObject context params type: = (
-    format "updateObject params:% type:%\n" params type
+    -- format "updateObject params:% type:%\n" params type
     for param in params do (
       case param of (
         (#Interval): (
@@ -64,10 +97,10 @@
     ok
   )
 
-  testDef = fileIn (pathUtility.GetFullPath @"..\Timer.ms")
+  testDef = fileIn (getFullPath @"..\Timer.ms")
   testObj = testDef()
 
-  testObj.AddObserver (::std.ObserverStruct updateObject testObj)
+  testObj.AddObserver (TestObserverStruct updateObject testObj)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */

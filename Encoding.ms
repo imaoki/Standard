@@ -23,12 +23,16 @@ struct EncodingStruct (
   private bitConverterClass = DotNetClass "System.BitConverter",
   /*- @prop <DotNetClass:System.Convert> */
   private convertClass = DotNetClass "System.Convert",
+  /*- @prop <Struct:DotNetUtilityStruct> */
+  private dotNetUtility,
   /*- @prop <DotNetClass:System.Text.Encoding> */
   private encodingClass = DotNetClass "System.Text.Encoding",
   /*- @prop <DotNetObject:System.Text.Encoding> */
   private encodingObject = DotNetObject "System.Text.UTF8Encoding" false,
   /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `^([a-fA-F0-9]{2})?(\-[a-fA-F0-9]{2})*$`に一致する正規表現オブジェクト。 */
   private hexStringRegex,
+  /*- @prop <Struct:StringUtilityStruct> */
+  private stringUtility,
 
   /*
   public fn DecodeHexString input = (),
@@ -181,7 +185,7 @@ struct EncodingStruct (
   @returns <BooleanClass>
   */
   private fn isEncodingSubclass obj = (
-    ::std.DotNetUtility.IsSubclassOf "System.Text.Encoding" obj
+    this.dotNetUtility.IsSubclassOf "System.Text.Encoding" obj
   ),
 
   /*-
@@ -204,7 +208,7 @@ struct EncodingStruct (
   public fn Dump indent:"" out:listener = (
     format "%EncodingStruct\n" indent to:out
 
-    local typeName = ::std.DotNetUtility.TypeOf this.encodingObject
+    local typeName = this.dotNetUtility.TypeOf this.encodingObject
     format "%  encodingObject:\"%\"\n" indent typeName to:out
 
     if this.IsValidEncoding() do (
@@ -232,7 +236,10 @@ struct EncodingStruct (
   ),
 
   on Create do (
-    this.hexStringRegex = ::std.StringUtility.CreateRegex "^([a-fA-F0-9]{2})?(\-[a-fA-F0-9]{2})*$"
+    this.dotNetUtility = (fileIn @"DotNetUtility.ms")()
+    this.stringUtility = (fileIn @"StringUtility.ms")()
+
+    this.hexStringRegex = this.stringUtility.CreateRegex "^([a-fA-F0-9]{2})?(\-[a-fA-F0-9]{2})*$"
 
     local encodingInfos = this.encodingClass.GetEncodings()
     this.allNames = for info in encodingInfos collect info.Name as Name
