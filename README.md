@@ -6,13 +6,25 @@
 
 `3ds Max 2022.3 Update`
 
-## スクリプトの実行とスタートアップへの登録
+## インストール
 
-`register.ms`を実行する。
+`install.ms`を実行する。
 
-## スタートアップから登録解除する
+## アンインストール
 
-`unregister.ms`を実行する。
+`uninstall.ms`を実行する。
+
+## スタンドアローン版
+
+### インストール
+
+`Distribution\Standard.min.ms`を実行する。
+
+### アンインストール
+
+```maxscript
+::std.Uninstall()
+```
 
 ## ライセンス
 
