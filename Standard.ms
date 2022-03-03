@@ -127,4 +127,3 @@ struct StandardStruct (
     this.FileUtility = (fileIn @"FileUtility.ms")()
   )
 )
-::StandardStruct
