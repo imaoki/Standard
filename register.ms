@@ -2,8 +2,8 @@
 (
   fileIn "Standard.ms"
 
-  if isProperty ::startupLoader "RegisterScript" do (
-    ::startupLoader.RegisterScript (getSourceFileName())
+  if isProperty ::startupLoader "RegisterFile" do (
+    ::startupLoader.RegisterFile (getSourceFileName())
   )
   ok
 )
