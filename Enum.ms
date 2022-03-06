@@ -1,4 +1,4 @@
-/*! © 2021 imaoki | MIT License | https://github.com/imaoki */
+/*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 .NETの[Enum](https://docs.microsoft.com/ja-jp/dotnet/api/system.enum?view=netframework-4.8)を`Name`値で操作するためのラッパー。
 */

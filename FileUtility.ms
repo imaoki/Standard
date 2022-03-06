@@ -1,4 +1,4 @@
-/*! © 2021 imaoki | MIT License | https://github.com/imaoki */
+/*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 一般的なファイルおよびディレクトリの操作に加えてスクリプトファイルやシーンファイルの操作を行うメソッドも提供する。
 @remarks エンコーディングは指定がない限りUTF-8（BOM無し）を使用する。

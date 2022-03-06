@@ -1,4 +1,4 @@
-/*! © 2021 imaoki | MIT License | https://github.com/imaoki */
+/*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 オブジェクトの状態が変化した際に通知を受け取る。
 */

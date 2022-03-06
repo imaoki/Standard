@@ -1,4 +1,4 @@
-/*! © 2021 imaoki | MIT License | https://github.com/imaoki */
+/*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 .NET用の追加メソッドを提供する。
 */

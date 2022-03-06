@@ -1,4 +1,4 @@
-/*! © 2021 imaoki | MIT License | https://github.com/imaoki */
+/*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 .NETの[Encoding](https://docs.microsoft.com/ja-jp/dotnet/api/system.text.encoding?view=netframework-4.8)のラッパー。
 */

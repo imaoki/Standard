@@ -1,4 +1,4 @@
-/*! © 2021 imaoki | MIT License | https://github.com/imaoki */
+/*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 (
   local hr = (DotNetObject "System.String" "\n").PadLeft 80 "-"
   local directoryClass = DotNetClass "System.IO.Directory"
