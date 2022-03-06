@@ -42,7 +42,7 @@ struct StandardStruct (
   */
   public fn Install = (
     ::StandardStruct()
-    if isProperty ::startupLoader "RegisterFile" do (
+    if isProperty ::startupLoader #RegisterFile do (
       ::startupLoader.RegisterFile (getSourceFileName()) installer:true
     )
     format "[install]::std\n"
@@ -55,7 +55,7 @@ struct StandardStruct (
   @remarks 静的メソッド。
   */
   public fn Uninstall = (
-    if isProperty ::startupLoader "UnregisterFile" do (
+    if isProperty ::startupLoader #UnregisterFile do (
       ::startupLoader.UnregisterFile (getSourceFileName())
     )
     ::std = undefined
