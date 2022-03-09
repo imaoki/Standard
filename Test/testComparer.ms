@@ -24,6 +24,7 @@
 
   format "[run %]@\"%\"\n" nowTime currentFile
   /* Setup Start ------------------------------------------------------------ */
+  local strings
   local v1
   local v2
 
@@ -57,7 +58,6 @@
   /* CompareProperty */
   v1 = DataPair Foo:"st1ring" Bar:10
   v2 = DataPair Foo:"st10ring" Bar:1
-
   actual = ::TestValueStruct (
     testObj.CompareProperty v1 v2 propName:#Foo
   )
@@ -73,9 +73,34 @@
   /* CompareStringLogical */
   v1 = "st1ring"
   v2 = "st10ring"
-
   actual = ::TestValueStruct (testObj.CompareStringLogical v1 v2)
   expected = ::TestValueStruct -1
+  assert (actual.Equals expected == true)
+  -- 配列
+  strings = #(
+    "20string",
+    "2string",
+    "3string",
+    "st20ring",
+    "st2ring",
+    "st3ring",
+    "string2",
+    "string20",
+    "string3"
+  )
+  qsort strings testObj.CompareStringLogical
+  actual = ::TestValueStruct strings
+  expected = ::TestValueStruct #(
+    "2string",
+    "3string",
+    "20string",
+    "st2ring",
+    "st3ring",
+    "st20ring",
+    "string2",
+    "string3",
+    "string20"
+  )
   assert (actual.Equals expected == true)
   /* Test End --------------------------------------------------------------- */
   sw.Stop()
