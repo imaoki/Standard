@@ -64,6 +64,9 @@ struct StandardStruct (
     ok
   ),
 
+  /*- @prop <String> バージョン番号。メジャー、マイナー、パッチの順。 */
+  private version = "1.0.0",
+
   /*- @returns <Name> */
   public fn StructName = #StandardStruct,
 
@@ -91,6 +94,13 @@ struct StandardStruct (
     local isEqualProperties = true
 
     isEqualStructName and isEqualProperties
+  ),
+
+  /*-
+  @returns <String>
+  */
+  public fn GetVersion = (
+    this.version
   ),
 
   on Create do (
