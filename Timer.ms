@@ -237,7 +237,7 @@ struct TimerStruct (
   ),
 
   on Create do (
-    this.dotNetUtility = (fileIn @"DotNetUtility.ms")()
+    this.dotNetUtility = (::standardDefinitionPool[@"DotNetUtility.ms"])()
     this.timer = DotNetObject "System.Windows.Forms.Timer"
     if classOf this._CP1_ == Integer do (
       this.SetInterval this._CP1_

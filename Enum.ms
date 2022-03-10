@@ -146,7 +146,7 @@ struct EnumStruct (
   ),
 
   on Create do (
-    this.dotNetUtility = (fileIn @"DotNetUtility.ms")()
+    this.dotNetUtility = (::standardDefinitionPool[@"DotNetUtility.ms"])()
     if classOf this._CP1_ == String do (
       this.enumClass = DotNetClass this._CP1_
       if not this.isEnumClass this.enumClass do (

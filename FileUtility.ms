@@ -724,11 +724,11 @@ struct FileUtilityStruct (
   ),
 
   on Create do (
-    this.comparer = (fileIn @"Comparer.ms")()
-    this.dotNetUtility = (fileIn @"DotNetUtility.ms")()
-    this.encodingDef = fileIn @"Encoding.ms"
-    this.enumDef = fileIn @"Enum.ms"
-    this.pathUtilityDef = fileIn @"PathUtility.ms"
+    this.comparer = (::standardDefinitionPool[@"Comparer.ms"])()
+    this.dotNetUtility = (::standardDefinitionPool[@"DotNetUtility.ms"])()
+    this.encodingDef = ::standardDefinitionPool[@"Encoding.ms"]
+    this.enumDef = ::standardDefinitionPool[@"Enum.ms"]
+    this.pathUtilityDef = ::standardDefinitionPool[@"PathUtility.ms"]
 
     this.pathUtility = this.pathUtilityDef (getSourceFileName())
     this.fileAttributesEnum = this.enumDef "System.IO.FileAttributes"

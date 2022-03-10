@@ -34,6 +34,7 @@
   local options
   local pattern
 
+  fileIn (getFullPath @"..\definitionPool.ms")
   testDef = fileIn (getFullPath @"..\StringUtility.ms")
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */

@@ -479,8 +479,8 @@ struct StringUtilityStruct (
   ),
 
   on Create do (
-    this.dotNetUtility = (fileIn @"DotNetUtility.ms")()
-    this.enumDef = fileIn @"Enum.ms"
+    this.dotNetUtility = (::standardDefinitionPool[@"DotNetUtility.ms"])()
+    this.enumDef = ::standardDefinitionPool[@"Enum.ms"]
 
     this.regexOptionsEnum = this.enumDef "System.Text.RegularExpressions.RegexOptions"
     this.stringSplitOptionsEnum = this.enumDef "System.StringSplitOptions"

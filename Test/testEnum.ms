@@ -33,6 +33,7 @@
   local readOnlyFileAttributes = fileClass.GetAttributes readOnlyFile
   local selfAttributes = fileClass.GetAttributes currentFile
 
+  fileIn (getFullPath @"..\definitionPool.ms")
   testDef = fileIn (getFullPath @"..\Enum.ms")
   testObj = testDef "System.IO.FileAttributes"
   /* Setup End -------------------------------------------------------------- */

@@ -236,8 +236,8 @@ struct EncodingStruct (
   ),
 
   on Create do (
-    this.dotNetUtility = (fileIn @"DotNetUtility.ms")()
-    this.stringUtility = (fileIn @"StringUtility.ms")()
+    this.dotNetUtility = (::standardDefinitionPool[@"DotNetUtility.ms"])()
+    this.stringUtility = (::standardDefinitionPool[@"StringUtility.ms"])()
 
     this.hexStringRegex = this.stringUtility.CreateRegex "^([a-fA-F0-9]{2})?(\-[a-fA-F0-9]{2})*$"
 

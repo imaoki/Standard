@@ -1,4 +1,5 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
+fileIn @"definitionPool.ms"
 /*- @var <Struct:StandardStruct> */
 global std
 /*-
@@ -95,28 +96,28 @@ struct StandardStruct (
   on Create do (
     ::std = this
     /* 依存無し */
-    this.AttributeUtility = (fileIn @"AttributeUtility.ms")()
-    this.Comparer = (fileIn @"Comparer.ms")()
-    this.DotNetUtility = (fileIn @"DotNetUtility.ms")()
-    this.EasingStruct = fileIn @"Easing.ms"
-    this.ObserverStruct = fileIn @"Observer.ms"
-    this.PathUtilityStruct = fileIn @"PathUtility.ms"
-    this.ViewportUtility = (fileIn @"ViewportUtility.ms")()
+    this.AttributeUtility = (::standardDefinitionPool[@"AttributeUtility.ms"])()
+    this.Comparer = (::standardDefinitionPool[@"Comparer.ms"])()
+    this.DotNetUtility = (::standardDefinitionPool[@"DotNetUtility.ms"])()
+    this.EasingStruct = ::standardDefinitionPool[@"Easing.ms"]
+    this.ObserverStruct = ::standardDefinitionPool[@"Observer.ms"]
+    this.PathUtilityStruct = ::standardDefinitionPool[@"PathUtility.ms"]
+    this.ViewportUtility = (::standardDefinitionPool[@"ViewportUtility.ms"])()
     /*
     DotNetUtility
     */
-    this.EnumStruct = fileIn @"Enum.ms"
-    this.TimerStruct = fileIn @"Timer.ms"
+    this.EnumStruct = ::standardDefinitionPool[@"Enum.ms"]
+    this.TimerStruct = ::standardDefinitionPool[@"Timer.ms"]
     /*
     DotNetUtility
     Enum
     */
-    this.StringUtility = (fileIn @"StringUtility.ms")()
+    this.StringUtility = (::standardDefinitionPool[@"StringUtility.ms"])()
     /*
     DotNetUtility
     StringUtility
     */
-    this.EncodingStruct = fileIn @"Encoding.ms"
+    this.EncodingStruct = ::standardDefinitionPool[@"Encoding.ms"]
     /*
     Comparer
     DotNetUtility
@@ -124,6 +125,6 @@ struct StandardStruct (
     Enum
     PathUtility
     */
-    this.FileUtility = (fileIn @"FileUtility.ms")()
+    this.FileUtility = (::standardDefinitionPool[@"FileUtility.ms"])()
   )
 )

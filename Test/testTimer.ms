@@ -97,6 +97,7 @@
     ok
   )
 
+  fileIn (getFullPath @"..\definitionPool.ms")
   testDef = fileIn (getFullPath @"..\Timer.ms")
   testObj = testDef()
 

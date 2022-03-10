@@ -139,6 +139,7 @@
   local sourceDir
   local sourceFile
 
+  fileIn (getFullPath @"..\definitionPool.ms")
   testDef = fileIn (getFullPath @"..\FileUtility.ms")
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */
