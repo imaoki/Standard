@@ -26,7 +26,7 @@
   /* Setup Start ------------------------------------------------------------ */
   local TestToolStruct = struct TestToolStruct (
     private directoryClass = DotNetClass "System.IO.Directory",
-    private dotNetUtility,
+    -- private dotNetUtility,
     private fileClass = DotNetClass "System.IO.File",
     private shiftJisObject = (DotNetClass "System.Text.Encoding").GetEncoding "shift_jis",
     private utf8nObject = DotNetObject "System.Text.UTF8Encoding" false,
@@ -74,7 +74,9 @@
     ),
 
     public fn IsDateTimeType obj = (
-      this.dotNetUtility.TypeOf obj == "System.DateTime"
+      -- this.dotNetUtility.TypeOf obj == "System.DateTime"
+      (classOf obj == DotNetClass or classOf obj == DotNetObject) \
+          and (DotNet.GetType obj).FullName == "System.DateTime"
     ),
 
     public fn NotFoobar element index context = (
@@ -104,7 +106,8 @@
     ),
 
     on Create do (
-      this.dotNetUtility = (fileIn (getFullPath @"..\DotNetUtility.ms"))()
+      -- fileIn (getFullPath @"..\definitionPool.ms")
+      -- this.dotNetUtility = (::standardDefinitionPool[@"DotNetUtility.ms"])()
     )
   )
   local testTool = TestToolStruct()
@@ -140,7 +143,7 @@
   local sourceFile
 
   fileIn (getFullPath @"..\definitionPool.ms")
-  testDef = fileIn (getFullPath @"..\FileUtility.ms")
+  testDef = ::standardDefinitionPool[@"FileUtility.ms"]
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */
   sw.Start()

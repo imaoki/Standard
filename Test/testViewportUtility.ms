@@ -53,7 +53,8 @@
   )
   while (getViewSize()).X < targetSizeX
 
-  testDef = fileIn (getFullPath @"..\ViewportUtility.ms")
+  fileIn (getFullPath @"..\definitionPool.ms")
+  testDef = ::standardDefinitionPool[@"ViewportUtility.ms"]
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */
   sw.Start()

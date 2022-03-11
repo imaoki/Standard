@@ -98,7 +98,7 @@
   )
 
   fileIn (getFullPath @"..\definitionPool.ms")
-  testDef = fileIn (getFullPath @"..\Timer.ms")
+  testDef = ::standardDefinitionPool[@"Timer.ms"]
   testObj = testDef()
 
   testObj.AddObserver (TestObserverStruct updateObject testObj)

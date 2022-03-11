@@ -28,7 +28,8 @@
   local v1
   local v2
 
-  testDef = fileIn (getFullPath @"..\Comparer.ms")
+  fileIn (getFullPath @"..\definitionPool.ms")
+  testDef = ::standardDefinitionPool[@"Comparer.ms"]
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */
   sw.Start()

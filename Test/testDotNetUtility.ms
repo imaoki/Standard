@@ -28,7 +28,8 @@
   local utf8Object = DotNetObject "System.Text.UTF8Encoding" false
   local shiftJisObject = (DotNetClass "System.Text.Encoding").GetEncoding "shift_jis"
 
-  testDef = fileIn (getFullPath @"..\DotNetUtility.ms")
+  fileIn (getFullPath @"..\definitionPool.ms")
+  testDef = ::standardDefinitionPool[@"DotNetUtility.ms"]
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */
   sw.Start()

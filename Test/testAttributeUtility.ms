@@ -41,7 +41,8 @@
   CustAttributes.Add n1 fooDef baseObject:true
   CustAttributes.Add n1 barDef baseObject:true
 
-  testDef = fileIn (getFullPath @"..\AttributeUtility.ms")
+  fileIn (getFullPath @"..\definitionPool.ms")
+  testDef = ::standardDefinitionPool[@"AttributeUtility.ms"]
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */
   sw.Start()

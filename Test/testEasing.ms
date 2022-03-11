@@ -24,7 +24,8 @@
 
   format "[run %]@\"%\"\n" nowTime currentFile
   /* Setup Start ------------------------------------------------------------ */
-  testDef = fileIn (getFullPath @"..\Easing.ms")
+  fileIn (getFullPath @"..\definitionPool.ms")
+  testDef = ::standardDefinitionPool[@"Easing.ms"]
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */
   sw.Start()

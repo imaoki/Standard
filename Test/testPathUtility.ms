@@ -42,7 +42,8 @@
     DotNetObject regexClass pattern regexOptions
   )
 
-  testDef = fileIn (getFullPath @"..\PathUtility.ms")
+  fileIn (getFullPath @"..\definitionPool.ms")
+  testDef = ::standardDefinitionPool[@"PathUtility.ms"]
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */
   sw.Start()

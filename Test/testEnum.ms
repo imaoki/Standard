@@ -34,7 +34,7 @@
   local selfAttributes = fileClass.GetAttributes currentFile
 
   fileIn (getFullPath @"..\definitionPool.ms")
-  testDef = fileIn (getFullPath @"..\Enum.ms")
+  testDef = ::standardDefinitionPool[@"Enum.ms"]
   testObj = testDef "System.IO.FileAttributes"
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
