@@ -12,7 +12,7 @@ struct StringUtilityStruct (
   /*- @prop <Struct:EnumStruct> `"System.StringSplitOptions"`列挙型。 */
   private stringSplitOptionsEnum,
 
-  /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `\`に一致する正規表現オブジェクト。 */
+  /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `\\\\`に一致する正規表現オブジェクト。 */
   private backslashRegex,
   /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `(?<=\b)\w|(?<=[a-z])[A-Z]|(?<=[0-9_])[a-z]`に一致する正規表現オブジェクト。 */
   private camelRegex,
@@ -22,7 +22,7 @@ struct StringUtilityStruct (
   private crRegex,
   /*- @prop <Struct:DotNetUtilityStruct> */
   private dotNetUtility,
-  /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `\"`に一致する正規表現オブジェクト。 */
+  /*- @prop <DotNetObject:System.Text.RegularExpressions.Regex> `\\\"`に一致する正規表現オブジェクト。 */
   private doubleQuoteRegex,
   /*- @prop <StructDef:EnumStruct> */
   private enumDef,
@@ -383,10 +383,8 @@ struct StringUtilityStruct (
           v2Value = "\"" + v2Value + "\""
         )
         if isExplicitPropNames do (
-          local v1Name = this.ToPascalCase propNames[3]
-          local v2Name = this.ToPascalCase propNames[4]
-          v1Name = (DotNetObject "System.String" v1Name).TrimStart "#"
-          v2Name = (DotNetObject "System.String" v2Name).TrimStart "#"
+          local v1Name = this.TrimStart (this.ToPascalCase propNames[3]) "#"
+          local v2Name = this.TrimStart (this.ToPascalCase propNames[4]) "#"
           v1Value = v1Name + ":" + v1Value
           v2Value = v2Name + ":" + v2Value
         )
