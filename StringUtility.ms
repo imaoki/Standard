@@ -390,6 +390,20 @@ struct StringUtilityStruct (
         )
         result = "DataPair " + v1Value + " " + v2Value
       )
+      (Dictionary): (
+        result = "Dictionary " + (this.ToPascalCase input.Type)
+        for key in input.Keys do (
+          local keyText = this.ToPascalCase key
+          local valueText = this.ToPascalCase input[key]
+          if classOf key == String do (
+            keyText = "\"" + keyText + "\""
+          )
+          if classOf input[key] == String do (
+            valueText = "\"" + valueText + "\""
+          )
+          result += " #(" + keyText + ", " + valueText + ")"
+        )
+      )
       (OkClass): result = toLower (input as String)
       (UndefinedClass): result = toLower (input as String)
       (UnsuppliedClass): result = toLower (input as String)
