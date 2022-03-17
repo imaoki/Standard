@@ -266,65 +266,123 @@
   assert (actual.Equals expected == true)
 
   /* ToPascalCase */
-  -- Stringの境界が大文字小文字
+  -- 境界テスト（大文字小文字）
   actual = ::TestValueStruct (testObj.ToPascalCase "fooBarHoge")
   expected = ::TestValueStruct "FooBarHoge"
   assert (actual.Equals expected == true)
-  -- Stringの境界が空白
+  -- 境界テスト（空白）
   actual = ::TestValueStruct (testObj.ToPascalCase "foo bar hoge")
   expected = ::TestValueStruct "Foo Bar Hoge"
   assert (actual.Equals expected == true)
-  -- Stringの境界が数字
+  -- 境界テスト（数字）
   actual = ::TestValueStruct (testObj.ToPascalCase "foo123bar")
   expected = ::TestValueStruct "Foo123Bar"
   assert (actual.Equals expected == true)
-  -- スネークケース
+  -- 境界テスト（スネークケース）
   actual = ::TestValueStruct (testObj.ToPascalCase "foo_bar")
   expected = ::TestValueStruct "Foo_Bar"
   assert (actual.Equals expected == true)
-  -- チェインケース
+  -- 境界テスト（チェインケース）
   actual = ::TestValueStruct (testObj.ToPascalCase "foo-bar")
   expected = ::TestValueStruct "Foo-Bar"
   assert (actual.Equals expected == true)
-  -- Nameの境界が数字
+  -- 境界テスト（Name値の数字）
   actual = ::TestValueStruct (testObj.ToPascalCase #foo123bar)
   expected = ::TestValueStruct "#Foo123Bar"
   assert (actual.Equals expected == true)
-  -- Nameの境界が空白
+  -- 境界テスト（Name値の空白）
   actual = ::TestValueStruct (testObj.ToPascalCase #'foo bar')
   expected = ::TestValueStruct "#'Foo Bar'"
   assert (actual.Equals expected == true)
-  -- Integer
-  actual = ::TestValueStruct (testObj.ToPascalCase 0)
-  expected = ::TestValueStruct "0"
+  -- AngleAxis
+  actual = ::TestValueStruct (testObj.ToPascalCase (AngleAxis 0 [0, 0, 1]))
+  expected = ::TestValueStruct "(AngleAxis 0 [0, 0, 1])"
+  assert (actual.Equals expected == true)
+  -- Array
+  actual = ::TestValueStruct (testObj.ToPascalCase #("foo", #fooBar))
+  expected = ::TestValueStruct "#(\"Foo\", #FooBar)"
+  assert (actual.Equals expected == true)
+  -- BigMatrix
+  actual = ::TestValueStruct (testObj.ToPascalCase (BigMatrix 2 3))
+  expected = ::TestValueStruct "#BigMatrix([0.0, 0.0, 0.0], [0.0, 0.0, 0.0])"
+  assert (actual.Equals expected == true)
+  -- BitArray
+  actual = ::TestValueStruct (testObj.ToPascalCase #{1..3, 5})
+  expected = ::TestValueStruct "#{1..3, 5}"
+  assert (actual.Equals expected == true)
+  -- BooleanClass（true）
+  actual = ::TestValueStruct (testObj.ToPascalCase true)
+  expected = ::TestValueStruct "true"
+  assert (actual.Equals expected == true)
+  -- BooleanClass（false）
+  actual = ::TestValueStruct (testObj.ToPascalCase false)
+  expected = ::TestValueStruct "false"
+  assert (actual.Equals expected == true)
+  -- Box2
+  actual = ::TestValueStruct (testObj.ToPascalCase (Box2 0 5 10 20))
+  expected = ::TestValueStruct "(Box2 0 5 10 20)"
+  assert (actual.Equals expected == true)
+  -- Box3
+  actual = ::TestValueStruct (testObj.ToPascalCase (Box3 [0, 0, 0] [5, 5, 5]))
+  expected = ::TestValueStruct "(Box3 [0, 0, 0] [5, 5, 5])"
+  assert (actual.Equals expected == true)
+  -- Color
+  actual = ::TestValueStruct (testObj.ToPascalCase (Color 0 5 10))
+  expected = ::TestValueStruct "(Color 0 5 10)"
+  assert (actual.Equals expected == true)
+  -- DataPair（名前未指定）
+  actual = ::TestValueStruct (testObj.ToPascalCase (DataPair 0 1))
+  expected = ::TestValueStruct "(DataPair 0 1)"
+  assert (actual.Equals expected == true)
+  -- DataPair（名前指定）
+  actual = ::TestValueStruct (
+    testObj.ToPascalCase (DataPair Name:"foo" Value:#fooBar)
+  )
+  expected = ::TestValueStruct "(DataPair Name:\"Foo\" Value:#FooBar)"
+  assert (actual.Equals expected == true)
+  -- Dictionary（Integer）
+  actual = ::TestValueStruct (
+    testObj.ToPascalCase (Dictionary #Integer #(1, #Foo) #(2, "Bar"))
+  )
+  expected = ::TestValueStruct "(Dictionary #Integer #(1, #Foo) #(2, \"Bar\"))"
+  assert (actual.Equals expected == true)
+  -- Dictionary（Name）
+  actual = ::TestValueStruct (
+    testObj.ToPascalCase (Dictionary #Name #(#Aaa, 1) #(#Bbb, 2))
+  )
+  expected = ::TestValueStruct "(Dictionary #Name #(#Aaa, 1) #(#Bbb, 2))"
+  assert (actual.Equals expected == true)
+  -- Dictionary（String）
+  actual = ::TestValueStruct (
+    testObj.ToPascalCase (Dictionary #String #("Aaa", 1) #("Bbb", 2))
+  )
+  expected = ::TestValueStruct "(Dictionary #String #(\"Aaa\", 1) #(\"Bbb\", 2))"
+  assert (actual.Equals expected == true)
+  -- EulerAngles
+  actual = ::TestValueStruct (testObj.ToPascalCase (EulerAngles 0 0 0))
+  expected = ::TestValueStruct "(EulerAngles 0 0 0)"
   assert (actual.Equals expected == true)
   -- Float
   actual = ::TestValueStruct (testObj.ToPascalCase 0.0)
   expected = ::TestValueStruct "0.0"
   assert (actual.Equals expected == true)
-  -- BooleanClass（特殊型は小文字化）
-  actual = ::TestValueStruct (testObj.ToPascalCase true)
-  expected = ::TestValueStruct "true"
+  -- Integer
+  actual = ::TestValueStruct (testObj.ToPascalCase 0)
+  expected = ::TestValueStruct "0"
   assert (actual.Equals expected == true)
-  -- BooleanClass（特殊型は小文字化）
-  actual = ::TestValueStruct (testObj.ToPascalCase false)
-  expected = ::TestValueStruct "false"
+  -- Interval（整数指定）
+  actual = ::TestValueStruct (testObj.ToPascalCase (Interval 0 10))
+  expected = ::TestValueStruct "(Interval 0f 10f)"
   assert (actual.Equals expected == true)
-  -- OkClass（特殊型は小文字化）
-  actual = ::TestValueStruct (testObj.ToPascalCase ok)
-  expected = ::TestValueStruct "ok"
+  -- Interval（Time値指定）
+  actual = ::TestValueStruct (testObj.ToPascalCase (Interval 0f 10f))
+  expected = ::TestValueStruct "(Interval 0f 10f)"
   assert (actual.Equals expected == true)
-  -- UndefinedClass（特殊型は小文字化）
-  actual = ::TestValueStruct (testObj.ToPascalCase undefined)
-  expected = ::TestValueStruct "undefined"
-  assert (actual.Equals expected == true)
-  -- UnsuppliedClass（特殊型は小文字化）
-  actual = ::TestValueStruct (testObj.ToPascalCase unsupplied)
-  expected = ::TestValueStruct "unsupplied"
-  assert (actual.Equals expected == true)
-  -- String
-  actual = ::TestValueStruct (testObj.ToPascalCase "fooBar")
-  expected = ::TestValueStruct "FooBar"
+  -- Matrix3
+  actual = ::TestValueStruct (testObj.ToPascalCase (Matrix3 1))
+  expected = ::TestValueStruct (
+    "(Matrix3 [1, 0, 0] [0, 1, 0] [0, 0, 1] [0, 0, 0])"
+  )
   assert (actual.Equals expected == true)
   -- Name
   actual = ::TestValueStruct (testObj.ToPascalCase #fooBar)
@@ -333,6 +391,10 @@
   -- Name（引用符）
   actual = ::TestValueStruct (testObj.ToPascalCase ("#fooBar" as Name))
   expected = ::TestValueStruct "#'#FooBar'"
+  assert (actual.Equals expected == true)
+  -- OkClass
+  actual = ::TestValueStruct (testObj.ToPascalCase ok)
+  expected = ::TestValueStruct "ok"
   assert (actual.Equals expected == true)
   -- Point2
   actual = ::TestValueStruct (testObj.ToPascalCase [0, 0])
@@ -346,67 +408,45 @@
   actual = ::TestValueStruct (testObj.ToPascalCase [0, 0, 0, 0])
   expected = ::TestValueStruct "[0, 0, 0, 0]"
   assert (actual.Equals expected == true)
-  -- Matrix3
-  actual = ::TestValueStruct (testObj.ToPascalCase (Matrix3 1))
-  expected = ::TestValueStruct (
-    "(Matrix3 [1, 0, 0] [0, 1, 0] [0, 0, 1] [0, 0, 0])"
-  )
-  assert (actual.Equals expected == true)
   -- Quat
   actual = ::TestValueStruct (testObj.ToPascalCase (Quat 1))
   expected = ::TestValueStruct "(Quat 0 0 0 1)"
   assert (actual.Equals expected == true)
-  -- EulerAngles
-  actual = ::TestValueStruct (testObj.ToPascalCase (EulerAngles 0 0 0))
-  expected = ::TestValueStruct "(EulerAngles 0 0 0)"
-  assert (actual.Equals expected == true)
-  -- AngleAxis
-  actual = ::TestValueStruct (
-    testObj.ToPascalCase (AngleAxis 0 [0, 0, 1])
-  )
-  expected = ::TestValueStruct "(AngleAxis 0 [0, 0, 1])"
-  assert (actual.Equals expected == true)
   -- Ray
-  actual = ::TestValueStruct (
-    testObj.ToPascalCase (Ray [0, 0, 0] [0, 0, 1])
-  )
+  actual = ::TestValueStruct (testObj.ToPascalCase (Ray [0, 0, 0] [0, 0, 1]))
   expected = ::TestValueStruct "(Ray [0, 0, 0] [0, 0, 1])"
   assert (actual.Equals expected == true)
-  -- BitArray
-  actual = ::TestValueStruct (testObj.ToPascalCase #{1..3, 5})
-  expected = ::TestValueStruct "#{1..3, 5}"
+  -- String
+  actual = ::TestValueStruct (testObj.ToPascalCase "fooBar")
+  expected = ::TestValueStruct "FooBar"
   assert (actual.Equals expected == true)
-  -- Array
-  actual = ::TestValueStruct (testObj.ToPascalCase #("foo", #fooBar))
-  expected = ::TestValueStruct "#(\"Foo\", #FooBar)"
+  -- StringStream
+  actual = ::TestValueStruct (testObj.ToPascalCase (StringStream "fooBar"))
+  expected = ::TestValueStruct "(StringStream \"FooBar\")"
   assert (actual.Equals expected == true)
-  -- DataPair（Integer）
-  actual = ::TestValueStruct (testObj.ToPascalCase (DataPair 0 1))
-  expected = ::TestValueStruct "DataPair 0 1"
+  -- Time（秒）
+  actual = ::TestValueStruct (testObj.ToPascalCase 1m)
+  expected = ::TestValueStruct "1800f"
   assert (actual.Equals expected == true)
-  -- DataPair（StringとName）
-  actual = ::TestValueStruct (
-    testObj.ToPascalCase (DataPair Name:"foo" Value:#fooBar)
-  )
-  expected = ::TestValueStruct "DataPair Name:\"Foo\" Value:#FooBar"
+  -- Time（分）
+  actual = ::TestValueStruct (testObj.ToPascalCase 1s)
+  expected = ::TestValueStruct "30f"
   assert (actual.Equals expected == true)
-  -- Dictionary（Integer）
-  actual = ::TestValueStruct (
-    testObj.ToPascalCase (Dictionary #Integer #(1, #Foo) #(2, "Bar"))
-  )
-  expected = ::TestValueStruct "Dictionary #Integer #(1, #Foo) #(2, \"Bar\")"
+  -- Time（ティック）
+  actual = ::TestValueStruct (testObj.ToPascalCase 1t)
+  expected = ::TestValueStruct "0.00625f"
   assert (actual.Equals expected == true)
-  -- Dictionary（Name）
-  actual = ::TestValueStruct (
-    testObj.ToPascalCase (Dictionary #Name #(#Foo, 1) #(#Bar, 2))
-  )
-  expected = ::TestValueStruct "Dictionary #Name #(#Foo, 1) #(#Bar, 2)"
+  -- Time（フレーム）
+  actual = ::TestValueStruct (testObj.ToPascalCase 1f)
+  expected = ::TestValueStruct "1f"
   assert (actual.Equals expected == true)
-  -- Dictionary（String）
-  actual = ::TestValueStruct (
-    testObj.ToPascalCase (Dictionary #String #("Foo", 1) #("Bar", 2))
-  )
-  expected = ::TestValueStruct "Dictionary #String #(\"Foo\", 1) #(\"Bar\", 2)"
+  -- UndefinedClass
+  actual = ::TestValueStruct (testObj.ToPascalCase undefined)
+  expected = ::TestValueStruct "undefined"
+  assert (actual.Equals expected == true)
+  -- UnsuppliedClass
+  actual = ::TestValueStruct (testObj.ToPascalCase unsupplied)
+  expected = ::TestValueStruct "unsupplied"
   assert (actual.Equals expected == true)
 
   /* Trim */

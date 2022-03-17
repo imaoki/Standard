@@ -359,14 +359,25 @@ struct StringUtilityStruct (
       (Array): (
         result = "#("
         for i = 1 to input.Count do (
-          if i > 1 do (
-            result += ", "
-          )
+          if i > 1 do result += ", "
           local elementValue = this.ToPascalCase input[i]
           if classOf input[i] == String do (
             elementValue = "\"" + elementValue + "\""
           )
           result += elementValue
+        )
+        result += ")"
+      )
+      (BigMatrix): (
+        result = "#BigMatrix("
+        for i = 1 to input.Rows do (
+          if i > 1 do result += ", "
+          result += "["
+          for j = 1 to input.Columns do (
+            if j > 1 do result += ", "
+            result += input[i][j] as String
+          )
+          result += "]"
         )
         result += ")"
       )
@@ -388,10 +399,10 @@ struct StringUtilityStruct (
           v1Value = v1Name + ":" + v1Value
           v2Value = v2Name + ":" + v2Value
         )
-        result = "DataPair " + v1Value + " " + v2Value
+        result = "(DataPair " + v1Value + " " + v2Value + ")"
       )
       (Dictionary): (
-        result = "Dictionary " + (this.ToPascalCase input.Type)
+        result = "(Dictionary " + (this.ToPascalCase input.Type)
         for key in input.Keys do (
           local keyText = this.ToPascalCase key
           local valueText = this.ToPascalCase input[key]
@@ -403,8 +414,19 @@ struct StringUtilityStruct (
           )
           result += " #(" + keyText + ", " + valueText + ")"
         )
+        result += ")"
+      )
+      (Interval): (
+        result = "(Interval"
+        result += " " + toLower (input.Start as String)
+        result += " " + toLower (input.End as String)
+        result += ")"
       )
       (OkClass): result = toLower (input as String)
+      (StringStream): (
+        result = "(StringStream \"" + this.ToPascalCase (input as String) + "\")"
+      )
+      (Time): result = toLower (input as String)
       (UndefinedClass): result = toLower (input as String)
       (UnsuppliedClass): result = toLower (input as String)
       default: (
