@@ -52,6 +52,7 @@ struct StringUtilityStruct (
   public fn Join input separator:"" = (),
   public fn PadLeft input width char = (),
   public fn PadRight input width char = (),
+  public fn Serialize input = (),
   public fn Split input separator removeEmpty:true = (),
   public fn SplitByLF input = (),
   public fn ToCharArray input = (),
@@ -281,6 +282,82 @@ struct StringUtilityStruct (
   ),
 
   /*-
+  値をシリアライズする。
+  @param input <Any>
+  @returns <String>
+  */
+  public fn Serialize input = (
+    local result = ""
+    case classOf input of (
+      (Array): (
+        result = "#("
+        for i = 1 to input.Count do (
+          if i > 1 do result += ", "
+          result += this.Serialize input[i]
+        )
+        result += ")"
+      )
+      (BigMatrix): (
+        local rows = input.Rows as Integer
+        local cols = input.Columns as Integer
+        result = "(local _ = BigMatrix " + rows as String + " " + cols as String
+        for i = 1 to rows do (
+          for j = 1 to cols do (
+            result += ";_[" + i as String + "][" + j as String + "] = "
+            result += this.Serialize input[i][j]
+          )
+        )
+        result += ";_)"
+      )
+      -- (BooleanClass): result = toLower (input as String)
+      (DataPair): (
+        local propNames = getPropNames input
+        local isExplicitPropNames = propNames.Count == 4
+        local v1Value = this.Serialize input.V1
+        local v2Value = this.Serialize input.V2
+        if isExplicitPropNames do (
+          local v1Name = this.TrimStart (this.ToPascalCase propNames[3]) "#"
+          local v2Name = this.TrimStart (this.ToPascalCase propNames[4]) "#"
+          v1Value = v1Name + ":" + v1Value
+          v2Value = v2Name + ":" + v2Value
+        )
+        result = "(DataPair " + v1Value + " " + v2Value + ")"
+      )
+      (Dictionary): (
+        result = "(Dictionary " + this.Serialize input.Type
+        for key in input.Keys do (
+          local keyText = this.Serialize key
+          local valueText = this.Serialize input[key]
+          result += " #(" + keyText + ", " + valueText + ")"
+        )
+        result += ")"
+      )
+      (Float): result += formattedPrint input format:"f"
+      -- (Interval): (
+      --   result = "(Interval"
+      --   result += " " + toLower (input.Start as String)
+      --   result += " " + toLower (input.End as String)
+      --   result += ")"
+      -- )
+      -- (Name): result = this.ToPascalCase input
+      -- (OkClass): result = toLower (input as String)
+      (String): result = "\"" + this.EscapeBackslash input + "\""
+      (StringStream): (
+        result = "(StringStream " + this.Serialize (input as String) + ")"
+      )
+      -- (Time): result = toLower (input as String)
+      -- (UndefinedClass): result = toLower (input as String)
+      -- (UnsuppliedClass): result = toLower (input as String)
+      default : result = this.ToPascalCase input
+    )
+    if not (classOf input == Name or classOf input == String) \
+        and this.commaRegex.IsMatch result do (
+      result = this.commaRegex.Replace result ", "
+    )
+    result
+  ),
+
+  /*-
   文字列を部分文字列に分割する。
   @param input <String>
   @param separator <String|Array[<String>]>
@@ -402,7 +479,7 @@ struct StringUtilityStruct (
         result = "(DataPair " + v1Value + " " + v2Value + ")"
       )
       (Dictionary): (
-        result = "(Dictionary " + (this.ToPascalCase input.Type)
+        result = "(Dictionary " + this.ToPascalCase input.Type
         for key in input.Keys do (
           local keyText = this.ToPascalCase key
           local valueText = this.ToPascalCase input[key]
@@ -447,7 +524,7 @@ struct StringUtilityStruct (
         )
       )
     )
-    if not (classOf input == Name and classOf input == String) \
+    if not (classOf input == Name or classOf input == String) \
         and this.commaRegex.IsMatch result do (
       result = this.commaRegex.Replace result ", "
     )

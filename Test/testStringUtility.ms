@@ -227,6 +227,162 @@
   expected = ::TestValueStruct "foo-------"
   assert (actual.Equals expected == true)
 
+  /* Serialize */
+  -- AngleAxis
+  actual = ::TestValueStruct (testObj.Serialize (AngleAxis 0 [0, 0, 1]))
+  expected = ::TestValueStruct "(AngleAxis 0 [0, 0, 1])"
+  assert (actual.Equals expected == true)
+  -- Array
+  actual = ::TestValueStruct (testObj.Serialize #("foo", #fooBar))
+  expected = ::TestValueStruct "#(\"foo\", #FooBar)"
+  assert (actual.Equals expected == true)
+  -- BigMatrix
+  actual = ::TestValueStruct (testObj.Serialize (BigMatrix 2 3))
+  expected = ::TestValueStruct "(local _ = BigMatrix 2 3;_[1][1] = 0.000000;_[1][2] = 0.000000;_[1][3] = 0.000000;_[2][1] = 0.000000;_[2][2] = 0.000000;_[2][3] = 0.000000;_)"
+  assert (actual.Equals expected == true)
+  -- BitArray
+  actual = ::TestValueStruct (testObj.Serialize #{1..3, 5})
+  expected = ::TestValueStruct "#{1..3, 5}"
+  assert (actual.Equals expected == true)
+  -- BooleanClass（true）
+  actual = ::TestValueStruct (testObj.Serialize true)
+  expected = ::TestValueStruct "true"
+  assert (actual.Equals expected == true)
+  -- BooleanClass（false）
+  actual = ::TestValueStruct (testObj.Serialize false)
+  expected = ::TestValueStruct "false"
+  assert (actual.Equals expected == true)
+  -- Box2
+  actual = ::TestValueStruct (testObj.Serialize (Box2 0 5 10 20))
+  expected = ::TestValueStruct "(Box2 0 5 10 20)"
+  assert (actual.Equals expected == true)
+  -- Box3
+  actual = ::TestValueStruct (testObj.Serialize (Box3 [0, 0, 0] [5, 5, 5]))
+  expected = ::TestValueStruct "(Box3 [0, 0, 0] [5, 5, 5])"
+  assert (actual.Equals expected == true)
+  -- Color
+  actual = ::TestValueStruct (testObj.Serialize (Color 0 5 10))
+  expected = ::TestValueStruct "(Color 0 5 10)"
+  assert (actual.Equals expected == true)
+  -- DataPair（名前未指定）
+  actual = ::TestValueStruct (testObj.Serialize (DataPair 0 1))
+  expected = ::TestValueStruct "(DataPair 0 1)"
+  assert (actual.Equals expected == true)
+  -- DataPair（名前指定）
+  actual = ::TestValueStruct (
+    testObj.Serialize (DataPair Name:"foo" Value:#fooBar)
+  )
+  expected = ::TestValueStruct "(DataPair Name:\"foo\" Value:#FooBar)"
+  assert (actual.Equals expected == true)
+  -- Dictionary（Integer）
+  actual = ::TestValueStruct (
+    testObj.Serialize (Dictionary #Integer #(1, #Foo) #(2, "Bar"))
+  )
+  expected = ::TestValueStruct "(Dictionary #Integer #(1, #Foo) #(2, \"Bar\"))"
+  assert (actual.Equals expected == true)
+  -- Dictionary（Name）
+  actual = ::TestValueStruct (
+    testObj.Serialize (Dictionary #Name #(#Aaa, 1) #(#Bbb, 2))
+  )
+  expected = ::TestValueStruct "(Dictionary #Name #(#Aaa, 1) #(#Bbb, 2))"
+  assert (actual.Equals expected == true)
+  -- Dictionary（String）
+  actual = ::TestValueStruct (
+    testObj.Serialize (Dictionary #String #("Aaa", 1) #("Bbb", 2))
+  )
+  expected = ::TestValueStruct "(Dictionary #String #(\"Aaa\", 1) #(\"Bbb\", 2))"
+  assert (actual.Equals expected == true)
+  -- EulerAngles
+  actual = ::TestValueStruct (testObj.Serialize (EulerAngles 0 0 0))
+  expected = ::TestValueStruct "(EulerAngles 0 0 0)"
+  assert (actual.Equals expected == true)
+  -- Float
+  actual = ::TestValueStruct (testObj.Serialize 0.0)
+  expected = ::TestValueStruct "0.000000"
+  assert (actual.Equals expected == true)
+  -- Integer
+  actual = ::TestValueStruct (testObj.Serialize 0)
+  expected = ::TestValueStruct "0"
+  assert (actual.Equals expected == true)
+  -- Interval（整数指定）
+  actual = ::TestValueStruct (testObj.Serialize (Interval 0 10))
+  expected = ::TestValueStruct "(Interval 0f 10f)"
+  assert (actual.Equals expected == true)
+  -- Interval（Time値指定）
+  actual = ::TestValueStruct (testObj.Serialize (Interval 0f 10f))
+  expected = ::TestValueStruct "(Interval 0f 10f)"
+  assert (actual.Equals expected == true)
+  -- Matrix3
+  actual = ::TestValueStruct (testObj.Serialize (Matrix3 1))
+  expected = ::TestValueStruct (
+    "(Matrix3 [1, 0, 0] [0, 1, 0] [0, 0, 1] [0, 0, 0])"
+  )
+  assert (actual.Equals expected == true)
+  -- Name
+  actual = ::TestValueStruct (testObj.Serialize #fooBar)
+  expected = ::TestValueStruct "#FooBar"
+  assert (actual.Equals expected == true)
+  -- Name（引用符）
+  actual = ::TestValueStruct (testObj.Serialize ("#fooBar" as Name))
+  expected = ::TestValueStruct "#'#FooBar'"
+  assert (actual.Equals expected == true)
+  -- OkClass
+  actual = ::TestValueStruct (testObj.Serialize ok)
+  expected = ::TestValueStruct "ok"
+  assert (actual.Equals expected == true)
+  -- Point2
+  actual = ::TestValueStruct (testObj.Serialize [0, 0])
+  expected = ::TestValueStruct "[0, 0]"
+  assert (actual.Equals expected == true)
+  -- Point3
+  actual = ::TestValueStruct (testObj.Serialize [0, 0, 0])
+  expected = ::TestValueStruct "[0, 0, 0]"
+  assert (actual.Equals expected == true)
+  -- Point4
+  actual = ::TestValueStruct (testObj.Serialize [0, 0, 0, 0])
+  expected = ::TestValueStruct "[0, 0, 0, 0]"
+  assert (actual.Equals expected == true)
+  -- Quat
+  actual = ::TestValueStruct (testObj.Serialize (Quat 1))
+  expected = ::TestValueStruct "(Quat 0 0 0 1)"
+  assert (actual.Equals expected == true)
+  -- Ray
+  actual = ::TestValueStruct (testObj.Serialize (Ray [0, 0, 0] [0, 0, 1]))
+  expected = ::TestValueStruct "(Ray [0, 0, 0] [0, 0, 1])"
+  assert (actual.Equals expected == true)
+  -- String
+  actual = ::TestValueStruct (testObj.Serialize "fooBar")
+  expected = ::TestValueStruct "\"fooBar\""
+  assert (actual.Equals expected == true)
+  -- StringStream
+  actual = ::TestValueStruct (testObj.Serialize (StringStream "fooBar"))
+  expected = ::TestValueStruct "(StringStream \"fooBar\")"
+  assert (actual.Equals expected == true)
+  -- Time（秒）
+  actual = ::TestValueStruct (testObj.Serialize 1m)
+  expected = ::TestValueStruct "1800f"
+  assert (actual.Equals expected == true)
+  -- Time（分）
+  actual = ::TestValueStruct (testObj.Serialize 1s)
+  expected = ::TestValueStruct "30f"
+  assert (actual.Equals expected == true)
+  -- Time（ティック）
+  actual = ::TestValueStruct (testObj.Serialize 1t)
+  expected = ::TestValueStruct "0.00625f"
+  assert (actual.Equals expected == true)
+  -- Time（フレーム）
+  actual = ::TestValueStruct (testObj.Serialize 1f)
+  expected = ::TestValueStruct "1f"
+  assert (actual.Equals expected == true)
+  -- UndefinedClass
+  actual = ::TestValueStruct (testObj.Serialize undefined)
+  expected = ::TestValueStruct "undefined"
+  assert (actual.Equals expected == true)
+  -- UnsuppliedClass
+  actual = ::TestValueStruct (testObj.Serialize unsupplied)
+  expected = ::TestValueStruct "unsupplied"
+  assert (actual.Equals expected == true)
+
   /* Split */
   pattern = "foo.bar.baz"
   -- 既定値
@@ -293,6 +449,22 @@
   -- 境界テスト（Name値の空白）
   actual = ::TestValueStruct (testObj.ToPascalCase #'foo bar')
   expected = ::TestValueStruct "#'Foo Bar'"
+  assert (actual.Equals expected == true)
+  -- カンマテスト（Name）
+  actual = ::TestValueStruct (testObj.ToPascalCase #'foo,bar')
+  expected = ::TestValueStruct "#'Foo,Bar'"
+  assert (actual.Equals expected == true)
+  -- カンマテスト（String）
+  actual = ::TestValueStruct (testObj.ToPascalCase "foo,bar")
+  expected = ::TestValueStruct "Foo,Bar"
+  assert (actual.Equals expected == true)
+  -- カンマテスト（Array）
+  actual = ::TestValueStruct (testObj.ToPascalCase #(0,0))
+  expected = ::TestValueStruct "#(0, 0)"
+  assert (actual.Equals expected == true)
+  -- カンマテスト（Point2）
+  actual = ::TestValueStruct (testObj.ToPascalCase [0,0])
+  expected = ::TestValueStruct "[0, 0]"
   assert (actual.Equals expected == true)
   -- AngleAxis
   actual = ::TestValueStruct (testObj.ToPascalCase (AngleAxis 0 [0, 0, 1]))
