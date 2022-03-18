@@ -26,7 +26,6 @@
   /* Setup Start ------------------------------------------------------------ */
   local TestToolStruct = struct TestToolStruct (
     private directoryClass = DotNetClass "System.IO.Directory",
-    -- private dotNetUtility,
     private fileClass = DotNetClass "System.IO.File",
     private shiftJisObject = (DotNetClass "System.Text.Encoding").GetEncoding "shift_jis",
     private utf8nObject = DotNetObject "System.Text.UTF8Encoding" false,
@@ -74,7 +73,6 @@
     ),
 
     public fn IsDateTimeType obj = (
-      -- this.dotNetUtility.TypeOf obj == "System.DateTime"
       (classOf obj == DotNetClass or classOf obj == DotNetObject) \
           and (DotNet.GetType obj).FullName == "System.DateTime"
     ),
@@ -105,10 +103,7 @@
       this.FileExists path
     ),
 
-    on Create do (
-      -- fileIn (getFullPath @"..\definitionPool.ms")
-      -- this.dotNetUtility = (::standardDefinitionPool[@"DotNetUtility.ms"])()
-    )
+    on Create do ()
   )
   local testTool = TestToolStruct()
 
