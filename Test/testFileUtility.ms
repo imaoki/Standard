@@ -24,7 +24,8 @@
 
   format "[run %]@\"%\"\n" nowTime currentFile
   /* Setup Start ------------------------------------------------------------ */
-  local TestToolStruct = struct TestToolStruct (
+  local TestToolStruct
+  struct TestToolStruct (
     private directoryClass = DotNetClass "System.IO.Directory",
     private fileClass = DotNetClass "System.IO.File",
     private shiftJisObject = (DotNetClass "System.Text.Encoding").GetEncoding "shift_jis",
@@ -75,11 +76,6 @@
     public fn IsDateTimeType obj = (
       (classOf obj == DotNetClass or classOf obj == DotNetObject) \
           and (DotNet.GetType obj).FullName == "System.DateTime"
-    ),
-
-    public fn NotFoobar element index context = (
-      classOf element == String \
-          and not matchPattern element pattern:"*foo.bar" ignoreCase:true
     ),
 
     public fn ReadAllText path encodingObject = (
