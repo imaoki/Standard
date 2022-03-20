@@ -309,7 +309,6 @@ struct StringUtilityStruct (
         )
         result += ";_)"
       )
-      -- (BooleanClass): result = toLower (input as String)
       (DataPair): (
         local propNames = getPropNames input
         local isExplicitPropNames = propNames.Count == 4
@@ -333,21 +332,10 @@ struct StringUtilityStruct (
         result += ")"
       )
       (Float): result += formattedPrint input format:"f"
-      -- (Interval): (
-      --   result = "(Interval"
-      --   result += " " + toLower (input.Start as String)
-      --   result += " " + toLower (input.End as String)
-      --   result += ")"
-      -- )
-      -- (Name): result = this.ToPascalCase input
-      -- (OkClass): result = toLower (input as String)
       (String): result = "\"" + this.EscapeBackslash input + "\""
       (StringStream): (
         result = "(StringStream " + this.Serialize (input as String) + ")"
       )
-      -- (Time): result = toLower (input as String)
-      -- (UndefinedClass): result = toLower (input as String)
-      -- (UnsuppliedClass): result = toLower (input as String)
       default : result = this.ToPascalCase input
     )
     if not (classOf input == Name or classOf input == String) \
