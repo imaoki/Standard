@@ -10,6 +10,10 @@ struct StandardStruct (
   public AttributeUtility,
   /*- @prop <Struct:ComparerStruct> */
   public Comparer,
+  /*- @prop <StructDef:ConfigStruct> */
+  public ConfigStruct,
+  /*- @prop <StructDef:DialogStruct> */
+  public DialogStruct,
   /*- @prop <Struct:DotNetUtilityStruct> */
   public DotNetUtility,
   /*- @prop <StructDef:EasingStruct> */
@@ -65,7 +69,7 @@ struct StandardStruct (
   ),
 
   /*- @prop <String> バージョン番号。メジャー、マイナー、パッチの順。 */
-  private version = "1.2.0",
+  private version = "2.0.0",
 
   /*- @returns <Name> */
   public fn StructName = #StandardStruct,
@@ -108,33 +112,40 @@ struct StandardStruct (
     /* 依存無し */
     this.AttributeUtility = (::standardDefinitionPool[@"AttributeUtility.ms"])()
     this.Comparer = (::standardDefinitionPool[@"Comparer.ms"])()
+    this.DialogStruct = ::standardDefinitionPool[@"Dialog.ms"]
     this.DotNetUtility = (::standardDefinitionPool[@"DotNetUtility.ms"])()
     this.EasingStruct = ::standardDefinitionPool[@"Easing.ms"]
     this.ObserverStruct = ::standardDefinitionPool[@"Observer.ms"]
     this.PathUtilityStruct = ::standardDefinitionPool[@"PathUtility.ms"]
     this.ViewportUtility = (::standardDefinitionPool[@"ViewportUtility.ms"])()
     /*
-    DotNetUtility
+    DotNetUtility.ms
     */
     this.EnumStruct = ::standardDefinitionPool[@"Enum.ms"]
     this.TimerStruct = ::standardDefinitionPool[@"Timer.ms"]
     /*
-    DotNetUtility
-    Enum
+    DotNetUtility.ms
+    Enum.ms
     */
     this.StringUtility = (::standardDefinitionPool[@"StringUtility.ms"])()
     /*
-    DotNetUtility
-    StringUtility
+    DotNetUtility.ms
+    StringUtility.ms
     */
     this.EncodingStruct = ::standardDefinitionPool[@"Encoding.ms"]
     /*
-    Comparer
-    DotNetUtility
-    Encoding
-    Enum
-    PathUtility
+    Comparer.ms
+    DotNetUtility.ms
+    Encoding.ms
+    Enum.ms
+    PathUtility.ms
     */
     this.FileUtility = (::standardDefinitionPool[@"FileUtility.ms"])()
+    /*
+    FileUtility.ms
+    PathUtility.ms
+    StringUtility.ms
+    */
+    this.ConfigStruct = ::standardDefinitionPool[@"Config.ms"]
   )
 )

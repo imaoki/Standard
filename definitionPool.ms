@@ -3,6 +3,7 @@ global standardDefinitionPool = Dictionary #String
 /* 依存無し */
 ::standardDefinitionPool[@"AttributeUtility.ms"] = fileIn @"AttributeUtility.ms"
 ::standardDefinitionPool[@"Comparer.ms"] = fileIn @"Comparer.ms"
+::standardDefinitionPool[@"Dialog.ms"] = fileIn @"Dialog.ms"
 ::standardDefinitionPool[@"DotNetUtility.ms"] = fileIn @"DotNetUtility.ms"
 ::standardDefinitionPool[@"Easing.ms"] = fileIn @"Easing.ms"
 ::standardDefinitionPool[@"Observer.ms"] = fileIn @"Observer.ms"
@@ -31,5 +32,11 @@ Enum.ms
 PathUtility.ms
 */
 ::standardDefinitionPool[@"FileUtility.ms"] = fileIn @"FileUtility.ms"
+/*
+FileUtility.ms
+PathUtility.ms
+StringUtility.ms
+*/
+::standardDefinitionPool[@"Config.ms"] = fileIn @"Config.ms"
 
 ::standardDefinitionPool

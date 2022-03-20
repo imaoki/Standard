@@ -71,6 +71,12 @@
   /* Comparer */
   assert (testStructInstance testObj.Comparer #ComparerStruct)
 
+  /* ConfigStruct */
+  assert (testStructDefinition testObj.ConfigStruct #ConfigStruct)
+
+  /* DialogStruct */
+  assert (testStructDefinition testObj.DialogStruct #DialogStruct)
+
   /* DotNetUtility */
   assert (testStructInstance testObj.DotNetUtility #DotNetUtilityStruct)
 
