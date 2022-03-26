@@ -1,31 +1,42 @@
 # Standard
 
-各種ツールや構造体で使用する標準ライブラリ。
+Standard library of general-purpose functions.
+<!-- 汎用的な機能をまとめた標準ライブラリ。 -->
 
-## 動作確認
+## Development Environment
+<!-- 開発環境 -->
 
 `3ds Max 2022.3 Update`
 
-## インストール
+## Install
+<!-- インストールする -->
 
-`install.ms`を実行する。
+Execute `install.ms`.
+<!-- `install.ms`を実行する。 -->
 
-## アンインストール
+## Uninstall
+<!-- アンインストールする -->
 
-`uninstall.ms`を実行する。
+Execute `uninstall.ms`.
+<!-- `uninstall.ms`を実行する。 -->
 
-## スタンドアローン版
+## Standalone version
+<!-- スタンドアローン版 -->
 
-### インストール
+### Install
+<!-- インストールする -->
 
-`Distribution\Standard.min.ms`を実行する。
+Execute `Distribution\Standard.min.ms`.
+<!-- `Distribution\Standard.min.ms`を実行する。 -->
 
-### アンインストール
+### Uninstall
+<!-- アンインストールする -->
 
 ```maxscript
 ::std.Uninstall()
 ```
 
-## ライセンス
+## License
+<!-- ライセンス -->
 
 [MIT License](https://github.com/imaoki/Standard/blob/main/LICENSE)
