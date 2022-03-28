@@ -52,43 +52,41 @@
   local expectedInterval = 100
   local expectedTicks = 0
 
-  local updateObject
-  fn updateObject context params type: = (
-    -- format "updateObject params:% type:%\n" params type
-    for param in params do (
-      case param of (
-        (#Interval): (
-          actual = ::TestValueStruct (testObj.GetInterval())
-          expected = ::TestValueStruct expectedInterval
-          assert (actual.Equals expected == true)
-        )
-        (#Ticks): (
-          actual = ::TestValueStruct (testObj.IsEnabled())
-          expected = ::TestValueStruct expectedEnabled
-          assert (actual.Equals expected == true)
-
-          local actualTicks = testObj.GetTicks()
-          actual = ::TestValueStruct actualTicks
-          expected = ::TestValueStruct expectedTicks
-          assert (actual.Equals expected == true)
-
-          if actualTicks > 0 do (
-            /* Stop */
-            actual = ::TestValueStruct (testObj.Stop())
-            expected = ::TestValueStruct ok
-            assert (actual.Equals expected == true)
-            -- Enabled確認
-            actual = ::TestValueStruct (testObj.IsEnabled())
-            expected = ::TestValueStruct false
-            assert (actual.Equals expected == true)
-            -- ticks確認
-            actual = ::TestValueStruct (testObj.GetTicks())
-            expected = ::TestValueStruct 1
-            assert (actual.Equals expected == true)
-          )
-        )
-        default: ()
+  local testNotification
+  fn testNotification context type param = (
+    -- format "testNotification type:% param:%\n" type param
+    case type of (
+      (#Interval): (
+        actual = ::TestValueStruct (testObj.GetInterval())
+        expected = ::TestValueStruct expectedInterval
+        assert (actual.Equals expected == true)
       )
+      (#Ticks): (
+        actual = ::TestValueStruct (testObj.IsEnabled())
+        expected = ::TestValueStruct expectedEnabled
+        assert (actual.Equals expected == true)
+
+        local actualTicks = testObj.GetTicks()
+        actual = ::TestValueStruct actualTicks
+        expected = ::TestValueStruct expectedTicks
+        assert (actual.Equals expected == true)
+
+        if actualTicks > 0 do (
+          /* Stop */
+          actual = ::TestValueStruct (testObj.Stop())
+          expected = ::TestValueStruct ok
+          assert (actual.Equals expected == true)
+          -- Enabled確認
+          actual = ::TestValueStruct (testObj.IsEnabled())
+          expected = ::TestValueStruct false
+          assert (actual.Equals expected == true)
+          -- ticks確認
+          actual = ::TestValueStruct (testObj.GetTicks())
+          expected = ::TestValueStruct 1
+          assert (actual.Equals expected == true)
+        )
+      )
+      default: ()
     )
     /* Equals */
     actual = ::TestValueStruct context
@@ -101,7 +99,7 @@
   testDef = ::standardDefinitionPool[@"Timer.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (TestObserverStruct updateObject testObj)
+  testObj.AddObserver (TestObserverStruct testNotification testObj)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */

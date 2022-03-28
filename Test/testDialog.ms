@@ -130,13 +130,13 @@
     ),
 
     /*-
-    @param params <Array[<Name>]|Any>
-    @param type: <Name>
+    @param type <Name>
+    @param param <Any>
     @returns <OkClass>
     */
-    private fn notify params type: = (
+    private fn notify type param = (
       for observer in this.observers do (
-        observer.Callback observer.Context params type:type
+        observer.Callback observer.Context type param
       )
       ok
     ),
@@ -210,115 +210,111 @@
   local expectedStyleToolWindow = true
   local expectedView = undefined
 
-  local updateObject
-  fn updateObject context params type: = (
-    -- format "updateObject params:% type:%\n" params type
-    if classOf params == Array do (
-      for param in params do (
-        case param of (
-          (#DialogCreated): (
-            actual = ::TestValueStruct (testObj.IsDisplayed())
-            expected = ::TestValueStruct expectedIsDisplayed
-            assert (actual.Equals expected == true)
-          )
-          (#DialogDestroyed): (
-            actual = ::TestValueStruct (testObj.IsDisplayed())
-            expected = ::TestValueStruct expectedIsDisplayed
-            assert (actual.Equals expected == true)
-          )
-          (#InitPosition): (
-            actual = ::TestValueStruct (testObj.GetInitPosition())
-            expected = ::TestValueStruct expectedInitPosition
-            assert (actual.Equals expected == true)
-          )
-          (#InitSize): (
-            actual = ::TestValueStruct (testObj.GetInitSize())
-            expected = ::TestValueStruct expectedInitSize
-            assert (actual.Equals expected == true)
-          )
-          (#LockHeight): (
-            actual = ::TestValueStruct (testObj.GetLockHeight())
-            expected = ::TestValueStruct expectedLockHeight
-            assert (actual.Equals expected == true)
-          )
-          (#LockWidth): (
-            actual = ::TestValueStruct (testObj.GetLockWidth())
-            expected = ::TestValueStruct expectedLockWidth
-            assert (actual.Equals expected == true)
-          )
-          (#MenuDef): (
-            actual = ::TestValueStruct (testObj.GetMenuDef())
-            expected = ::TestValueStruct expectedMenuDef
-            assert (actual.Equals expected == true)
-          )
-          (#Modal): (
-            actual = ::TestValueStruct (testObj.GetModal())
-            expected = ::TestValueStruct expectedModal
-            assert (actual.Equals expected == true)
-          )
-          (#PositionChanged): (
-            actual = ::TestValueStruct (testObj.GetPosition())
-            expected = ::TestValueStruct expectedPosition
-            assert (actual.Equals expected == true)
-          )
-          (#RolloutDef): (
-            actual = ::TestValueStruct (testObj.GetRolloutDef())
-            expected = ::TestValueStruct expectedRolloutDef
-            assert (actual.Equals expected == true)
-          )
-          (#SizeChanged): (
-            actual = ::TestValueStruct (testObj.GetSize())
-            expected = ::TestValueStruct expectedSize
-            assert (actual.Equals expected == true)
-          )
-          (#StyleBorder): (
-            actual = ::TestValueStruct (testObj.GetStyleBorder())
-            expected = ::TestValueStruct expectedStyleBorder
-            assert (actual.Equals expected == true)
-          )
-          (#StyleMaximizeBox): (
-            actual = ::TestValueStruct (testObj.GetStyleMaximizeBox())
-            expected = ::TestValueStruct expectedStyleMaximizeBox
-            assert (actual.Equals expected == true)
-          )
-          (#StyleMinimizeBox): (
-            actual = ::TestValueStruct (testObj.GetStyleMinimizeBox())
-            expected = ::TestValueStruct expectedStyleMinimizeBox
-            assert (actual.Equals expected == true)
-          )
-          (#StyleResizing): (
-            actual = ::TestValueStruct (testObj.GetStyleResizing())
-            expected = ::TestValueStruct expectedStyleResizing
-            assert (actual.Equals expected == true)
-          )
-          (#StyleSunkenedge): (
-            actual = ::TestValueStruct (testObj.GetStyleSunkenedge())
-            expected = ::TestValueStruct expectedStyleSunkenedge
-            assert (actual.Equals expected == true)
-          )
-          (#StyleSysmenu): (
-            actual = ::TestValueStruct (testObj.GetStyleSysmenu())
-            expected = ::TestValueStruct expectedStyleSysmenu
-            assert (actual.Equals expected == true)
-          )
-          (#StyleTitleBar): (
-            actual = ::TestValueStruct (testObj.GetStyleTitleBar())
-            expected = ::TestValueStruct expectedStyleTitleBar
-            assert (actual.Equals expected == true)
-          )
-          (#StyleToolWindow): (
-            actual = ::TestValueStruct (testObj.GetStyleToolWindow())
-            expected = ::TestValueStruct expectedStyleToolWindow
-            assert (actual.Equals expected == true)
-          )
-          (#View): (
-            actual = ::TestValueStruct (testObj.GetView())
-            expected = ::TestValueStruct expectedView
-            assert (actual.Equals expected == true)
-          )
-          default: ()
-        )
+  local testNotification
+  fn testNotification context type param = (
+    -- format "testNotification type:% param:%\n" type param
+    case type of (
+      (#DialogCreated): (
+        actual = ::TestValueStruct (testObj.IsDisplayed())
+        expected = ::TestValueStruct expectedIsDisplayed
+        assert (actual.Equals expected == true)
       )
+      (#DialogDestroyed): (
+        actual = ::TestValueStruct (testObj.IsDisplayed())
+        expected = ::TestValueStruct expectedIsDisplayed
+        assert (actual.Equals expected == true)
+      )
+      (#InitPosition): (
+        actual = ::TestValueStruct (testObj.GetInitPosition())
+        expected = ::TestValueStruct expectedInitPosition
+        assert (actual.Equals expected == true)
+      )
+      (#InitSize): (
+        actual = ::TestValueStruct (testObj.GetInitSize())
+        expected = ::TestValueStruct expectedInitSize
+        assert (actual.Equals expected == true)
+      )
+      (#LockHeight): (
+        actual = ::TestValueStruct (testObj.GetLockHeight())
+        expected = ::TestValueStruct expectedLockHeight
+        assert (actual.Equals expected == true)
+      )
+      (#LockWidth): (
+        actual = ::TestValueStruct (testObj.GetLockWidth())
+        expected = ::TestValueStruct expectedLockWidth
+        assert (actual.Equals expected == true)
+      )
+      (#MenuDef): (
+        actual = ::TestValueStruct (testObj.GetMenuDef())
+        expected = ::TestValueStruct expectedMenuDef
+        assert (actual.Equals expected == true)
+      )
+      (#Modal): (
+        actual = ::TestValueStruct (testObj.GetModal())
+        expected = ::TestValueStruct expectedModal
+        assert (actual.Equals expected == true)
+      )
+      (#PositionChanged): (
+        actual = ::TestValueStruct (testObj.GetPosition())
+        expected = ::TestValueStruct expectedPosition
+        assert (actual.Equals expected == true)
+      )
+      (#RolloutDef): (
+        actual = ::TestValueStruct (testObj.GetRolloutDef())
+        expected = ::TestValueStruct expectedRolloutDef
+        assert (actual.Equals expected == true)
+      )
+      (#SizeChanged): (
+        actual = ::TestValueStruct (testObj.GetSize())
+        expected = ::TestValueStruct expectedSize
+        assert (actual.Equals expected == true)
+      )
+      (#StyleBorder): (
+        actual = ::TestValueStruct (testObj.GetStyleBorder())
+        expected = ::TestValueStruct expectedStyleBorder
+        assert (actual.Equals expected == true)
+      )
+      (#StyleMaximizeBox): (
+        actual = ::TestValueStruct (testObj.GetStyleMaximizeBox())
+        expected = ::TestValueStruct expectedStyleMaximizeBox
+        assert (actual.Equals expected == true)
+      )
+      (#StyleMinimizeBox): (
+        actual = ::TestValueStruct (testObj.GetStyleMinimizeBox())
+        expected = ::TestValueStruct expectedStyleMinimizeBox
+        assert (actual.Equals expected == true)
+      )
+      (#StyleResizing): (
+        actual = ::TestValueStruct (testObj.GetStyleResizing())
+        expected = ::TestValueStruct expectedStyleResizing
+        assert (actual.Equals expected == true)
+      )
+      (#StyleSunkenedge): (
+        actual = ::TestValueStruct (testObj.GetStyleSunkenedge())
+        expected = ::TestValueStruct expectedStyleSunkenedge
+        assert (actual.Equals expected == true)
+      )
+      (#StyleSysmenu): (
+        actual = ::TestValueStruct (testObj.GetStyleSysmenu())
+        expected = ::TestValueStruct expectedStyleSysmenu
+        assert (actual.Equals expected == true)
+      )
+      (#StyleTitleBar): (
+        actual = ::TestValueStruct (testObj.GetStyleTitleBar())
+        expected = ::TestValueStruct expectedStyleTitleBar
+        assert (actual.Equals expected == true)
+      )
+      (#StyleToolWindow): (
+        actual = ::TestValueStruct (testObj.GetStyleToolWindow())
+        expected = ::TestValueStruct expectedStyleToolWindow
+        assert (actual.Equals expected == true)
+      )
+      (#View): (
+        actual = ::TestValueStruct (testObj.GetView())
+        expected = ::TestValueStruct expectedView
+        assert (actual.Equals expected == true)
+      )
+      default: ()
     )
     ok
   )
@@ -332,7 +328,7 @@
   /* Test Start ------------------------------------------------------------- */
   /* 空インスタンス作成 */
   testObj = testDef()
-  testObj.AddObserver (TestObserverStruct updateObject testObj)
+  testObj.AddObserver (TestObserverStruct testNotification testObj)
 
   /* GetInitPosition */
   -- 既定値
@@ -745,7 +741,7 @@
 
   /* インスタンス再作成 */
   testObj = testDef()
-  testObj.AddObserver (TestObserverStruct updateObject testObj)
+  testObj.AddObserver (TestObserverStruct testNotification testObj)
   -- ロールアウト設定
   expectedRolloutDef = RltTest
   actual = ::TestValueStruct (testObj.SetRolloutDef RltTest)

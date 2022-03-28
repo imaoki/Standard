@@ -5,61 +5,24 @@
 struct ObserverStruct (
   /*-
   @prop <MAXScriptFunction> 通知を受け取る関数。
-  @remarks 用途によって引数の扱いが異なる。
+  @remarks 以下のように実装する。
 
-  構造体用のコールバック関数
-  :   `context`と`params`の二つの引数を取る。
+  ```maxscript
+  fn update context type param = (
+    case type of (
+      (#Foo): ()
+      (#Bar): ()
+      default: ()
+    )
+    ok
+  )
+  ```
 
-      ```maxscript
-      fn update context params type: = (
-        if classOf params == Array do (
-          for param in params do (
-            case param of (
-              (#Foo): ()
-              (#Bar): ()
-              default: ()
-            )
-          )
-        )
-        ok
-      )
-      ```
-
-      | 引数      | 内容                                      |
-      | --------- | ----------------------------------------- |
-      | `context` | 本構造体の`Context`プロパティに設定した値 |
-      | `params`  | 更新されたパラメータや処理の名前の配列    |
-
-  イベントコールバック用のコールバック関数
-  :   `context`と`params`に加えて`type:`キーワード引数を取る。
-
-      ```maxscript
-      fn update context params type: = (
-        if classOf type == Name then (
-          case type of (
-            (#NodeCloned): ()
-            (#NodeCreated): ()
-            default: ()
-          )
-        )
-        else (
-          if classOf params == Array do (
-            for param in params do (
-              case param of (
-                default: ()
-              )
-            )
-          )
-        )
-        ok
-      )
-      ```
-
-      | 引数      | 内容                                      |
-      | --------- | ----------------------------------------- |
-      | `context` | 本構造体の`Context`プロパティに設定した値 |
-      | `params`  | 発生したイベントの補足情報                |
-      | `type:`   | 発生したイベントの名前                    |
+  | 引数      | 内容                            |
+  | --------- | ------------------------------- |
+  | `context` | `Context`プロパティに設定した値 |
+  | `type`    | イベント名                      |
+  | `param`   | イベントデータ                  |
   */
   public Callback,
   /*- @prop <Any> 発生した通知を識別するための値。通常は`this`を指定する。 */

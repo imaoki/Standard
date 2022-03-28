@@ -108,7 +108,7 @@ struct TimerStruct (
   public fn SetInterval input = (
     if input < 1 do input = 1
     this.timer.Interval = input
-    this.notify #(#Interval)
+    this.notify #Interval this.timer.Interval
     this.GetInterval()
   ),
 
@@ -136,7 +136,7 @@ struct TimerStruct (
   */
   public fn UpdateTicks = (
     this.ticks += 1
-    this.notify #(#Ticks)
+    this.notify #Ticks this.ticks
     this.GetTicks()
   ),
 
@@ -225,13 +225,13 @@ struct TimerStruct (
   ),
 
   /*-
-  @param params <Array[<Name>]|Any>
-  @param type: <Name>
+  @param type <Name>
+  @param param <Any>
   @returns <OkClass>
   */
-  private fn notify params type: = (
+  private fn notify type param = (
     for observer in this.observers do (
-      observer.Callback observer.Context params type:type
+      observer.Callback observer.Context type param
     )
     ok
   ),
