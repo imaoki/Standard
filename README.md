@@ -1,5 +1,8 @@
 # Standard
 
+<!-- [![GitHub release (latest by date)](https://img.shields.io/github/v/release/imaoki/Standard)](https://github.com/imaoki/Standard/releases/latest) -->
+[![GitHub](https://img.shields.io/github/license/imaoki/Standard)](https://github.com/imaoki/Standard/blob/main/LICENSE)
+
 Standard library of general-purpose functions.
 <!-- 汎用的な機能をまとめた標準ライブラリ。 -->
 
