@@ -39,6 +39,45 @@ Execute `Distribution\Standard.min.ms`.
 ::std.Uninstall()
 ```
 
+## Usage
+<!-- 使い方 -->
+
+### Basic Observer Pattern
+
+```maxscript
+(
+  struct TestStruct (
+    private count = 0,
+
+    public fn Increment = (
+      this.count += 1
+      this.StateChanged.Notify #Count this.count
+      ok
+    ),
+
+    public StateChanged,
+
+    on Create do (
+      this.StateChanged = ::std.ObservableStruct()
+    )
+  )
+
+  fn testNotification type param = (
+    case type of (
+      (#Count): format "count:%\n" param
+      default: ()
+    )
+    ok
+  )
+
+  local testObj = TestStruct()
+  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
+
+  testObj.Increment()
+  ok
+)
+```
+
 ## License
 <!-- ライセンス -->
 
