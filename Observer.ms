@@ -1,14 +1,14 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
-オブジェクトの状態が変化した際に通知を受け取る。
+通知を受け取る仕組みを提供する。
 */
 struct ObserverStruct (
   /*-
-  @prop <MAXScriptFunction> 通知を受け取る関数。
+  @prop <MAXScriptFunction|UndefinedClass> 通知を受け取る関数。既定値は`undefined`。
   @remarks 以下のように実装する。
 
   ```maxscript
-  fn update context type param = (
+  fn update type param = (
     case type of (
       (#Foo): ()
       (#Bar): ()
@@ -18,15 +18,12 @@ struct ObserverStruct (
   )
   ```
 
-  | 引数      | 内容                            |
-  | --------- | ------------------------------- |
-  | `context` | `Context`プロパティに設定した値 |
-  | `type`    | イベント名                      |
-  | `param`   | イベントデータ                  |
+  | 引数    | 内容       |
+  | ------- | ---------- |
+  | `type`  | 通知名     |
+  | `param` | 通知データ |
   */
-  public Callback,
-  /*- @prop <Any> 発生した通知を識別するための値。通常は`this`を指定する。 */
-  public Context,
+  public Update,
 
   /*- @returns <Name> */
   public fn StructName = #ObserverStruct,
@@ -38,6 +35,7 @@ struct ObserverStruct (
   */
   public fn Dump indent:"" out:listener = (
     format "%ObserverStruct\n" indent to:out
+    format "%  Update:%\n" indent this.Update to:out
     ok
   ),
 
@@ -52,10 +50,8 @@ struct ObserverStruct (
         and classOf obj.StructName == MAXScriptFunction \
         and obj.StructName() == this.StructName()
 
-    local isEqualProperties = isProperty obj #Callback \
-        and isProperty obj #Context \
-        and obj.Callback == this.Callback \
-        and obj.Context == this.Context
+    local isEqualProperties = isProperty obj #Update \
+        and obj.Update == this.Update
 
     isEqualStructName and isEqualProperties
   ),

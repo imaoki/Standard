@@ -29,10 +29,9 @@
 
   local TestObserverStruct
   struct TestObserverStruct (
-    public Callback,
-    public Context,
+    public Update,
 
-    public fn StructName = #TestObserverStruct,
+    public fn StructName = #ObserverStruct,
 
     public fn Equals obj = (
       local isEqualStructName = isStruct obj \
@@ -40,10 +39,8 @@
           and classOf obj.StructName == MAXScriptFunction \
           and obj.StructName() == this.StructName()
 
-      local isEqualProperties = isProperty obj #Callback \
-          and isProperty obj #Context \
-          and obj.Callback == this.Callback \
-          and obj.Context == this.Context
+      local isEqualProperties = isProperty obj #Update \
+          and obj.Update == this.Update
 
       isEqualStructName and isEqualProperties
     ),
@@ -87,58 +84,6 @@
       local isEqualProperties = true
 
       isEqualStructName and isEqualProperties
-    ),
-
-    /*- @prop <Array[<Struct:ObserverStruct>]> */
-    private observers = #(),
-
-    /*-
-    @param observer <Struct:ObserverStruct>
-    @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-    */
-    public fn AddObserver observer = (
-      if this.findObserver observer == 0 do (
-        append this.observers observer
-      )
-      this.findObserver observer > 0
-    ),
-
-    /*-
-    @param observer <Struct:ObserverStruct>
-    @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-    */
-    public fn RemoveObserver observer = (
-      local index = this.findObserver observer
-      if index > 0 do (
-        deleteItem this.observers index
-      )
-      this.findObserver observer == 0
-    ),
-
-    /*-
-    @param observer <Struct:ObserverStruct>
-    @returns <Integer>
-    */
-    private fn findObserver observer = (
-      local index = 0
-      for i = 1 to this.observers.Count while index == 0 do (
-        if this.observers[i].Equals observer do (
-          index = i
-        )
-      )
-      index
-    ),
-
-    /*-
-    @param type <Name>
-    @param param <Any>
-    @returns <OkClass>
-    */
-    private fn notify type param = (
-      for observer in this.observers do (
-        observer.Callback observer.Context type param
-      )
-      ok
     ),
 
     on Create do ()
@@ -211,7 +156,7 @@
   local expectedView = undefined
 
   local testNotification
-  fn testNotification context type param = (
+  fn testNotification type param = (
     -- format "testNotification type:% param:%\n" type param
     case type of (
       (#DialogCreated): (
@@ -328,7 +273,7 @@
   /* Test Start ------------------------------------------------------------- */
   /* 空インスタンス作成 */
   testObj = testDef()
-  testObj.AddObserver (TestObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (TestObserverStruct testNotification)
 
   /* GetInitPosition */
   -- 既定値
@@ -741,7 +686,7 @@
 
   /* インスタンス再作成 */
   testObj = testDef()
-  testObj.AddObserver (TestObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (TestObserverStruct testNotification)
   -- ロールアウト設定
   expectedRolloutDef = RltTest
   actual = ::TestValueStruct (testObj.SetRolloutDef RltTest)

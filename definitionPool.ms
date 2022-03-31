@@ -3,9 +3,9 @@ global standardDefinitionPool = Dictionary #String
 /* 依存無し */
 ::standardDefinitionPool[@"AttributeUtility.ms"] = fileIn @"AttributeUtility.ms"
 ::standardDefinitionPool[@"Comparer.ms"] = fileIn @"Comparer.ms"
-::standardDefinitionPool[@"Dialog.ms"] = fileIn @"Dialog.ms"
 ::standardDefinitionPool[@"DotNetUtility.ms"] = fileIn @"DotNetUtility.ms"
 ::standardDefinitionPool[@"Easing.ms"] = fileIn @"Easing.ms"
+::standardDefinitionPool[@"Observable.ms"] = fileIn @"Observable.ms"
 ::standardDefinitionPool[@"Observer.ms"] = fileIn @"Observer.ms"
 ::standardDefinitionPool[@"PathUtility.ms"] = fileIn @"PathUtility.ms"
 ::standardDefinitionPool[@"ViewportUtility.ms"] = fileIn @"ViewportUtility.ms"
@@ -13,7 +13,6 @@ global standardDefinitionPool = Dictionary #String
 DotNetUtility.ms
 */
 ::standardDefinitionPool[@"Enum.ms"] = fileIn @"Enum.ms"
-::standardDefinitionPool[@"Timer.ms"] = fileIn @"Timer.ms"
 /*
 DotNetUtility.ms
 Enum
@@ -24,6 +23,15 @@ DotNetUtility.ms
 StringUtility.ms
 */
 ::standardDefinitionPool[@"Encoding.ms"] = fileIn @"Encoding.ms"
+/*
+Observable.ms
+*/
+::standardDefinitionPool[@"Dialog.ms"] = fileIn @"Dialog.ms"
+/*
+DotNetUtility.ms
+Observable.ms
+*/
+::standardDefinitionPool[@"Timer.ms"] = fileIn @"Timer.ms"
 /*
 Comparer.ms
 DotNetUtility.ms

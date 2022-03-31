@@ -108,7 +108,7 @@ struct TimerStruct (
   public fn SetInterval input = (
     if input < 1 do input = 1
     this.timer.Interval = input
-    this.notify #Interval this.timer.Interval
+    this.StateChanged.Notify #Interval this.timer.Interval
     this.GetInterval()
   ),
 
@@ -136,7 +136,7 @@ struct TimerStruct (
   */
   public fn UpdateTicks = (
     this.ticks += 1
-    this.notify #Ticks this.ticks
+    this.StateChanged.Notify #Ticks this
     this.GetTicks()
   ),
 
@@ -184,59 +184,11 @@ struct TimerStruct (
     isEqualStructName and isEqualProperties
   ),
 
-  /*- @prop <Array[<Struct:ObserverStruct>]> */
-  private observers = #(),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn AddObserver observer = (
-    if this.findObserver observer == 0 do (
-      append this.observers observer
-    )
-    this.findObserver observer > 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn RemoveObserver observer = (
-    local index = this.findObserver observer
-    if index > 0 do (
-      deleteItem this.observers index
-    )
-    this.findObserver observer == 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <Integer>
-  */
-  private fn findObserver observer = (
-    local index = 0
-    for i = 1 to this.observers.Count while index == 0 do (
-      if this.observers[i].Equals observer do (
-        index = i
-      )
-    )
-    index
-  ),
-
-  /*-
-  @param type <Name>
-  @param param <Any>
-  @returns <OkClass>
-  */
-  private fn notify type param = (
-    for observer in this.observers do (
-      observer.Callback observer.Context type param
-    )
-    ok
-  ),
+  /*- @prop <Struct:ObservableStruct> */
+  public StateChanged,
 
   on Create do (
+    this.StateChanged = (::standardDefinitionPool[@"Observable.ms"])()
     this.dotNetUtility = (::standardDefinitionPool[@"DotNetUtility.ms"])()
     this.timer = DotNetObject "System.Windows.Forms.Timer"
     if classOf this._CP1_ == Integer do (

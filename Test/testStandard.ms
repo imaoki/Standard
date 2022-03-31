@@ -92,6 +92,9 @@
   /* FileUtility */
   assert (testStructInstance testObj.FileUtility #FileUtilityStruct)
 
+  /* ObservableStruct */
+  assert (testStructDefinition testObj.ObservableStruct #ObservableStruct)
+
   /* ObserverStruct */
   assert (testStructDefinition testObj.ObserverStruct #ObserverStruct)
 

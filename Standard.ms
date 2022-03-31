@@ -24,6 +24,8 @@ struct StandardStruct (
   public EnumStruct,
   /*- @prop <Struct:FileUtilityStruct> */
   public FileUtility,
+  /*- @prop <StructDef:ObservableStruct> */
+  public ObservableStruct,
   /*- @prop <StructDef:ObserverStruct> */
   public ObserverStruct,
   /*- @prop <StructDef:PathUtilityStruct> */
@@ -69,7 +71,7 @@ struct StandardStruct (
   ),
 
   /*- @prop <String> バージョン番号。メジャー、マイナー、パッチの順。 */
-  private version = "2.1.0",
+  private version = "2.2.1",
 
   /*- @returns <Name> */
   public fn StructName = #StandardStruct,
@@ -115,6 +117,7 @@ struct StandardStruct (
     this.DialogStruct = ::standardDefinitionPool[@"Dialog.ms"]
     this.DotNetUtility = (::standardDefinitionPool[@"DotNetUtility.ms"])()
     this.EasingStruct = ::standardDefinitionPool[@"Easing.ms"]
+    this.ObservableStruct = ::standardDefinitionPool[@"Observable.ms"]
     this.ObserverStruct = ::standardDefinitionPool[@"Observer.ms"]
     this.PathUtilityStruct = ::standardDefinitionPool[@"PathUtility.ms"]
     this.ViewportUtility = (::standardDefinitionPool[@"ViewportUtility.ms"])()

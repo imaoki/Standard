@@ -172,7 +172,7 @@ struct DialogStruct (
       if this.isValidView this.view do (
         this.rolloutDef.Initialize this.view
       )
-      this.notify #DialogCreated undefined
+      this.StateChanged.Notify #DialogCreated undefined
     )
     this.IsDisplayed()
   ),
@@ -185,7 +185,7 @@ struct DialogStruct (
   public fn Destroy = (
     if this.inDialog this.rolloutDef do (
       destroyDialog this.rolloutDef
-      this.notify #DialogDestroyed undefined
+      this.StateChanged.Notify #DialogDestroyed undefined
     )
     not this.IsDisplayed()
   ),
@@ -418,7 +418,7 @@ struct DialogStruct (
   public fn SetInitPosition input = (
     if classOf input == Point2 or classOf input == UndefinedClass do (
       this.initPosition = input
-      this.notify #InitPosition this.initPosition
+      this.StateChanged.Notify #InitPosition this.initPosition
     )
     this.GetInitPosition()
   ),
@@ -432,7 +432,7 @@ struct DialogStruct (
   public fn SetInitSize input = (
     if classOf input == Point2 do (
       this.initSize = input
-      this.notify #InitSize this.initSize
+      this.StateChanged.Notify #InitSize this.initSize
     )
     this.GetInitSize()
   ),
@@ -446,7 +446,7 @@ struct DialogStruct (
   public fn SetLockHeight input = (
     if classOf input == BooleanClass do (
       this.lockHeight = input
-      this.notify #LockHeight this.lockHeight
+      this.StateChanged.Notify #LockHeight this.lockHeight
     )
     this.GetLockHeight()
   ),
@@ -460,7 +460,7 @@ struct DialogStruct (
   public fn SetLockWidth input = (
     if classOf input == BooleanClass do (
       this.lockWidth = input
-      this.notify #LockWidth this.lockWidth
+      this.StateChanged.Notify #LockWidth this.lockWidth
     )
     this.GetLockWidth()
   ),
@@ -474,7 +474,7 @@ struct DialogStruct (
   public fn SetMenuDef def = (
     if this.isValidMenuDef def or classOf def == UndefinedClass do (
       this.menuDef = def
-      this.notify #MenuDef this.menuDef
+      this.StateChanged.Notify #MenuDef this.menuDef
     )
     this.GetMenuDef()
   ),
@@ -488,7 +488,7 @@ struct DialogStruct (
   public fn SetModal input = (
     if classOf input == BooleanClass do (
       this.modal = input
-      this.notify #Modal this.modal
+      this.StateChanged.Notify #Modal this.modal
     )
     this.GetModal()
   ),
@@ -502,7 +502,7 @@ struct DialogStruct (
   public fn SetPosition input = (
     if classOf input == Point2 and this.inDialog this.rolloutDef do (
       setDialogPos this.rolloutDef input
-      this.notify #PositionChanged undefined
+      this.StateChanged.Notify #PositionChanged undefined
     )
     this.GetPosition()
   ),
@@ -516,7 +516,7 @@ struct DialogStruct (
   public fn SetRolloutDef def = (
     if this.isValidRolloutDef def do (
       this.rolloutDef = def
-      this.notify #RolloutDef this.rolloutDef
+      this.StateChanged.Notify #RolloutDef this.rolloutDef
     )
     this.GetRolloutDef()
   ),
@@ -530,7 +530,7 @@ struct DialogStruct (
   public fn SetSize input = (
     if classOf input == Point2 and this.inDialog this.rolloutDef do (
       setDialogSize this.rolloutDef input
-      this.notify #SizeChanged undefined
+      this.StateChanged.Notify #SizeChanged undefined
     )
     this.GetSize()
   ),
@@ -544,7 +544,7 @@ struct DialogStruct (
   public fn SetStyleBorder input = (
     if classOf input == BooleanClass do (
       this.styleBorder = input
-      this.notify #StyleBorder this.styleBorder
+      this.StateChanged.Notify #StyleBorder this.styleBorder
     )
     this.GetStyleBorder()
   ),
@@ -558,7 +558,7 @@ struct DialogStruct (
   public fn SetStyleMaximizeBox input = (
     if classOf input == BooleanClass do (
       this.styleMaximizeBox = input
-      this.notify #StyleMaximizeBox this.styleMaximizeBox
+      this.StateChanged.Notify #StyleMaximizeBox this.styleMaximizeBox
     )
     this.GetStyleMaximizeBox()
   ),
@@ -572,7 +572,7 @@ struct DialogStruct (
   public fn SetStyleMinimizeBox input = (
     if classOf input == BooleanClass do (
       this.styleMinimizeBox = input
-      this.notify #StyleMinimizeBox this.styleMinimizeBox
+      this.StateChanged.Notify #StyleMinimizeBox this.styleMinimizeBox
     )
     this.GetStyleMinimizeBox()
   ),
@@ -586,7 +586,7 @@ struct DialogStruct (
   public fn SetStyleResizing input = (
     if classOf input == BooleanClass do (
       this.styleResizing = input
-      this.notify #StyleResizing this.styleResizing
+      this.StateChanged.Notify #StyleResizing this.styleResizing
     )
     this.GetStyleResizing()
   ),
@@ -600,7 +600,7 @@ struct DialogStruct (
   public fn SetStyleSunkenedge input = (
     if classOf input == BooleanClass do (
       this.styleSunkenedge = input
-      this.notify #StyleSunkenedge this.styleSunkenedge
+      this.StateChanged.Notify #StyleSunkenedge this.styleSunkenedge
     )
     this.GetStyleSunkenedge()
   ),
@@ -614,7 +614,7 @@ struct DialogStruct (
   public fn SetStyleSysmenu input = (
     if classOf input == BooleanClass do (
       this.styleSysmenu = input
-      this.notify #StyleSysmenu this.styleSysmenu
+      this.StateChanged.Notify #StyleSysmenu this.styleSysmenu
     )
     this.GetStyleSysmenu()
   ),
@@ -628,7 +628,7 @@ struct DialogStruct (
   public fn SetStyleTitleBar input = (
     if classOf input == BooleanClass do (
       this.styleTitleBar = input
-      this.notify #StyleTitleBar this.styleTitleBar
+      this.StateChanged.Notify #StyleTitleBar this.styleTitleBar
     )
     this.GetStyleTitleBar()
   ),
@@ -642,7 +642,7 @@ struct DialogStruct (
   public fn SetStyleToolWindow input = (
     if classOf input == BooleanClass do (
       this.styleToolWindow = input
-      this.notify #StyleToolWindow this.styleToolWindow
+      this.StateChanged.Notify #StyleToolWindow this.styleToolWindow
     )
     this.GetStyleToolWindow()
   ),
@@ -656,7 +656,7 @@ struct DialogStruct (
   public fn SetView obj = (
     if this.isValidView obj or classOf obj == UndefinedClass do (
       this.view = obj
-      this.notify #View this.view
+      this.StateChanged.Notify #View this.view
     )
     this.GetView()
   ),
@@ -786,59 +786,11 @@ struct DialogStruct (
     isEqualStructName and isEqualProperties
   ),
 
-  /*- @prop <Array[<Struct:ObserverStruct>]> */
-  private observers = #(),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn AddObserver observer = (
-    if this.findObserver observer == 0 do (
-      append this.observers observer
-    )
-    this.findObserver observer > 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
-  */
-  public fn RemoveObserver observer = (
-    local index = this.findObserver observer
-    if index > 0 do (
-      deleteItem this.observers index
-    )
-    this.findObserver observer == 0
-  ),
-
-  /*-
-  @param observer <Struct:ObserverStruct>
-  @returns <Integer>
-  */
-  private fn findObserver observer = (
-    local index = 0
-    for i = 1 to this.observers.Count while index == 0 do (
-      if this.observers[i].Equals observer do (
-        index = i
-      )
-    )
-    index
-  ),
-
-  /*-
-  @param type <Name>
-  @param param <Any>
-  @returns <OkClass>
-  */
-  private fn notify type param = (
-    for observer in this.observers do (
-      observer.Callback observer.Context type param
-    )
-    ok
-  ),
+  /*- @prop <Struct:ObservableStruct> */
+  public StateChanged,
 
   on Create do (
+    this.StateChanged = (::standardDefinitionPool[@"Observable.ms"])()
     this.SetRolloutDef this._CP1_
     this.SetInitSize this._CP2_
     this.SetInitPosition this._CP3_

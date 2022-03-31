@@ -26,8 +26,7 @@
   /* Setup Start ------------------------------------------------------------ */
   local TestObserverStruct
   struct TestObserverStruct (
-    public Callback,
-    public Context,
+    public Update,
 
     public fn StructName = #TestObserverStruct,
 
@@ -37,10 +36,8 @@
           and classOf obj.StructName == MAXScriptFunction \
           and obj.StructName() == this.StructName()
 
-      local isEqualProperties = isProperty obj #Callback \
-          and isProperty obj #Context \
-          and obj.Callback == this.Callback \
-          and obj.Context == this.Context
+      local isEqualProperties = isProperty obj #Update \
+          and obj.Update == this.Update
 
       isEqualStructName and isEqualProperties
     ),
@@ -53,7 +50,7 @@
   local expectedTicks = 0
 
   local testNotification
-  fn testNotification context type param = (
+  fn testNotification type param = (
     -- format "testNotification type:% param:%\n" type param
     case type of (
       (#Interval): (
@@ -99,7 +96,7 @@
   testDef = ::standardDefinitionPool[@"Timer.ms"]
   testObj = testDef()
 
-  testObj.AddObserver (TestObserverStruct testNotification testObj)
+  testObj.StateChanged.Subscribe (TestObserverStruct testNotification)
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
