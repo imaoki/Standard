@@ -48,47 +48,6 @@
     on Create do ()
   )
 
-  local TestMvcViewStruct
-  struct TestMvcViewStruct (
-    /*- @prop <Any> 作成パラメータ1。既定値は`undefined`。 */
-    public _CP1_,
-
-    public fn EventNotify eventName controlName params = (
-      ok
-    ),
-
-    /*- @returns <Name> */
-    public fn StructName = #MvcViewStruct,
-
-    /*-
-    @param indent: <String>
-    @param out: <FileStream|StringStream|WindowStream> 出力先。既定値は`listener`。
-    @returns <OkClass>
-    */
-    public fn Dump indent:"" out:listener = (
-      format "%MvcViewStruct\n" indent to:out
-      ok
-    ),
-
-    /*-
-    @param obj <Any>
-    @returns <BooleanClass>
-    @remarks 大文字と小文字を区別する。
-    */
-    public fn Equals obj = (
-      local isEqualStructName = isStruct obj \
-          and isProperty obj #StructName \
-          and classOf obj.StructName == MAXScriptFunction \
-          and obj.StructName() == this.StructName()
-
-      local isEqualProperties = true
-
-      isEqualStructName and isEqualProperties
-    ),
-
-    on Create do ()
-  )
-
   local MnuTest
   rcMenu MnuTest (
     menuItem Mi1 "Item1"
@@ -100,39 +59,7 @@
 
   local RltTest
   rollout RltTest "" (
-    local view
-
     button Btn "Button"
-
-    fn isValidView obj = (
-      isStruct obj \
-          and isProperty obj #StructName \
-          and classOf obj.StructName == MAXScriptFunction \
-          and obj.StructName() == #MvcViewStruct \
-          and isProperty obj #EventNotify \
-          and classOf obj.EventNotify == MAXScriptFunction
-    )
-
-    fn notify eventName controlName params = (
-      if isValidView view do (
-        view.EventNotify eventName controlName params
-      )
-      ok
-    )
-
-    fn Initialize viewObject = (
-      if isValidView viewObject do (
-        view = viewObject
-      )
-      notify #Open #RltTest #()
-      ok
-    )
-
-    on RltTest Close do notify #Close #RltTest #()
-    on RltTest Moved v do notify #Moved #RltTest #(v)
-    on RltTest Resized v do notify #Resized #RltTest #(v)
-
-    on Btn Pressed do notify #Pressed #Btn #()
   )
 
   local expectedInitPosition = undefined
@@ -153,7 +80,6 @@
   local expectedStyleSysmenu = true
   local expectedStyleTitleBar = false
   local expectedStyleToolWindow = true
-  local expectedView = undefined
 
   local testNotification
   fn testNotification type param = (
@@ -254,18 +180,12 @@
         expected = ::TestValueStruct expectedStyleToolWindow
         assert (actual.Equals expected == true)
       )
-      (#View): (
-        actual = ::TestValueStruct (testObj.GetView())
-        expected = ::TestValueStruct expectedView
-        assert (actual.Equals expected == true)
-      )
       default: ()
     )
     ok
   )
 
   local testConfig = configDef()
-  local view = TestMvcViewStruct()
 
   testDef = ::standardDefinitionPool[@"Dialog.ms"]
   /* Setup End -------------------------------------------------------------- */
@@ -375,12 +295,6 @@
   -- 既定値
   actual = ::TestValueStruct (testObj.GetStyleToolWindow())
   expected = ::TestValueStruct true
-  assert (actual.Equals expected == true)
-
-  /* GetView */
-  -- 既定値
-  actual = ::TestValueStruct (testObj.GetView())
-  expected = ::TestValueStruct undefined
   assert (actual.Equals expected == true)
 
   /* IsDisplayed */
@@ -667,23 +581,6 @@
   expected = ::TestValueStruct [0, 0]
   assert (actual.Equals expected == true)
 
-  /* SetView */
-  -- 無効な値
-  expectedView = undefined
-  actual = ::TestValueStruct (testObj.SetView #Foo)
-  expected = ::TestValueStruct expectedView
-  assert (actual.Equals expected == true)
-  -- 成功（MvcViewStruct）
-  expectedView = view
-  actual = ::TestValueStruct (testObj.SetView view)
-  expected = ::TestValueStruct expectedView
-  assert (actual.Equals expected == true)
-  -- 成功（undefined）
-  expectedView = undefined
-  actual = ::TestValueStruct (testObj.SetView undefined)
-  expected = ::TestValueStruct expectedView
-  assert (actual.Equals expected == true)
-
   /* インスタンス再作成 */
   testObj = testDef()
   testObj.StateChanged.Subscribe (TestObserverStruct testNotification)
@@ -691,11 +588,6 @@
   expectedRolloutDef = RltTest
   actual = ::TestValueStruct (testObj.SetRolloutDef RltTest)
   expected = ::TestValueStruct expectedRolloutDef
-  assert (actual.Equals expected == true)
-  -- ビュー設定
-  expectedView = view
-  actual = ::TestValueStruct (testObj.SetView view)
-  expected = ::TestValueStruct expectedView
   assert (actual.Equals expected == true)
 
   /* Save */

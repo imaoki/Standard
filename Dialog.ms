@@ -1,54 +1,6 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 ダイアログの作成と破棄に伴う処理をカプセル化するための構造体。
-@remarks MVCで使用する場合、ロールアウト定義の実装は次の条件を満たさなければならない。
-
-* ビューのインスタンスを格納するためのローカル変数`view`
-
-* `view`変数を初期化するための関数`Initialize`
-
-* 変数`view`の有効性を判定する関数`isValidView`
-
-* イベントをビューに通知するための関数`notify`
-
-実装例
-:   ```maxscript
-    rollout RltFoo "" (
-      local view
-
-      button BtnBar "Button"
-
-      fn isValidView obj = (
-        isStruct obj \
-            and isProperty obj #StructName \
-            and classOf obj.StructName == MAXScriptFunction \
-            and obj.StructName() == #MvcViewStruct \
-            and isProperty obj #EventNotify \
-            and classOf obj.EventNotify == MAXScriptFunction
-      )
-
-      fn notify eventName controlName params = (
-        if isValidView view do (
-          view.EventNotify eventName controlName params
-        )
-        ok
-      )
-
-      fn Initialize viewObject = (
-        if isValidView viewObject do (
-          view = viewObject
-        )
-        notify #Open #RltFoo #()
-        ok
-      )
-
-      on RltFoo Close do notify #Close #RltFoo #()
-      on RltFoo Moved v do notify #Moved #RltFoo #(v)
-      on RltFoo Resized v do notify #Resized #RltFoo #(v)
-
-      on BtnBar Pressed do notify #Pressed #BtnBar #()
-    )
-    ```
 */
 struct DialogStruct (
   /*- @prop <RolloutClass> 作成パラメータ1。ロールアウト定義。既定値は`undefined`。 */
@@ -90,8 +42,6 @@ struct DialogStruct (
   private styleTitleBar = false,
   /*- @prop <BooleanClass> ツールウィンドウにするかどうか。既定値は`true`。 */
   private styleToolWindow = true,
-  /*- @prop <Struct:MvcViewStruct|UndefinedClass> ビューオブジェクト。既定値は`undefined`。 */
-  private view,
 
   /*
   public fn Create = (),
@@ -113,7 +63,6 @@ struct DialogStruct (
   public fn GetStyleSysmenu = (),
   public fn GetStyleTitleBar = (),
   public fn GetStyleToolWindow = (),
-  public fn GetView = (),
   public fn IsDisplayed = (),
   public fn Load config = (),
   public fn Save config = (),
@@ -134,7 +83,6 @@ struct DialogStruct (
   public fn SetStyleSysmenu input = (),
   public fn SetStyleTitleBar input = (),
   public fn SetStyleToolWindow input = (),
-  public fn SetView obj = (),
 
   private fn generateConfigKey = (),
   private fn generateStyle = (),
@@ -142,7 +90,6 @@ struct DialogStruct (
   private fn isValidConfig obj = (),
   private fn isValidMenuDef obj = (),
   private fn isValidRolloutDef obj = (),
-  private fn isValidView obj = (),
   */
 
   /*-
@@ -169,9 +116,6 @@ struct DialogStruct (
           modal:this.modal \
           pos:pos \
           style:style
-      if this.isValidView this.view do (
-        this.rolloutDef.Initialize this.view
-      )
       this.StateChanged.Notify #DialogCreated undefined
     )
     this.IsDisplayed()
@@ -179,7 +123,6 @@ struct DialogStruct (
 
   /*-
   ダイアログを破棄する。
-  @param view <Struct:MvcViewStruct>
   @returns <BooleanClass> 正常に破棄できた場合は`true`、破棄できなかった場合は`false`。
   */
   public fn Destroy = (
@@ -334,14 +277,6 @@ struct DialogStruct (
   */
   public fn GetStyleToolWindow = (
     this.styleToolWindow
-  ),
-
-  /*-
-  ビューオブジェクトを取得する。
-  @returns <Struct:MvcViewStruct|UndefinedClass>
-  */
-  public fn GetView = (
-    this.view
   ),
 
   /*-
@@ -648,20 +583,6 @@ struct DialogStruct (
   ),
 
   /*-
-  ビューオブジェクトを設定する。
-  @param obj <Struct:MvcViewStruct|UndefinedClass>
-  @returns <Struct:MvcViewStruct|UndefinedClass>
-  @remarks 無効な値の場合は何もしない。
-  */
-  public fn SetView obj = (
-    if this.isValidView obj or classOf obj == UndefinedClass do (
-      this.view = obj
-      this.StateChanged.Notify #View this.view
-    )
-    this.GetView()
-  ),
-
-  /*-
   コンフィグ用のキーを生成する。
   @returns <Name>
   */
@@ -725,19 +646,6 @@ struct DialogStruct (
     classOf obj == RolloutClass
   ),
 
-  /*-
-  @param obj <Any>
-  @returns <BooleanClass>
-  */
-  private fn isValidView obj = (
-    isStruct obj \
-        and isProperty obj #StructName \
-        and classOf obj.StructName == MAXScriptFunction \
-        and obj.StructName() == #MvcViewStruct \
-        and isProperty obj #EventNotify \
-        and classOf obj.EventNotify == MAXScriptFunction
-  ),
-
   /*- @returns <Name> */
   public fn StructName = #DialogStruct,
 
@@ -760,13 +668,6 @@ struct DialogStruct (
     format "%  styleSysmenu:%\n" indent this.styleSysmenu to:out
     format "%  styleTitleBar:%\n" indent this.styleTitleBar to:out
     format "%  styleToolWindow:%\n" indent this.styleToolWindow to:out
-    if this.isValidView this.view then (
-      format "%  view:\n" indent to:out
-      this.view.Dump indent:(indent + "    ") out:out
-    )
-    else (
-      format "%  view:%\n" indent this.view to:out
-    )
     ok
   ),
 
