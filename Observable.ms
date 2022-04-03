@@ -1,9 +1,26 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 通知を発行する仕組みを提供する。
+@remarks 通知を受け取る関数は次のように実装する。
+
+```maxscript
+fn update type param = (
+  case type of (
+    (#Foo): ()
+    (#Bar): ()
+    default: ()
+  )
+  ok
+)
+```
+
+| 引数    | 内容       |
+| ------- | ---------- |
+| `type`  | 通知名     |
+| `param` | 通知データ |
 */
 struct ObservableStruct (
-  /*- @prop <Array[<Struct:ObserverStruct>]> */
+  /*- @prop <Array[<MAXScriptFunction>]> */
   private observers = #(),
 
   /*
@@ -32,15 +49,13 @@ struct ObservableStruct (
   */
   public fn Notify type param = (
     for observer in this.observers do (
-      if classOf observer.Update == MAXScriptFunction do (
-        observer.Update type param
-      )
+      observer type param
     )
     ok
   ),
 
   /*-
-  @param obj <Struct:ObserverStruct>
+  @param obj <MAXScriptFunction>
   @returns <BooleanClass> オブザーバが存在する場合は`true`、失敗した場合は`false`。
   */
   public fn Subscribe obj = (
@@ -51,7 +66,7 @@ struct ObservableStruct (
   ),
 
   /*-
-  @param obj <Struct:ObserverStruct>
+  @param obj <MAXScriptFunction>
   @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
   */
   public fn Unsubscribe obj = (
@@ -67,12 +82,12 @@ struct ObservableStruct (
   @returns <Integer>
   */
   private fn findObserver obj = (
-    local index = 0
-    if not this.isValidObserver obj do (
-      index = -1
+    local index = -1
+    if this.isValidObserver obj do (
+      index = 0
     )
     for i = 1 to this.observers.Count while index == 0 do (
-      if this.observers[i].Equals obj do (
+      if this.observers[i] == obj do (
         index = i
       )
     )
@@ -84,12 +99,7 @@ struct ObservableStruct (
   @returns <BooleanClass>
   */
   private fn isValidObserver obj = (
-    isStruct obj \
-        and isProperty obj #StructName \
-        and classOf obj.StructName == MAXScriptFunction \
-        and obj.StructName() == #ObserverStruct \
-        and isProperty obj #Update \
-        and classOf obj.Update == MAXScriptFunction
+    classOf obj == MAXScriptFunction
   ),
 
   /*- @returns <Name> */
@@ -104,8 +114,7 @@ struct ObservableStruct (
     format "%ObservableStruct\n" indent to:out
     format "%  observers:%\n" indent this.observers.Count to:out
     for i = 1 to this.observers.Count do (
-      format "%    [%]:\n" indent i to:out
-      this.observers[i].Dump indent:(indent + "      ") out:out
+      format "%    [%]:%\n" indent i this.observers[i] to:out
     )
     ok
   ),

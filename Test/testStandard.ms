@@ -95,9 +95,6 @@
   /* ObservableStruct */
   assert (testStructDefinition testObj.ObservableStruct #ObservableStruct)
 
-  /* ObserverStruct */
-  assert (testStructDefinition testObj.ObserverStruct #ObserverStruct)
-
   /* PathUtilityStruct */
   assert (testStructDefinition testObj.PathUtilityStruct #PathUtilityStruct)
 

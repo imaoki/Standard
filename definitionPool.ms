@@ -6,7 +6,6 @@ global standardDefinitionPool = Dictionary #String
 ::standardDefinitionPool[@"DotNetUtility.ms"] = fileIn @"DotNetUtility.ms"
 ::standardDefinitionPool[@"Easing.ms"] = fileIn @"Easing.ms"
 ::standardDefinitionPool[@"Observable.ms"] = fileIn @"Observable.ms"
-::standardDefinitionPool[@"Observer.ms"] = fileIn @"Observer.ms"
 ::standardDefinitionPool[@"PathUtility.ms"] = fileIn @"PathUtility.ms"
 ::standardDefinitionPool[@"ViewportUtility.ms"] = fileIn @"ViewportUtility.ms"
 /*

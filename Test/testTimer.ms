@@ -24,29 +24,9 @@
 
   format "[run %]@\"%\"\n" nowTime currentFile
   /* Setup Start ------------------------------------------------------------ */
-  local TestObserverStruct
-  struct TestObserverStruct (
-    public Update,
-
-    public fn StructName = #TestObserverStruct,
-
-    public fn Equals obj = (
-      local isEqualStructName = isStruct obj \
-          and isProperty obj #StructName \
-          and classOf obj.StructName == MAXScriptFunction \
-          and obj.StructName() == this.StructName()
-
-      local isEqualProperties = isProperty obj #Update \
-          and obj.Update == this.Update
-
-      isEqualStructName and isEqualProperties
-    ),
-
-    on Create do ()
-  )
-
   local expectedEnabled = false
   local expectedInterval = 100
+  local expectedParam = undefined
   local expectedTicks = 0
 
   local testNotification
@@ -56,6 +36,11 @@
       (#Interval): (
         actual = ::TestValueStruct (testObj.GetInterval())
         expected = ::TestValueStruct expectedInterval
+        assert (actual.Equals expected == true)
+
+        /* Equals */
+        actual = ::TestValueStruct param
+        expected = ::TestValueStruct expectedParam
         assert (actual.Equals expected == true)
       )
       (#Ticks): (
@@ -85,10 +70,6 @@
       )
       default: ()
     )
-    /* Equals */
-    actual = ::TestValueStruct context
-    expected = ::TestValueStruct testObj
-    assert (actual.Equals expected == true)
     ok
   )
 
@@ -96,7 +77,7 @@
   testDef = ::standardDefinitionPool[@"Timer.ms"]
   testObj = testDef()
 
-  testObj.StateChanged.Subscribe (TestObserverStruct testNotification)
+  testObj.StateChanged.Subscribe testNotification
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
@@ -135,11 +116,13 @@
   /* SetInterval */
   -- 範囲外（最小値）
   expectedInterval = 1
+  expectedParam = 1
   actual = ::TestValueStruct (testObj.SetInterval 0)
   expected = ::TestValueStruct expectedInterval
   assert (actual.Equals expected == true)
   -- 範囲内
   expectedInterval = 500
+  expectedParam = 500
   actual = ::TestValueStruct (testObj.SetInterval 500)
   expected = ::TestValueStruct expectedInterval
   assert (actual.Equals expected == true)
@@ -147,11 +130,13 @@
   /* Start */
   -- Intervalを設定
   expectedInterval = 10
+  expectedParam = 10
   actual = ::TestValueStruct (testObj.SetInterval 10)
   expected = ::TestValueStruct expectedInterval
   assert (actual.Equals expected == true)
   -- タイマー起動
   expectedEnabled = true
+  expectedParam = testObj
   expectedTicks = 1
   actual = ::TestValueStruct (testObj.Start())
   expected = ::TestValueStruct ok

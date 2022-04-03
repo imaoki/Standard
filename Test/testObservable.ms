@@ -24,9 +24,6 @@
 
   format "[run %]@\"%\"\n" nowTime currentFile
   /* Setup Start ------------------------------------------------------------ */
-  fileIn (getFullPath @"..\definitionPool.ms")
-  local observerDef = ::standardDefinitionPool[@"Observer.ms"]
-
   local expectedParam = undefined
   local expectedType = undefined
 
@@ -47,8 +44,7 @@
     ok
   )
 
-  local observer = observerDef testNotification
-
+  fileIn (getFullPath @"..\definitionPool.ms")
   testDef = ::standardDefinitionPool[@"Observable.ms"]
   testObj = testDef()
   /* Setup End -------------------------------------------------------------- */
@@ -61,12 +57,12 @@
   assert (actual.Equals expected == true)
 
   /* Subscribe */
-  -- 関数未指定のオブザーバは失敗する
-  actual = ::TestValueStruct (testObj.Subscribe (observerDef()))
+  -- 無効な値
+  actual = ::TestValueStruct (testObj.Subscribe 0)
   expected = ::TestValueStruct false
   assert (actual.Equals expected == true)
   -- 成功
-  actual = ::TestValueStruct (testObj.Subscribe observer)
+  actual = ::TestValueStruct (testObj.Subscribe testNotification)
   expected = ::TestValueStruct true
   assert (actual.Equals expected == true)
   -- 数を確認
@@ -74,7 +70,7 @@
   expected = ::TestValueStruct 1
   assert (actual.Equals expected == true)
   -- 重複登録は出来ないが登録済みなので成功
-  actual = ::TestValueStruct (testObj.Subscribe observer)
+  actual = ::TestValueStruct (testObj.Subscribe testNotification)
   expected = ::TestValueStruct true
   assert (actual.Equals expected == true)
   -- 数を確認
@@ -84,7 +80,7 @@
 
   /* Unsubscribe */
   -- 成功
-  actual = ::TestValueStruct (testObj.Unsubscribe observer)
+  actual = ::TestValueStruct (testObj.Unsubscribe testNotification)
   expected = ::TestValueStruct true
   assert (actual.Equals expected == true)
   -- 数を確認
@@ -93,9 +89,11 @@
   assert (actual.Equals expected == true)
 
   /* 購読 */
-  actual = ::TestValueStruct (testObj.Subscribe observer)
+  actual = ::TestValueStruct (testObj.Subscribe testNotification)
   expected = ::TestValueStruct true
   assert (actual.Equals expected == true)
+
+  -- testObj.Dump()
 
   /* Notify */
   expectedParam = 0

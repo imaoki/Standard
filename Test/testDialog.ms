@@ -27,27 +27,6 @@
   fileIn (getFullPath @"..\definitionPool.ms")
   local configDef = ::standardDefinitionPool[@"Config.ms"]
 
-  local TestObserverStruct
-  struct TestObserverStruct (
-    public Update,
-
-    public fn StructName = #ObserverStruct,
-
-    public fn Equals obj = (
-      local isEqualStructName = isStruct obj \
-          and isProperty obj #StructName \
-          and classOf obj.StructName == MAXScriptFunction \
-          and obj.StructName() == this.StructName()
-
-      local isEqualProperties = isProperty obj #Update \
-          and obj.Update == this.Update
-
-      isEqualStructName and isEqualProperties
-    ),
-
-    on Create do ()
-  )
-
   local MnuTest
   rcMenu MnuTest (
     menuItem Mi1 "Item1"
@@ -193,7 +172,7 @@
   /* Test Start ------------------------------------------------------------- */
   /* 空インスタンス作成 */
   testObj = testDef()
-  testObj.StateChanged.Subscribe (TestObserverStruct testNotification)
+  testObj.StateChanged.Subscribe testNotification
 
   /* GetInitPosition */
   -- 既定値
@@ -583,7 +562,7 @@
 
   /* インスタンス再作成 */
   testObj = testDef()
-  testObj.StateChanged.Subscribe (TestObserverStruct testNotification)
+  testObj.StateChanged.Subscribe testNotification
   -- ロールアウト設定
   expectedRolloutDef = RltTest
   actual = ::TestValueStruct (testObj.SetRolloutDef RltTest)

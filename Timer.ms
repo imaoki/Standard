@@ -22,6 +22,11 @@ global mxsDotNetTimerTickHandler = fn mxsDotNetTimerTickHandler sender event = (
 )
 /*-
 .NETの[Timer](https://docs.microsoft.com/ja-jp/dotnet/api/system.windows.forms.timer?view=netframework-4.8)のラッパー。
+@remarks 通知
+:   | 通知名      | 通知データ               | タイミング                           |
+    | ----------- | ------------------------ | ------------------------------------ |
+    | `#Interval` | 新たな発生間隔（ミリ秒） | `Tick`イベントの発生間隔を設定した後 |
+    | `#Ticks`    | 自己インスタンス         | `Tick`イベントが発生した直後         |
 */
 struct TimerStruct (
   /*- @prop <Point> 作成パラメータ1。`Tick`イベントの発生間隔（ミリ秒）。既定値は`100`。 */
