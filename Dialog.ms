@@ -2,27 +2,27 @@
 /*-
 ダイアログの作成と破棄に伴う処理をカプセル化するための構造体。
 @remarks 通知
-:   | 通知名              | 通知データ             | タイミング                             |
-    | ------------------- | ---------------------- | -------------------------------------- |
-    | `#DialogCreated`    | `undefined`            | ダイアログを作成した直後               |
-    | `#DialogDestroyed`  | `undefined`            | ダイアログを破棄した直後               |
-    | `#InitPosition`     | 新たな`initPosition`値 | `initPosition`を設定した後             |
-    | `#InitSize`         | 新たな`initSize`値     | `initSize`を設定した後                 |
-    | `#LockHeight`       | 新たな`lockHeight`値   | `lockHeight`を設定した後               |
-    | `#LockWidth`        | 新たな`lockWidth`値    | `lockWidth`を設定した後                |
-    | `#MenuDef`          | 新たな`menuDef`値      | `menuDef`を設定した後                  |
-    | `#Modal`            | 新たな`modal`値        | `modal`を設定した後                    |
-    | `#PositionChanged`  | `undefined`            | ダイアログの現在の位置を設定した直後   |
-    | `#RolloutDef`       | `rolloutDef`           | `rolloutDef`を設定した後               |
-    | `#SizeChanged`      | `undefined`            | ダイアログの現在のサイズを設定した直後 |
-    | `#StyleBorder`      | `styleBorder`          | `styleBorder`を設定した後              |
-    | `#StyleMaximizeBox` | `styleMaximizeBox`     | `styleMaximizeBox`を設定した後         |
-    | `#StyleMinimizeBox` | `styleMinimizeBox`     | `styleMinimizeBox`を設定した後         |
-    | `#StyleResizing`    | `styleResizing`        | `styleResizing`を設定した後            |
-    | `#StyleSunkenedge`  | `styleSunkenedge`      | `styleSunkenedge`を設定した後          |
-    | `#StyleSysmenu`     | `styleSysmenu`         | `styleSysmenu`を設定した後             |
-    | `#StyleTitleBar`    | `styleTitleBar`        | `styleTitleBar`を設定した後            |
-    | `#StyleToolWindow`  | `styleToolWindow`      | `styleToolWindow`を設定した後          |
+:   | 通知名              | 通知データ                 | タイミング                             |
+    | ------------------- | -------------------------- | -------------------------------------- |
+    | `#DialogCreated`    | `undefined`                | ダイアログを作成した直後               |
+    | `#DialogDestroyed`  | `undefined`                | ダイアログを破棄した直後               |
+    | `#InitPosition`     | 新たな`initPosition`値     | `initPosition`を設定した後             |
+    | `#InitSize`         | 新たな`initSize`値         | `initSize`を設定した後                 |
+    | `#LockHeight`       | 新たな`lockHeight`値       | `lockHeight`を設定した後               |
+    | `#LockWidth`        | 新たな`lockWidth`値        | `lockWidth`を設定した後                |
+    | `#MenuDef`          | 新たな`menuDef`値          | `menuDef`を設定した後                  |
+    | `#Modal`            | 新たな`modal`値            | `modal`を設定した後                    |
+    | `#PositionChanged`  | `undefined`                | ダイアログの現在の位置を設定した直後   |
+    | `#RolloutDef`       | 新たな`rolloutDef`値       | `rolloutDef`を設定した後               |
+    | `#SizeChanged`      | `undefined`                | ダイアログの現在のサイズを設定した直後 |
+    | `#StyleBorder`      | 新たな`styleBorder`値      | `styleBorder`を設定した後              |
+    | `#StyleMaximizeBox` | 新たな`styleMaximizeBox`値 | `styleMaximizeBox`を設定した後         |
+    | `#StyleMinimizeBox` | 新たな`styleMinimizeBox`値 | `styleMinimizeBox`を設定した後         |
+    | `#StyleResizing`    | 新たな`styleResizing`値    | `styleResizing`を設定した後            |
+    | `#StyleSunkenedge`  | 新たな`styleSunkenedge`値  | `styleSunkenedge`を設定した後          |
+    | `#StyleSysmenu`     | 新たな`styleSysmenu`値     | `styleSysmenu`を設定した後             |
+    | `#StyleTitleBar`    | 新たな`styleTitleBar`値    | `styleTitleBar`を設定した後            |
+    | `#StyleToolWindow`  | 新たな`styleToolWindow`値  | `styleToolWindow`を設定した後          |
 */
 struct DialogStruct (
   /*- @prop <RolloutClass> 作成パラメータ1。ロールアウト定義。既定値は`undefined`。 */
