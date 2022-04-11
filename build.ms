@@ -53,5 +53,7 @@
   /* 最小化ファイルを保存 */
   code = mp.Minify code
   mp.WriteAllText @".\Distribution\Standard.min.ms" code
+  /* ファイルコピー */
+  -- mp.CopyDirectory @".\Standard.SubDir" @".\Distribution\Standard.SubDir"
   ok
 )
