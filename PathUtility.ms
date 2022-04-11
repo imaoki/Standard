@@ -215,10 +215,7 @@ struct PathUtilityStruct (
   */
   public fn Dump indent:"" out:listener = (
     format "%PathUtilityStruct\n" indent to:out
-    format "%  currentDir:@\"%\"\n" indent this.currentDir to:out
-    format "%  currentFile:@\"%\"\n" indent this.currentFile to:out
-    format "%  globalVarName:\"%\"\n" indent this.globalVarName to:out
-    format "%  parentDir:@\"%\"\n" indent this.parentDir to:out
+    format "%  baseDirectory:@\"%\"\n" indent this.baseDirectory to:out
     ok
   ),
 
