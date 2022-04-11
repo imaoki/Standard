@@ -77,6 +77,7 @@ struct StringUtilityStruct (
   ),
 
   /*-
+  正規表現オブジェクトを作成する。
   @param pattern <String> 正規表現パターン文字列。
   @param options: <Array[<Name>]> 正規表現のオプション。既定値は`#(#IgnoreCase, #Singleline)`。
   有効な値は次の通り。
