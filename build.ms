@@ -49,7 +49,7 @@
   /* インストーラーオプション削除 */
   code = mp.RemoveInstallerOption code
   /* バンドルファイルを保存 */
-  mp.WriteAllText @".\Distribution\Standard.bundle.ms" code
+  -- mp.WriteAllText @".\Distribution\Standard.bundle.ms" code
   /* 最小化ファイルを保存 */
   code = mp.Minify code
   mp.WriteAllText @".\Distribution\Standard.min.ms" code
