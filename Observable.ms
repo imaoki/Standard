@@ -25,6 +25,7 @@ struct ObservableStruct (
 
   /*
   public fn Count = (),
+  public fn HasSubscribed obj = (),
   public fn Notify type param = (),
   public fn Subscribe obj = (),
   public fn Unsubscribe obj = (),
@@ -42,6 +43,15 @@ struct ObservableStruct (
   ),
 
   /*-
+  オブザーバが登録済みかどうかを判定する。
+  @param obj <MAXScriptFunction>
+  @returns <BooleanClass>
+  */
+  public fn HasSubscribed obj = (
+    this.findObserver obj > 0
+  ),
+
+  /*-
   通知を発行する。
   @param type <Name> 通知名。
   @param param <Any> 通知データ。
@@ -55,6 +65,7 @@ struct ObservableStruct (
   ),
 
   /*-
+  通知元として購読する。
   @param obj <MAXScriptFunction>
   @returns <BooleanClass> オブザーバが存在する場合は`true`、失敗した場合は`false`。
   */
@@ -66,6 +77,7 @@ struct ObservableStruct (
   ),
 
   /*-
+  購読を解除する。
   @param obj <MAXScriptFunction>
   @returns <BooleanClass> 成功した場合は`true`、失敗した場合は`false`。
   */

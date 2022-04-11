@@ -56,6 +56,16 @@
   expected = ::TestValueStruct 0
   assert (actual.Equals expected == true)
 
+  /* HasSubscribed */
+  -- 無効な値
+  actual = ::TestValueStruct (testObj.HasSubscribed 0)
+  expected = ::TestValueStruct false
+  assert (actual.Equals expected == true)
+  -- 成功
+  actual = ::TestValueStruct (testObj.HasSubscribed testNotification)
+  expected = ::TestValueStruct false
+  assert (actual.Equals expected == true)
+
   /* Subscribe */
   -- 無効な値
   actual = ::TestValueStruct (testObj.Subscribe 0)
@@ -77,6 +87,10 @@
   actual = ::TestValueStruct (testObj.Count())
   expected = ::TestValueStruct 1
   assert (actual.Equals expected == true)
+  -- 登録済みかどうかを確認
+  actual = ::TestValueStruct (testObj.HasSubscribed testNotification)
+  expected = ::TestValueStruct true
+  assert (actual.Equals expected == true)
 
   /* Unsubscribe */
   -- 成功
@@ -86,6 +100,10 @@
   -- 数を確認
   actual = ::TestValueStruct (testObj.Count())
   expected = ::TestValueStruct 0
+  assert (actual.Equals expected == true)
+  -- 登録済みかどうかを確認
+  actual = ::TestValueStruct (testObj.HasSubscribed testNotification)
+  expected = ::TestValueStruct false
   assert (actual.Equals expected == true)
 
   /* 購読 */
