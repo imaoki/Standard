@@ -62,24 +62,6 @@
   expected = ::TestValueStruct @"C:\File."
   assert (actual.Equals expected == true)
 
-  /* ExtractDirectoryName */
-  -- ファイル
-  actual = ::TestValueStruct (testObj.ExtractDirectoryName @"C:\Dir\File.ext")
-  expected = ::TestValueStruct @"C:\Dir"
-  assert (actual.Equals expected == true)
-  -- ディレクトリ（末尾区切り文字）
-  actual = ::TestValueStruct (testObj.ExtractDirectoryName @"C:\Dir\")
-  expected = ::TestValueStruct @"C:\Dir"
-  assert (actual.Equals expected == true)
-  -- ディレクトリ
-  actual = ::TestValueStruct (testObj.ExtractDirectoryName @"C:\Dir")
-  expected = ::TestValueStruct @"C:\Dir"
-  assert (actual.Equals expected == true)
-  -- ルートディレクトリ
-  actual = ::TestValueStruct (testObj.ExtractDirectoryName @"C:\")
-  expected = ::TestValueStruct @"C:\"
-  assert (actual.Equals expected == true)
-
   /* GetBaseDirectory */
   -- 現ディレクトリ
   testObj = testDef currentDir

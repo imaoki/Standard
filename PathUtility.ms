@@ -21,7 +21,6 @@ struct PathUtilityStruct (
 
   /*
   public fn ChangeExtension path extension = (),
-  public fn ExtractDirectoryName path = (),
   public fn GetBaseDirectory = (),
   public fn GetDirectoryName path = (),
   public fn GetExtension path = (),
@@ -46,19 +45,6 @@ struct PathUtilityStruct (
   */
   public fn ChangeExtension path extension = (
     this.pathClass.ChangeExtension path extension
-  ),
-
-  /*-
-  パスからディレクトリ部分を抽出する。
-  @param path <String>
-  @returns <String>
-  */
-  public fn ExtractDirectoryName path = (
-    path = this.TrimEndSeparator path
-    if this.HasExtension path do (
-      path = this.GetDirectoryName path
-    )
-    path
   ),
 
   /*-
