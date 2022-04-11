@@ -74,7 +74,7 @@ struct FileUtilityStruct (
   */
   public fn CopyDirectory source destination overwrite:false = (
     if this.DirectoryExists source and classOf destination == String do (
-      destination = this.pathUtility.ExtractDirectoryName destination
+      destination = this.pathUtility.TrimEndSeparator destination
       this.copyDirectoryRecursive source destination overwrite
     )
     ok
@@ -410,7 +410,7 @@ struct FileUtilityStruct (
   @returns <OkClass>
   */
   public fn MoveDirectory source destination = (
-    destination = this.pathUtility.ExtractDirectoryName destination
+    destination = this.pathUtility.TrimEndSeparator destination
     if this.DirectoryExists destination do (
       destination += @"\" + (this.pathUtility.GetFileName source)
       case this.getPathType source of (

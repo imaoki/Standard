@@ -142,7 +142,7 @@
   /* CopyDirectory */
   expected = ::TestValueStruct true
   sourceDir = getFullPath @".\Data\File\FileStructure\Recursive"
-  destDir = getFullPath @".\Data\File\FileStructure\CopiedRecursive"
+  destDir = getFullPath @".\Data\File\FileStructure\Recursive.Copy"
   destDirs = #(
     destDir,
     destDir + @"\Single"
@@ -495,9 +495,9 @@
 
   /* MoveDirectory */
   -- ディレクトリ
-  sourceDir = getFullPath @".\Data\File\FileStructure\Recursive\Test"
+  sourceDir = getFullPath @".\Data\File\FileStructure\Recursive\Test.Move"
   destDir = getFullPath @".\Data\File\FileStructure\Single"
-  local resultDir = getFullPath @".\Data\File\FileStructure\Single\Test"
+  local resultDir = getFullPath @".\Data\File\FileStructure\Single\Test.Move"
   -- ディレクトリ前処理
   assert (testTool.CreateDirectory sourceDir == true)
   -- ディレクトリ確認
