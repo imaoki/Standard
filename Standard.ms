@@ -69,7 +69,7 @@ struct StandardStruct (
   ),
 
   /*- @prop <String> バージョン番号。メジャー、マイナー、パッチの順。 */
-  private version = "2.6.0",
+  private version = "2.6.1",
 
   /*- @returns <Name> */
   public fn StructName = #StandardStruct,
