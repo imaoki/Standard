@@ -75,6 +75,10 @@
   assert (actual.Equals expected == true)
 
   /* GetDirectoryName */
+  -- 空文字
+  actual = ::TestValueStruct (testObj.GetDirectoryName @"")
+  expected = ::TestValueStruct @""
+  assert (actual.Equals expected == true)
   -- ファイル
   actual = ::TestValueStruct (testObj.GetDirectoryName @"C:\Dir\File.ext")
   expected = ::TestValueStruct @"C:\Dir"
@@ -175,6 +179,10 @@
   assert (actual.Equals expected == true)
 
   /* GetFullPath */
+  -- 空文字
+  actual = ::TestValueStruct (testObj.GetFullPath @"")
+  expected = ::TestValueStruct @""
+  assert (actual.Equals expected == true)
   -- 絶対パス
   testObj = testDef()
   actual = ::TestValueStruct (testObj.GetFullPath @"C:\Dir\File.ext")
@@ -211,6 +219,10 @@
   assert (actual.Equals expected == true)
 
   /* GetPathRoot */
+  -- 空文字
+  actual = ::TestValueStruct (testObj.GetPathRoot @"")
+  expected = ::TestValueStruct @""
+  assert (actual.Equals expected == true)
   -- 絶対パス
   actual = ::TestValueStruct (testObj.GetPathRoot @"C:\Dir\File.ext")
   expected = ::TestValueStruct @"C:\"

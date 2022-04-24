@@ -69,7 +69,11 @@ struct PathUtilityStruct (
   | `@"C:\"`             | `undefined` |
   */
   public fn GetDirectoryName path = (
-    this.pathClass.GetDirectoryName path
+    local directoryName = ""
+    if classOf path == String and path.Count > 0 do (
+      directoryName = this.pathClass.GetDirectoryName path
+    )
+    directoryName
   ),
 
   /*-
@@ -108,10 +112,14 @@ struct PathUtilityStruct (
   @remarks 相対パスを使用する場合はベースディレクトリの実体が存在する必要がある。
   */
   public fn GetFullPath path = (
+    local fullPath = ""
     if this.directoryClass.Exists this.baseDirectory do (
       this.environmentClass.CurrentDirectory = this.baseDirectory
     )
-    this.pathClass.GetFullPath path
+    if classOf path == String and path.Count > 0 do (
+      fullPath = this.pathClass.GetFullPath path
+    )
+    fullPath
   ),
 
   /*-
@@ -137,7 +145,11 @@ struct PathUtilityStruct (
   @remarks パスにルートディレクトリ情報が含まれていない場合は`""`を返す。
   */
   public fn GetPathRoot path = (
-    this.pathClass.GetPathRoot path
+    local pathRoot = ""
+    if classOf path == String and path.Count > 0 do (
+      pathRoot = this.pathClass.GetPathRoot path
+    )
+    pathRoot
   ),
 
   /*-
