@@ -222,6 +222,12 @@
   expected = ::TestValueStruct undefined
   assert (actual.Equals expected == true)
 
+  /* GetRolloutName */
+  -- 既定値
+  actual = ::TestValueStruct (testObj.GetRolloutName())
+  expected = ::TestValueStruct undefined
+  assert (actual.Equals expected == true)
+
   /* GetSize */
   -- 既定値
   actual = ::TestValueStruct (testObj.GetSize())
@@ -550,6 +556,10 @@
   expectedRolloutDef = RltTest
   actual = ::TestValueStruct (testObj.SetRolloutDef RltTest)
   expected = ::TestValueStruct expectedRolloutDef
+  assert (actual.Equals expected == true)
+  -- 名前を確認
+  actual = ::TestValueStruct (testObj.GetRolloutName())
+  expected = ::TestValueStruct #RltTest
   assert (actual.Equals expected == true)
   -- 位置を確認（ロールアウト非表示でも取得可能）
   actual = ::TestValueStruct (testObj.GetPosition())

@@ -76,6 +76,7 @@ struct DialogStruct (
   public fn GetModal = (),
   public fn GetPosition = (),
   public fn GetRolloutDef = (),
+  public fn GetRolloutName = (),
   public fn GetSize = (),
   public fn GetStyleBorder = (),
   public fn GetStyleMaximizeBox = (),
@@ -222,6 +223,19 @@ struct DialogStruct (
   */
   public fn GetRolloutDef = (
     this.rolloutDef
+  ),
+
+  /*-
+  ロールアウト定義の名前を取得する。
+  @returns <Name|UndefinedClass>
+  @remarks 取得できない場合は`undefined`を返す。
+  */
+  public fn GetRolloutName = (
+    local rolloutName = undefined
+    if this.isValidRolloutDef this.rolloutDef do (
+      rolloutName = this.rolloutDef.Name as Name
+    )
+    rolloutName
   ),
 
   /*-
