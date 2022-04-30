@@ -507,13 +507,13 @@
 
   -- testObj.Dump()
 
-  /* Load */
-  actual = ::TestValueStruct (testObj.Load())
+  /* Read */
+  actual = ::TestValueStruct (testObj.Read())
   expected = ::TestValueStruct false
   assert (actual.Equals expected == true)
 
-  /* Save */
-  actual = ::TestValueStruct (testObj.Save())
+  /* Write */
+  actual = ::TestValueStruct (testObj.Write())
   expected = ::TestValueStruct true
   assert (actual.Equals expected == true)
   -- 保存先ファイルの存在を確認
@@ -524,8 +524,8 @@
   /* 読み込み確認用オブジェクト作成 */
   testObj2 = testDef testConfigFile
 
-  /* Load */
-  actual = ::TestValueStruct (testObj2.Load())
+  /* Read */
+  actual = ::TestValueStruct (testObj2.Read())
   expected = ::TestValueStruct true
   assert (actual.Equals expected == true)
   -- 数の同一性を確認
