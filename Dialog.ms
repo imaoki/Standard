@@ -23,6 +23,23 @@
     | `#StyleSysmenu`     | 新たな`styleSysmenu`値     | `styleSysmenu`を設定した後             |
     | `#StyleTitleBar`    | 新たな`styleTitleBar`値    | `styleTitleBar`を設定した後            |
     | `#StyleToolWindow`  | 新たな`styleToolWindow`値  | `styleToolWindow`を設定した後          |
+
+設定ファイル
+:   | パス                                         | 値                 |
+    | -------------------------------------------- | ------------------ |
+    | `[#'RolloutName.Dialog'][#InitPosition]`     | `initPosition`     |
+    | `[#'RolloutName.Dialog'][#InitSize]`         | `initSize`         |
+    | `[#'RolloutName.Dialog'][#LockHeight]`       | `lockHeight`       |
+    | `[#'RolloutName.Dialog'][#LockWidth]`        | `lockWidth`        |
+    | `[#'RolloutName.Dialog'][#Modal]`            | `modal`            |
+    | `[#'RolloutName.Dialog'][#StyleBorder]`      | `styleBorder`      |
+    | `[#'RolloutName.Dialog'][#StyleMaximizeBox]` | `styleMaximizeBox` |
+    | `[#'RolloutName.Dialog'][#StyleMinimizeBox]` | `styleMinimizeBox` |
+    | `[#'RolloutName.Dialog'][#StyleResizing]`    | `styleResizing`    |
+    | `[#'RolloutName.Dialog'][#StyleSunkenedge]`  | `styleSunkenedge`  |
+    | `[#'RolloutName.Dialog'][#StyleSysmenu]`     | `styleSysmenu`     |
+    | `[#'RolloutName.Dialog'][#StyleTitleBar]`    | `styleTitleBar`    |
+    | `[#'RolloutName.Dialog'][#StyleToolWindow]`  | `styleToolWindow`  |
 */
 struct DialogStruct (
   /*- @prop <RolloutClass> 作成パラメータ1。ロールアウト定義。既定値は`undefined`。 */
