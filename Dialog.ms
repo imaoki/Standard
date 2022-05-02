@@ -25,21 +25,21 @@
     | `#StyleToolWindow`  | 新たな`styleToolWindow`値  | `styleToolWindow`を設定した後          |
 
 設定ファイル
-:   | パス                                         | 値                 |
-    | -------------------------------------------- | ------------------ |
-    | `[#'RolloutName.Dialog'][#InitPosition]`     | `initPosition`     |
-    | `[#'RolloutName.Dialog'][#InitSize]`         | `initSize`         |
-    | `[#'RolloutName.Dialog'][#LockHeight]`       | `lockHeight`       |
-    | `[#'RolloutName.Dialog'][#LockWidth]`        | `lockWidth`        |
-    | `[#'RolloutName.Dialog'][#Modal]`            | `modal`            |
-    | `[#'RolloutName.Dialog'][#StyleBorder]`      | `styleBorder`      |
-    | `[#'RolloutName.Dialog'][#StyleMaximizeBox]` | `styleMaximizeBox` |
-    | `[#'RolloutName.Dialog'][#StyleMinimizeBox]` | `styleMinimizeBox` |
-    | `[#'RolloutName.Dialog'][#StyleResizing]`    | `styleResizing`    |
-    | `[#'RolloutName.Dialog'][#StyleSunkenedge]`  | `styleSunkenedge`  |
-    | `[#'RolloutName.Dialog'][#StyleSysmenu]`     | `styleSysmenu`     |
-    | `[#'RolloutName.Dialog'][#StyleTitleBar]`    | `styleTitleBar`    |
-    | `[#'RolloutName.Dialog'][#StyleToolWindow]`  | `styleToolWindow`  |
+:   | パス                                         | 値                         |
+    | -------------------------------------------- | -------------------------- |
+    | `[#'RolloutName.Dialog'][#InitPosition]`     | 現在の`initPosition`値     |
+    | `[#'RolloutName.Dialog'][#InitSize]`         | 現在の`initSize`値         |
+    | `[#'RolloutName.Dialog'][#LockHeight]`       | 現在の`lockHeight`値       |
+    | `[#'RolloutName.Dialog'][#LockWidth]`        | 現在の`lockWidth`値        |
+    | `[#'RolloutName.Dialog'][#Modal]`            | 現在の`modal`値            |
+    | `[#'RolloutName.Dialog'][#StyleBorder]`      | 現在の`styleBorder`値      |
+    | `[#'RolloutName.Dialog'][#StyleMaximizeBox]` | 現在の`styleMaximizeBox`値 |
+    | `[#'RolloutName.Dialog'][#StyleMinimizeBox]` | 現在の`styleMinimizeBox`値 |
+    | `[#'RolloutName.Dialog'][#StyleResizing]`    | 現在の`styleResizing`値    |
+    | `[#'RolloutName.Dialog'][#StyleSunkenedge]`  | 現在の`styleSunkenedge`値  |
+    | `[#'RolloutName.Dialog'][#StyleSysmenu]`     | 現在の`styleSysmenu`値     |
+    | `[#'RolloutName.Dialog'][#StyleTitleBar]`    | 現在の`styleTitleBar`値    |
+    | `[#'RolloutName.Dialog'][#StyleToolWindow]`  | 現在の`styleToolWindow`値  |
 */
 struct DialogStruct (
   /*- @prop <RolloutClass> 作成パラメータ1。ロールアウト定義。既定値は`undefined`。 */
@@ -485,7 +485,8 @@ struct DialogStruct (
   ダイアログの現在の位置を設定する。
   @param input <Point2>
   @returns <Point2>
-  @remarks 無効な値の場合は何もしない。
+  @remarks 内部状態は変更しない。
+  無効な値の場合は何もしない。
   */
   public fn SetPosition input = (
     if classOf input == Point2 and this.inDialog this.rolloutDef do (
@@ -513,7 +514,8 @@ struct DialogStruct (
   ダイアログの現在のサイズを設定する。
   @param input <Point2>
   @returns <Point2>
-  @remarks 無効な値の場合は何もしない。
+  @remarks 内部状態は変更しない。
+  無効な値の場合は何もしない。
   */
   public fn SetSize input = (
     if classOf input == Point2 and this.inDialog this.rolloutDef do (
