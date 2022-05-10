@@ -1,6 +1,10 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 ファイルまたはディレクトリのパス情報を操作する。
+@remarks 作成パラメータ
+:   ```maxscript
+    ::PathUtilityStruct [baseDirectory]
+    ```
 */
 struct PathUtilityStruct (
   /*-

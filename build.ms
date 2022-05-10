@@ -11,17 +11,17 @@
 
   local AttributeUtilityCode = mp.ClipFile @".\AttributeUtility.ms" 93 -1
   local ComparerCode = mp.ClipFile @".\Comparer.ms" 259 -1
-  local ConfigCode = mp.ClipFile @".\Config.ms" 85 -1
-  local DialogCode = mp.ClipFile @".\Dialog.ms" 1949 -1
+  local ConfigCode = mp.ClipFile @".\Config.ms" 161 -1
+  local DialogCode = mp.ClipFile @".\Dialog.ms" 3232 -1
   local DotNetUtilityCode = mp.ClipFile @".\DotNetUtility.ms" 90 -1
   local EasingCode = mp.ClipFile @".\Easing.ms" 89 -1
-  local EncodingCode = mp.ClipFile @".\Encoding.ms" 181 -1
-  local EnumCode = mp.ClipFile @".\Enum.ms" 183 -1
+  local EncodingCode = mp.ClipFile @".\Encoding.ms" 281 -1
+  local EnumCode = mp.ClipFile @".\Enum.ms" 265 -1
   local FileUtilityCode = mp.ClipFile @".\FileUtility.ms" 173 -1
   local ObservableCode = mp.ClipFile @".\Observable.ms" 324 -1
-  local PathUtilityCode = mp.ClipFile @".\PathUtility.ms" 96 -1
+  local PathUtilityCode = mp.ClipFile @".\PathUtility.ms" 178 -1
   local StringUtilityCode = mp.ClipFile @".\StringUtility.ms" 93 -1
-  local TimerCode = mp.ClipFile @".\Timer.ms" 1246 -1
+  local TimerCode = mp.ClipFile @".\Timer.ms" 1309 -1
   local TimerGlobalCode = mp.ClipFile @".\Timer.ms" 263 565
   local ViewportUtilityCode = mp.ClipFile @".\ViewportUtility.ms" 92 -1
 

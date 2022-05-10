@@ -1,7 +1,12 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 ダイアログの作成と破棄に伴う処理をカプセル化するための構造体。
-@remarks 通知
+@remarks 作成パラメータ
+:   ```maxscript
+    ::DialogStruct rolloutDef [initSize] [initPosition] [menuDef]
+    ```
+
+通知
 :   | 通知名              | 通知データ                 | タイミング                             |
     | ------------------- | -------------------------- | -------------------------------------- |
     | `#DialogCreated`    | `undefined`                | ダイアログを作成した直後               |

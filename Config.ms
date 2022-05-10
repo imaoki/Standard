@@ -1,6 +1,10 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 設定ファイルの管理を行う。
+@remarks インスタンス作成パラメータ
+:   ```maxscript
+    ::ConfigStruct filePath
+    ```
 */
 struct ConfigStruct (
   /*- @prop <String|UndefinedClass> 作成パラメータ1。保存先ファイルのパス。既定値は`undefined`。 */
