@@ -3,7 +3,7 @@
 ファイルまたはディレクトリのパス情報を操作する。
 @remarks 作成パラメータ
 :   ```maxscript
-    ::PathUtilityStruct [baseDirectory]
+    PathUtilityStruct [baseDirectory]
     ```
 */
 struct PathUtilityStruct (

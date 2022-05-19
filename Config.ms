@@ -1,9 +1,9 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 /*-
 設定ファイルの管理を行う。
-@remarks インスタンス作成パラメータ
+@remarks 作成パラメータ
 :   ```maxscript
-    ::ConfigStruct filePath
+    ConfigStruct filePath
     ```
 */
 struct ConfigStruct (

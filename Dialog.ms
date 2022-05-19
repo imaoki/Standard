@@ -3,7 +3,7 @@
 ダイアログの作成と破棄に伴う処理をカプセル化するための構造体。
 @remarks 作成パラメータ
 :   ```maxscript
-    ::DialogStruct rolloutDef [initSize] [initPosition] [menuDef]
+    DialogStruct rolloutDef [initSize] [initPosition] [menuDef]
     ```
 
 通知

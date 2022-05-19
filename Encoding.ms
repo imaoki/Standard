@@ -3,7 +3,7 @@
 .NETの[Encoding](https://docs.microsoft.com/ja-jp/dotnet/api/system.text.encoding?view=netframework-4.8)のラッパー。
 @remarks 作成パラメータ
 :   ```maxscript
-    ::EncodingStruct [codePageIdentifier] [byteOrderMark]
+    EncodingStruct [codePageIdentifier] [byteOrderMark]
     ```
 */
 struct EncodingStruct (

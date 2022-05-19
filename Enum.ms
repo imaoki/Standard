@@ -3,7 +3,7 @@
 .NETの[Enum](https://docs.microsoft.com/ja-jp/dotnet/api/system.enum?view=netframework-4.8)を`Name`値で操作するためのラッパー。
 @remarks 作成パラメータ
 :   ```maxscript
-    ::EnumStruct fullyQualifiedTypeName
+    EnumStruct fullyQualifiedTypeName
     ```
 */
 struct EnumStruct (
