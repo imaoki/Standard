@@ -9,6 +9,7 @@
   local definitionPoolCode = mp.ClipFile @".\definitionPool.ms" 1 1345
   local StandardCode = mp.ClipFile @".\Standard.ms" 1 -1
 
+  local ArrayUtilityCode = mp.ClipFile @".\ArrayUtility.ms" 89 -1
   local AttributeUtilityCode = mp.ClipFile @".\AttributeUtility.ms" 93 -1
   local ComparerCode = mp.ClipFile @".\Comparer.ms" 259 -1
   local ConfigCode = mp.ClipFile @".\Config.ms" 153 -1
@@ -26,20 +27,21 @@
   local ViewportUtilityCode = mp.ClipFile @".\ViewportUtility.ms" 92 -1
 
   /* コード置換 */
-  local code = mp.ReplaceText definitionPoolCode 1327 19 ConfigCode
-  code = mp.ReplaceText code 1208 24 FileUtilityCode
-  code = mp.ReplaceText code 1073 18 TimerCode
-  code = mp.ReplaceText code 976 19 DialogCode
-  code = mp.ReplaceText code 893 21 EncodingCode
-  code = mp.ReplaceText code 783 26 StringUtilityCode
-  code = mp.ReplaceText code 689 17 EnumCode
-  code = mp.ReplaceText code 598 28 ViewportUtilityCode
-  code = mp.ReplaceText code 523 24 PathUtilityCode
-  code = mp.ReplaceText code 453 23 ObservableCode
-  code = mp.ReplaceText code 388 19 EasingCode
-  code = mp.ReplaceText code 320 26 DotNetUtilityCode
-  code = mp.ReplaceText code 250 21 ComparerCode
-  code = mp.ReplaceText code 177 29 AttributeUtilityCode
+  local code = mp.ReplaceText definitionPoolCode 1400 19 ConfigCode
+  code = mp.ReplaceText code 1281 24 FileUtilityCode
+  code = mp.ReplaceText code 1146 18 TimerCode
+  code = mp.ReplaceText code 1049 19 DialogCode
+  code = mp.ReplaceText code 966 21 EncodingCode
+  code = mp.ReplaceText code 856 26 StringUtilityCode
+  code = mp.ReplaceText code 762 17 EnumCode
+  code = mp.ReplaceText code 671 28 ViewportUtilityCode
+  code = mp.ReplaceText code 596 24 PathUtilityCode
+  code = mp.ReplaceText code 526 23 ObservableCode
+  code = mp.ReplaceText code 461 19 EasingCode
+  code = mp.ReplaceText code 393 26 DotNetUtilityCode
+  code = mp.ReplaceText code 323 21 ComparerCode
+  code = mp.ReplaceText code 250 29 AttributeUtilityCode
+  code = mp.ReplaceText code 173 25 ArrayUtilityCode
   code = mp.ClipText code 64 -1
   code = mp.ReplaceText StandardCode 64 27 code
   code = mp.InsertText code 64 "\n"
