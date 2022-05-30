@@ -6,7 +6,7 @@
   -- mp.DeleteDirectory @".\Distribution"
 
   /* コード切り出し */
-  local definitionPoolCode = mp.ClipFile @".\definitionPool.ms" 1 1345
+  local definitionPoolCode = mp.ClipFile @".\definitionPool.ms" 1 1418
   local StandardCode = mp.ClipFile @".\Standard.ms" 1 -1
 
   local ArrayUtilityCode = mp.ClipFile @".\ArrayUtility.ms" 89 -1
