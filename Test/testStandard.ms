@@ -65,6 +65,9 @@
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
+  /* ArrayUtility */
+  assert (testStructInstance testObj.ArrayUtility #ArrayUtilityStruct)
+
   /* AttributeUtility */
   assert (testStructInstance testObj.AttributeUtility #AttributeUtilityStruct)
 

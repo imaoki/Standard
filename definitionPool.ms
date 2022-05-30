@@ -1,6 +1,7 @@
 /*! © 2022 imaoki | MIT License | https://github.com/imaoki */
 global standardDefinitionPool = Dictionary #String
 /* 依存無し */
+::standardDefinitionPool[@"ArrayUtility.ms"] = fileIn @"ArrayUtility.ms"
 ::standardDefinitionPool[@"AttributeUtility.ms"] = fileIn @"AttributeUtility.ms"
 ::standardDefinitionPool[@"Comparer.ms"] = fileIn @"Comparer.ms"
 ::standardDefinitionPool[@"DotNetUtility.ms"] = fileIn @"DotNetUtility.ms"

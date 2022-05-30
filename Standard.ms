@@ -6,6 +6,8 @@ global std
 標準ライブラリ。
 */
 struct StandardStruct (
+  /*- @prop <Struct:ArrayUtilityStruct> */
+  public ArrayUtility,
   /*- @prop <Struct:AttributeUtilityStruct> */
   public AttributeUtility,
   /*- @prop <Struct:ComparerStruct> */
@@ -69,7 +71,7 @@ struct StandardStruct (
   ),
 
   /*- @prop <String> バージョン番号。メジャー、マイナー、パッチの順。 */
-  private version = "2.8.0",
+  private version = "2.9.0",
 
   /*- @returns <Name> */
   public fn StructName = #StandardStruct,
@@ -110,6 +112,7 @@ struct StandardStruct (
   on Create do (
     ::std = this
     /* 依存無し */
+    this.ArrayUtility = (::standardDefinitionPool[@"ArrayUtility.ms"])()
     this.AttributeUtility = (::standardDefinitionPool[@"AttributeUtility.ms"])()
     this.Comparer = (::standardDefinitionPool[@"Comparer.ms"])()
     this.DialogStruct = ::standardDefinitionPool[@"Dialog.ms"]
