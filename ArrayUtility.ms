@@ -4,7 +4,7 @@
 */
 struct ArrayUtilityStruct (
   /*
-  public fn MoveItem targetIndices destination = (),
+  public fn MoveItems targetIndices destination = (),
   */
 
   /*-
@@ -14,7 +14,7 @@ struct ArrayUtilityStruct (
   @param destination <Integer> 操作前のインデックスを基にした移動先のインデックス。
   @returns <Array[<Integer>]> 操作後の対象要素のインデックス配列。
   */
-  public fn MoveItem items targetIndices destination = (
+  public fn MoveItems items targetIndices destination = (
     local newIndices = #()
     if classOf items == Array and items.Count > 1 \
         and classOf targetIndices == Array \

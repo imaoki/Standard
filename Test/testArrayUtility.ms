@@ -32,30 +32,30 @@
   /* Setup End -------------------------------------------------------------- */
   sw.Start()
   /* Test Start ------------------------------------------------------------- */
-  /* MoveItem */
+  /* MoveItems */
   -- 無効な値（items）
-  actual = ::TestValueStruct (testDef.MoveItem 0 #() 1)
+  actual = ::TestValueStruct (testDef.MoveItems 0 #() 1)
   expected = ::TestValueStruct #()
   assert (actual.Equals expected == true)
   -- 無効な値（itemsの要素数が一つ以下）
-  actual = ::TestValueStruct (testDef.MoveItem #(1) #() 1)
+  actual = ::TestValueStruct (testDef.MoveItems #(1) #() 1)
   expected = ::TestValueStruct #()
   assert (actual.Equals expected == true)
   -- 無効な値（targetIndices）
-  actual = ::TestValueStruct (testDef.MoveItem #(1, 2) 0 1)
+  actual = ::TestValueStruct (testDef.MoveItems #(1, 2) 0 1)
   expected = ::TestValueStruct #()
   assert (actual.Equals expected == true)
   -- 無効な値（destination）
-  actual = ::TestValueStruct (testDef.MoveItem #(1, 2) #() #Foo)
+  actual = ::TestValueStruct (testDef.MoveItems #(1, 2) #() #Foo)
   expected = ::TestValueStruct #()
   assert (actual.Equals expected == true)
   -- 無効な値（destinationが範囲外）
-  actual = ::TestValueStruct (testDef.MoveItem #(1, 2) #() 0)
+  actual = ::TestValueStruct (testDef.MoveItems #(1, 2) #() 0)
   expected = ::TestValueStruct #()
   assert (actual.Equals expected == true)
   -- 成功
   items = #(1, 2, 3)
-  actual = ::TestValueStruct (testDef.MoveItem items #(2) 1)
+  actual = ::TestValueStruct (testDef.MoveItems items #(2) 1)
   expected = ::TestValueStruct #(1)
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct items
@@ -63,7 +63,7 @@
   assert (actual.Equals expected == true)
   -- 成功
   items = #(1, 2, 3, 4, 5, 6, 7)
-  actual = ::TestValueStruct (testDef.MoveItem items #(2, 5, 6) 4)
+  actual = ::TestValueStruct (testDef.MoveItems items #(2, 5, 6) 4)
   expected = ::TestValueStruct #(3, 4, 5)
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct items
@@ -71,7 +71,7 @@
   assert (actual.Equals expected == true)
   -- 成功
   items = #(1, 2, 3, 4, 5, 6, 7)
-  actual = ::TestValueStruct (testDef.MoveItem items #(2, 5, 6) 9)
+  actual = ::TestValueStruct (testDef.MoveItems items #(2, 5, 6) 9)
   expected = ::TestValueStruct #(6, 7, 8)
   assert (actual.Equals expected == true)
   actual = ::TestValueStruct items
