@@ -70,8 +70,8 @@ struct StandardStruct (
     ok
   ),
 
-  /*- @prop <String> バージョン番号。メジャー、マイナー、パッチの順。 */
-  private version = "2.9.1",
+  /*- @prop <Array[<Integer>]> バージョン番号。メジャー、マイナー、パッチの順。 */
+  private version = #(2, 9, 1),
 
   /*- @returns <Name> */
   public fn StructName = #StandardStruct,
@@ -103,7 +103,7 @@ struct StandardStruct (
   ),
 
   /*-
-  @returns <String>
+  @returns <Array[<Integer>]>
   */
   public fn GetVersion = (
     this.version
