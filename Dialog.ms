@@ -7,27 +7,28 @@
     ```
 
 通知
-:   | 通知名              | 通知データ                 | タイミング                             |
-    | ------------------- | -------------------------- | -------------------------------------- |
-    | `#DialogCreated`    | `undefined`                | ダイアログを作成した直後               |
-    | `#DialogDestroyed`  | `undefined`                | ダイアログを破棄した直後               |
-    | `#InitPosition`     | 新たな`initPosition`値     | `initPosition`を設定した後             |
-    | `#InitSize`         | 新たな`initSize`値         | `initSize`を設定した後                 |
-    | `#LockHeight`       | 新たな`lockHeight`値       | `lockHeight`を設定した後               |
-    | `#LockWidth`        | 新たな`lockWidth`値        | `lockWidth`を設定した後                |
-    | `#MenuDef`          | 新たな`menuDef`値          | `menuDef`を設定した後                  |
-    | `#Modal`            | 新たな`modal`値            | `modal`を設定した後                    |
-    | `#PositionChanged`  | `undefined`                | ダイアログの現在の位置を設定した直後   |
-    | `#RolloutDef`       | 新たな`rolloutDef`値       | `rolloutDef`を設定した後               |
-    | `#SizeChanged`      | `undefined`                | ダイアログの現在のサイズを設定した直後 |
-    | `#StyleBorder`      | 新たな`styleBorder`値      | `styleBorder`を設定した後              |
-    | `#StyleMaximizeBox` | 新たな`styleMaximizeBox`値 | `styleMaximizeBox`を設定した後         |
-    | `#StyleMinimizeBox` | 新たな`styleMinimizeBox`値 | `styleMinimizeBox`を設定した後         |
-    | `#StyleResizing`    | 新たな`styleResizing`値    | `styleResizing`を設定した後            |
-    | `#StyleSunkenedge`  | 新たな`styleSunkenedge`値  | `styleSunkenedge`を設定した後          |
-    | `#StyleSysmenu`     | 新たな`styleSysmenu`値     | `styleSysmenu`を設定した後             |
-    | `#StyleTitleBar`    | 新たな`styleTitleBar`値    | `styleTitleBar`を設定した後            |
-    | `#StyleToolWindow`  | 新たな`styleToolWindow`値  | `styleToolWindow`を設定した後          |
+:   | 通知名              | 通知データ                    | タイミング                             |
+    | ------------------- | ----------------------------- | -------------------------------------- |
+    | `#DialogCreated`    | `undefined`                   | ダイアログを作成した直後               |
+    | `#DialogDestroyed`  | `undefined`                   | ダイアログを破棄した直後               |
+    | `#InitPosition`     | 新たな`initPosition`値        | `initPosition`を設定した後             |
+    | `#InitSize`         | 新たな`initSize`値            | `initSize`を設定した後                 |
+    | `#IsDisplayed`      | `IsDisplayed`メソッドの戻り値 | ダイアログの表示状態を変更した後       |
+    | `#LockHeight`       | 新たな`lockHeight`値          | `lockHeight`を設定した後               |
+    | `#LockWidth`        | 新たな`lockWidth`値           | `lockWidth`を設定した後                |
+    | `#MenuDef`          | 新たな`menuDef`値             | `menuDef`を設定した後                  |
+    | `#Modal`            | 新たな`modal`値               | `modal`を設定した後                    |
+    | `#PositionChanged`  | `undefined`                   | ダイアログの現在の位置を設定した直後   |
+    | `#RolloutDef`       | 新たな`rolloutDef`値          | `rolloutDef`を設定した後               |
+    | `#SizeChanged`      | `undefined`                   | ダイアログの現在のサイズを設定した直後 |
+    | `#StyleBorder`      | 新たな`styleBorder`値         | `styleBorder`を設定した後              |
+    | `#StyleMaximizeBox` | 新たな`styleMaximizeBox`値    | `styleMaximizeBox`を設定した後         |
+    | `#StyleMinimizeBox` | 新たな`styleMinimizeBox`値    | `styleMinimizeBox`を設定した後         |
+    | `#StyleResizing`    | 新たな`styleResizing`値       | `styleResizing`を設定した後            |
+    | `#StyleSunkenedge`  | 新たな`styleSunkenedge`値     | `styleSunkenedge`を設定した後          |
+    | `#StyleSysmenu`     | 新たな`styleSysmenu`値        | `styleSysmenu`を設定した後             |
+    | `#StyleTitleBar`    | 新たな`styleTitleBar`値       | `styleTitleBar`を設定した後            |
+    | `#StyleToolWindow`  | 新たな`styleToolWindow`値     | `styleToolWindow`を設定した後          |
 
 設定ファイル
 :   | パス                                         | 値                         |
@@ -161,6 +162,7 @@ struct DialogStruct (
           modal:this.modal \
           pos:pos \
           style:style
+      this.StateChanged.Notify #IsDisplayed (this.IsDisplayed())
       this.StateChanged.Notify #DialogCreated undefined
     )
     this.IsDisplayed()
@@ -173,6 +175,7 @@ struct DialogStruct (
   public fn Destroy = (
     if this.inDialog this.rolloutDef do (
       destroyDialog this.rolloutDef
+      this.StateChanged.Notify #IsDisplayed (this.IsDisplayed())
       this.StateChanged.Notify #DialogDestroyed undefined
     )
     not this.IsDisplayed()

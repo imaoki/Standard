@@ -71,7 +71,7 @@ struct StandardStruct (
   ),
 
   /*- @prop <Array[<Integer>]> バージョン番号。メジャー、マイナー、パッチの順。 */
-  private version = #(2, 9, 1),
+  private version = #(2, 9, 2),
 
   /*- @returns <Name> */
   public fn StructName = #StandardStruct,

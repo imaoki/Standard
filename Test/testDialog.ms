@@ -84,6 +84,11 @@
         expected = ::TestValueStruct expectedInitSize
         assert (actual.Equals expected == true)
       )
+      (#IsDisplayed): (
+        actual = ::TestValueStruct param
+        expected = ::TestValueStruct expectedIsDisplayed
+        assert (actual.Equals expected == true)
+      )
       (#LockHeight): (
         actual = ::TestValueStruct (testObj.GetLockHeight())
         expected = ::TestValueStruct expectedLockHeight
