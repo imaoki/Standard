@@ -13,7 +13,7 @@
   local AttributeUtilityCode = mp.ClipFile @".\AttributeUtility.ms" 93 -1
   local ComparerCode = mp.ClipFile @".\Comparer.ms" 259 -1
   local ConfigCode = mp.ClipFile @".\Config.ms" 153 -1
-  local DialogCode = mp.ClipFile @".\Dialog.ms" 3230 -1
+  local DialogCode = mp.ClipFile @".\Dialog.ms" 3370 -1
   local DotNetUtilityCode = mp.ClipFile @".\DotNetUtility.ms" 90 -1
   local EasingCode = mp.ClipFile @".\Easing.ms" 89 -1
   local EncodingCode = mp.ClipFile @".\Encoding.ms" 279 -1
