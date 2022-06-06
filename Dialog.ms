@@ -61,6 +61,8 @@ struct DialogStruct (
   private initPosition,
   /*- @prop <Point2> ダイアログの初期サイズ。既定値は`[160, 160]`。 */
   private initSize = [160, 160],
+  /*- @prop <BooleanClass> 実際の状態に関わらずダイアログを閉じたことにするかどうか。既定値は`false`。 */
+  private isDialogDestroyed = false,
   /*- @prop <BooleanClass> 高さを固定するかどうか。既定値は`false`。 */
   private lockHeight = false,
   /*- @prop <BooleanClass> 幅を固定するかどうか。既定値は`false`。 */
@@ -91,6 +93,7 @@ struct DialogStruct (
   /*
   public fn Create = (),
   public fn Destroy = (),
+  public fn DisableIsDialogDestroyed = (),
   public fn GetInitPosition = (),
   public fn GetInitSize = (),
   public fn GetLockHeight = (),
@@ -111,6 +114,7 @@ struct DialogStruct (
   public fn GetStyleToolWindow = (),
   public fn IsDisplayed = (),
   public fn Load config = (),
+  public fn RaiseDialogDestroyed = (),
   public fn Save config = (),
   public fn SetInitPosition input = (),
   public fn SetInitSize input = (),
@@ -141,8 +145,10 @@ struct DialogStruct (
   /*-
   ダイアログを作成する。
   @returns <BooleanClass> 正常に作成できた場合は`true`、作成できなかった場合は`false`。
+  @remarks `isDialogDestroyed`は必ず`false`になる。
   */
   public fn Create = (
+    this.DisableIsDialogDestroyed()
     if this.isValidRolloutDef this.rolloutDef do (
       local w = this.initSize.X as Integer
       local h = this.initSize.Y as Integer
@@ -179,6 +185,15 @@ struct DialogStruct (
       this.StateChanged.Notify #DialogDestroyed undefined
     )
     not this.IsDisplayed()
+  ),
+
+  /*-
+  `isDialogDestroyed`を`false`にする。
+  @returns <OkClass>
+  */
+  public fn DisableIsDialogDestroyed = (
+    this.isDialogDestroyed = false
+    ok
   ),
 
   /*-
@@ -345,7 +360,7 @@ struct DialogStruct (
   @returns <BooleanClass>
   */
   public fn IsDisplayed = (
-    this.inDialog this.rolloutDef
+    not this.isDialogDestroyed and this.inDialog this.rolloutDef
   ),
 
   /*-
@@ -375,6 +390,18 @@ struct DialogStruct (
       )
     )
     isSuccessful
+  ),
+
+  /*-
+  `Destroy`メソッド以外の方法でダイアログを閉じる場合に`#DialogDestroyed`の通知を発行する。
+  @returns <OkClass>
+  @remarks `Close`イベント等、実際にダイアログが閉じていなくても閉じたことにしてその旨を通知したい場所で呼び出す。
+  */
+  public fn RaiseDialogDestroyed = (
+    this.isDialogDestroyed = true
+    this.StateChanged.Notify #IsDisplayed (this.IsDisplayed())
+    this.StateChanged.Notify #DialogDestroyed undefined
+    ok
   ),
 
   /*-
@@ -721,6 +748,7 @@ struct DialogStruct (
     format "%DialogStruct\n" indent to:out
     format "%  initPosition:%\n" indent this.initPosition to:out
     format "%  initSize:%\n" indent this.initSize to:out
+    format "%  isDialogDestroyed:%\n" indent this.isDialogDestroyed to:out
     format "%  menuDef:%\n" indent this.menuDef to:out
     format "%  rolloutDef:%\n" indent this.rolloutDef to:out
     format "%  styleBorder:%\n" indent this.styleBorder to:out

@@ -644,6 +644,25 @@
   expected = ::TestValueStruct expectedSize
   assert (actual.Equals expected == true)
 
+  /* RaiseDialogDestroyed */
+  expectedIsDisplayed = false
+  actual = ::TestValueStruct (testObj.RaiseDialogDestroyed())
+  expected = ::TestValueStruct ok
+  assert (actual.Equals expected == true)
+  -- 表示状態を確認
+  actual = ::TestValueStruct (testObj.IsDisplayed())
+  expected = ::TestValueStruct false
+  assert (actual.Equals expected == true)
+
+  /* DisableIsDialogDestroyed */
+  actual = ::TestValueStruct (testObj.DisableIsDialogDestroyed())
+  expected = ::TestValueStruct ok
+  assert (actual.Equals expected == true)
+  -- 表示状態を確認
+  actual = ::TestValueStruct (testObj.IsDisplayed())
+  expected = ::TestValueStruct true
+  assert (actual.Equals expected == true)
+
   /* Destroy */
   expectedIsDisplayed = false
   actual = ::TestValueStruct (testObj.Destroy())
