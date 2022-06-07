@@ -168,6 +168,9 @@ struct DialogStruct (
           modal:this.modal \
           pos:pos \
           style:style
+      if classOf this.initPosition != Point2 do (
+        this.initPosition = this.GetPosition()
+      )
       this.StateChanged.Notify #IsDisplayed (this.IsDisplayed())
       this.StateChanged.Notify #DialogCreated undefined
     )
