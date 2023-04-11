@@ -167,7 +167,7 @@ struct StringUtilityStruct (
   */
   public fn FromCodePoint codePoints = (
     local result = ""
-    for cp in codePoints where floor cp 0 == cp do (
+    for cp in codePoints where floor cp == cp do (
       local validCodePoints = this.GetValidUnicodeCodePoint cp
       for vcp in validCodePoints do (
         result += Bit.IntAsChar vcp
