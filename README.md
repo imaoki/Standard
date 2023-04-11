@@ -9,7 +9,7 @@ Standard library of general-purpose functions.
 ## Development Environment
 <!-- 開発環境 -->
 
-`3ds Max 2022.3 Update`
+`3ds Max 2024`
 
 ## Install
 <!-- インストールする -->
