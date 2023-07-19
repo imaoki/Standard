@@ -3,46 +3,52 @@
 <!-- [![GitHub release (latest by date)](https://img.shields.io/github/v/release/imaoki/Standard)](https://github.com/imaoki/Standard/releases/latest) -->
 [![GitHub](https://img.shields.io/github/license/imaoki/Standard)](https://github.com/imaoki/Standard/blob/main/LICENSE)
 
-Standard library of general-purpose functions.
-<!-- 汎用的な機能をまとめた標準ライブラリ。 -->
+汎用的な機能をまとめた標準ライブラリ。
+<!-- Standard library of general-purpose functions. -->
 
-## Development Environment
-<!-- 開発環境 -->
+## ライセンス
+<!-- ## License -->
+
+[MIT License](https://github.com/imaoki/Standard/blob/main/LICENSE)
+
+## 開発環境
+<!-- ## Development Environment -->
 
 `3ds Max 2024`
 
-## Install
-<!-- インストールする -->
+## インストール
+<!-- ## Install -->
 
 Execute `install.ms`.
+
 <!-- `install.ms`を実行する。 -->
+## アンインストール
+<!-- ## Uninstall -->
 
-## Uninstall
-<!-- アンインストールする -->
+`uninstall.ms`を実行する。
+<!-- Execute `uninstall.ms`. -->
 
-Execute `uninstall.ms`.
-<!-- `uninstall.ms`を実行する。 -->
+## 単一ファイル版
+<!-- ## Single File Version -->
 
-## Standalone version
-<!-- スタンドアローン版 -->
+### インストール
+<!-- ### Install -->
 
-### Install
-<!-- インストールする -->
+`Distribution\Standard.min.ms`を実行する。
+<!-- Execute `Distribution\Standard.min.ms`. -->
 
-Execute `Distribution\Standard.min.ms`.
-<!-- `Distribution\Standard.min.ms`を実行する。 -->
-
-### Uninstall
-<!-- アンインストールする -->
+### アンインストール
+<!-- ### Uninstall -->
 
 ```maxscript
 ::std.Uninstall()
 ```
 
-## Usage
-<!-- 使い方 -->
+## 使い方
+<!-- ## Usage -->
 
-### Basic Observer Pattern
+### 基本的なオブザーバーパターン
+<!-- ### Basic Observer Pattern -->
 
 ```maxscript
 (
@@ -62,23 +68,18 @@ Execute `Distribution\Standard.min.ms`.
     )
   )
 
-  fn testNotification type param = (
+  fn countChanged type param = (
     case type of (
-      (#Count): format "count:%\n" param
+      (#Count): format "countChanged count:%\n" param
       default: ()
     )
     ok
   )
 
   local testObj = TestStruct()
-  testObj.StateChanged.Subscribe (::std.ObserverStruct testNotification)
+  testObj.StateChanged.Subscribe countChanged
 
   testObj.Increment()
   ok
 )
 ```
-
-## License
-<!-- ライセンス -->
-
-[MIT License](https://github.com/imaoki/Standard/blob/main/LICENSE)
